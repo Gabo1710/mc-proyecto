@@ -23,6 +23,29 @@ El desarrollo puede llegar a tener en cuenta los siguientes problemas:
 - Se requiere una notificación en caso de permiso y la imagen del respectivo justificativo.
 - Se requiere una advertencia en caso de que un permiso sea solicitado fuera del tiempo permitido.
 
+Valor que el proyecto aporta 
+
+Intangible: los estudiantes tendran mas seguridad y eficacia al tener un facil acceso a su informacion
+
+Ejemplo de Funcionamiento:
+
+Menu
+
+	Est: hola
+	Bot: hola, selecciona una opcion:
+		1. Solicitar links de la materia
+		2. IInformacion sobre horario y aulas
+		3. Informacions sobre saldo
+		4. Solicitar permiso
+	sELECCION OPCION 1
+	Est: 1
+	Bot: Ingrese las siglas de su materia
+	Est: Sis 123
+	Bot: Su docente puso el siguiente link de la materia ¨www.whatsapp.com¨	
+	Bot: Que desea hacer?
+		1 Volver
+		2 Consultar por otra materia.
+
 
 
 
