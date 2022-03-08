@@ -1,6 +1,6 @@
 = {product} - Historias de Usuario
 Universidad Católica Boliviana. <flavio.mirandaucb.edu.bo>
-:product: BOT RRHH
+:product: BOT
 ## Introducción
 El presente documento contiene el detalle de las historias de usuario para la construcción de un BOT de atención a estudiantes y docentes de la Universidad Católica Boliviana.
 Se ha establecido que la funcionalidad mínima para la implementación será:
