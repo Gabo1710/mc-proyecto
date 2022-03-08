@@ -1,0 +1,68 @@
+[#_bot_universidad__historias_de_usuario]
+= {product} - Historias de Usuario
+Universidad Católica Boliviana "San Pablo". <moises.valda@ucb.edu.bo>
+v1.0
+:product: BOT UNIVERSIDAD
+
+== Introducción
+
+Este documento describe en detalle las historias de usuario para la construcción de un Bot para, estudiantes o personal de la universidad.
+
+Las funcionalidad son las siguientes:
+
+Para Estudiantes:
+
+1. Consultar su horario.
+    2. Consultar el detalle por materia (enlaces).
+    3. Consultar el estado de cuenta.
+    4. Consultar notas.
+    5. Solicitar permisos con adjuntos.
+
+Para Docentes:
+
+1. Consultar su horario y aulas asignadas.
+    2. Consultar el listado de alumnos por clase.
+    3. Aprobar o rechazar solicitudes de permiso.
+    4. Subir notas por materia, uno a uno.
+
+== Historias de Usuario
+
+*Autor*: Moises Carlos Valda Gutierrez
+
+*Fecha*:07/03/2022
+
+*Prioridad*: Alta
+
+### 10 - Consulta de horario (Estudiante)
+
+#### Descripción
+Yo como `Estudiante` necesito conocer mis horarios semestrales, para esto necesito estar inscrito a una o más materias en el actual semestre. Es importante que el bot pueda notificar lo siguiente:
+
+    * Notificar si existe algún cruce de horarios.
+    * Cantidad de materías inscritas.
+    * Cantidad de créditos por materia.
+    * Cantidad de créditos en total de las materias inscritas.
+
+La consulta tendrá los siguientes estados:
+
+*_Realizada_*: El usuario realiza la consulta de sus horarios.
+
+*_Rechazada_*: Debido a que el estudiante no está inscrito al semestre actual, no puede consultar horarios.
+
+*_Aceptada_*: Consulta aceptada ya que cumple los requisitos anteriores.
+
+Diagrama de estado para la `consulta de horarios` es:
+
+[plantuml,format="png", id="Estados_Consulta"]
+....
+@startuml
+
+state c <<choice>>
+
+Realizada --> c
+c --> Aceptada : [Cumple]
+c --> Rechazada : [No Cumple]
+Rechazada -->[*]
+Aceptada -->[*]
+@enduml
+
