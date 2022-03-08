@@ -10,6 +10,10 @@ Este documento describe en detalle las historias de usuario para la construcció
 
 Las funcionalidad son las siguientes:
 
+
+    1. Identificacion de usuarios.
+    2. Acceso al sistema en funcion a los usuarios.
+    
 Para Estudiantes:
 
     1. Consultar su horario.
@@ -27,13 +31,81 @@ Para Docentes:
 
 == Historias de Usuario
 
+
+
+*Autor*: Flavio Gabriel Miranda Velarde
+
+*Fecha*:07/03/2022
+
+*Prioridad*: Alta
+
+### 1 - Identificación de usuario
+
+#### 1.1 Descripción
+Para poder usar el Bot un usuario debe identificarse como estudiante o docente de la Universidad Católica Boliviana, para ello el usuario deberá proporcionar la siguiente información
+
+    * Cédula de identidad.
+    * Contraseña (La misma que en el sistema académico).
+
+Con esta información se realizará una consulta en la base de datos y de acuerdo a los resultados se le dará acceso al Bot.
+
+
+El diagrama de secuencia para este proceso será:
+
+[plantuml, format="png", id="Identificacion"]
+....
+@startuml
+Actor: Usuario
+Usuario --> BOT: Ingresa Ci y contraseña
+Usuario --> BOT:
+@enduml
+....
+
+#### 1.2 Escenarios
+
+1. Usuario no registrados, los datos son incorrectos.
+2. Usuario registrado, datos de estudiante correctos.
+2. Usuario registrado, datos de docente correctos.
+
+
+#### 1.3 Casos de Prueba
+
+ *Usuario no registrado* 
+
+Descripción: El Bot debe verificar la información y en caso de ser incorrecta no se debería mostrar ningún menú.
+
+* Validación de parámetros* 
+Descripción: Al momento de identificarse es necesario que el usuario ingrese su ci y contraseña para poder acceder
+En caso de que el usuario no ingrese su información correctamente no se le otorgara acceso
+
+
+
+ 1. Ingresar al BOT via Telegram y enviar el comando /start
+    - Datos: ninguno.
+    - Resultado esperado: El BOT retorna un mensaje. "Ingrese su ci y contraseña"
+2. El usuario un espacio en blanco
+    - Datos: espacio en blanco
+    - Resultado: El BOT retorna un mensaje. "debe ingresar los datos correspondientes"
+2. El usuario ingresa Ci y contraseña incorrectos
+    - Datos: Ci y contraseña incorrectos
+    - Resultado: El BOT retorna un mensaje. "Datos incorrectos, verifique"
+ 3. El usuario ingresa Ci  incorrecto
+    - Datos: Ci equivocado
+    - Resultado: El BOT retorna un mensaje. "Ci no registrado, verifique"
+ 4. El usuario ingresa contraseña incorrecta
+    - Datos: Contraseña incorrecta
+    - Resultado: El BOT retorna un mensaje. "su contraseña es incorrecta, verifique"
+    
+
+
+
 *Autor*: Moises Carlos Valda Gutierrez
 
 *Fecha*:07/03/2022
 
 *Prioridad*: Alta
 
-### 10 - Consulta de horario (Estudiante)
+### 2 - Consulta de horario (Estudiante)
 
 #### Descripción
 Yo como `Estudiante` necesito conocer mis horarios semestrales, para esto necesito estar inscrito a una o más materias en el actual semestre. Es importante que el bot pueda notificar lo siguiente:
