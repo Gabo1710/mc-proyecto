@@ -163,3 +163,125 @@ Pasos:
 4. El estudiante ingresa las siglas de una materia valida pero en la que no está registrado.
 - Datos:  `arq222`
 - Resultado: El Bot indica que no puede mostrar información de materias en las que el estudiante no está registrado.
+
+
+
+== Historias de Usuario
+
+### 3 - Consulta Estado de Cuenta
+
+*Autor*: Mauro Moya
+
+*Fecha*:08/03/2022
+
+*Prioridad*: Muy alta
+
+
+#### 1.1 Descripción
+Una Vez validada la información del estudiante y seleccionado la opcion de consulta de deuda
+
+    * Cédula de identidad.
+    * Contraseña (La misma que en el sistema académico).
+
+* Cuenta para obtener el estado de cuenta del  estudiante
+
+
+Con esta información se realizara una consulta en la base de datos y se mostraran los resultados al estudiante
+
+
+El diagrama de secuencia para la consulta será:
+[plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
+....
+@startuml
+actor Estudiante
+Estudiante -> BOT: Solicitar Información cuenta
+Bot --> estudiante: su cuenta hasta la fecha es:
+Numero-Cuota-monto-FechaLimite
+
+@enduml
+....
+
+
+### Escenarios
+
+1. Cuenta con deuda
+2. Cuenta con Sin deuda
+
+### Casos de Prueba
+
+Cuenta con deuda o sin deuda
+
+Descripción: El Bot una vez validado la informacion ingresada por el estudiante y solicitando cuenta mostrara sus deudas o sin deudas
+
+
+Pasos:
+
+1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta cuenta, en el caso con deuda
+
+- Resultado esperado: El BOT retorna un mensaje tiene deuda y muestra-> 
+Numero-Cuota-monto-FechaLimite
+
+2. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta cuenta, en el caso sin deuda
+
+- Resultado esperado: El BOT retorna un mensaje Puede estar Feliz sin deuda alguna
+
+
+== Historias de Usuario
+
+### 4 - Consulta Notas
+
+*Autor*: Mauro Moya
+
+*Fecha*:08/03/2022
+
+*Prioridad*: Muy alta
+
+
+#### 1.1 Descripción
+Una Vez validada la información del estudiante y seleccionado la opcion de consulta de deuda
+
+    * Cédula de identidad.
+    * Contraseña (La misma que en el sistema académico).
+
+* Para obtener las notas
+
+
+Con esta información se realizara una consulta en la base de datos y se mostraran los resultados al estudiante
+
+
+El diagrama de secuencia para la consulta será:
+[plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
+....
+@startuml
+actor Estudiante
+Estudiante -> BOT: Solicitar Información notas
+Bot --> estudiante: actual o semestre "1-2022"
+Estudiante -> BOT: actual
+Bot --> estudiante: tus notas actuales son: Materia-Nota Parcial-Nota Final
+@enduml
+....
+
+
+### Escenarios
+
+1. Notas Actuales.
+3. Notas Semestre.
+
+### Casos de Prueba
+
+Notas
+
+Descripción: El Bot una vez validado la informacion ingresada por el estudiante y solicitando notas indicara actual o semestral
+
+
+Pasos:
+
+1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta notas, el BOT preguntara actual o semestral, en caso de actual
+
+- Resultado esperado: El BOT retorna un mensaje Sus notas actuales-> 
+Materia-Nota Parcial-Nota Final
+
+2. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta notas, el BOT preguntara actual o semestral, en caso de actual
+
+- Resultado esperado: El BOT retorna un mensaje Sus notas del semestre"1-2022"-> 
+Materia-Nota Parcial-Nota Final
