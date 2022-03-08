@@ -1,6 +1,7 @@
 # PROYECTO BOT INGENIERÍA DE SOFTWARE
 
 *AUTORES*:
+
 	-Miranda Velarde Flavio Gabriel
 	-Moya Vargas Mauro Adolfo
 	-Valda Gutiérrez Moises Carlos
