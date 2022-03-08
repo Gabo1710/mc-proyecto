@@ -30,7 +30,7 @@ Para Docentes:
 
 == Historias de Usuario
 
-
+### 1 - Identificación de usuario
 
 *Autor*: Flavio Gabriel Miranda Velarde
 
@@ -38,7 +38,6 @@ Para Docentes:
 
 *Prioridad*: Alta
 
-### 1 - Identificación de usuario
 
 #### 1.1 Descripción
 Para poder usar el Bot un usuario debe identificarse como estudiante o docente de la Universidad Católica Boliviana, para ello el usuario deberá proporcionar la siguiente información
@@ -97,6 +96,7 @@ En caso de que el usuario no ingrese su información correctamente no se le otor
     
 
 
+### 2 - Consulta de horario (Estudiante)
 
 *Autor*: Moises Carlos Valda Gutierrez
 
@@ -104,52 +104,41 @@ En caso de que el usuario no ingrese su información correctamente no se le otor
 
 *Prioridad*: Alta
 
-### 2 - Consulta de horario (Estudiante)
 
 #### Descripción
-Yo como `Estudiante` necesito conocer mis horarios semestrales, para esto necesito estar inscrito a una o más materias en el actual semestre. Es importante que el bot pueda notificar lo siguiente:
+Un estudiante debe solicitar su información de horarios y materias mediante el Bot, para esto debe enviar las siglas de su materia o simplemente solicitar al Bot todo el horario. Una vez enviada la solicitud y la sigla el Bot obtendrá la información respectiva, para esto el estudiante deberá enviar la información de la siguiente manera:  
 
-    * Cantidad de materías inscritas.
-    * El Horario con todas las materias isncritas.
+ * Las siglas de la materia (Para obtener la información de una materia en específico) 
+ 
+ 
+Con esta información se realizara una consulta en la base de datos y se mostraran los resultados al estudiante
 
-La consulta tendrá los siguientes estados:
-
-*_Realizada_*: El usuario realiza la consulta de sus horarios.
-
-*_Rechazada_*: Debido a que el estudiante no está inscrito al semestre actual, no puede consultar horarios.
-
-*_Aceptada_*: Consulta aceptada ya que cumple los requisitos anteriores (estar inscrito al semestre actual, comando ingresado correctamente).
-
-Diagrama de estado para la `consulta de horarios` es:
-
-[plantuml,format="png", id="Estados_Consulta"]
+ 
+El diagrama de secuencia para la consulta será:
+[plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
 ....
 @startuml
+actor Estudiante
+Estudiante -> BOT: Solicitar Información de horarios y aulas
+BOT --> Estudiante: Ingresar siglas de la materia
+Estudiante --> BOT: Siglas de la materia
+Bot --> estudiante: 
 
-state c <<choice>>
-
-Realizada --> c
-c --> Aceptada : [Cumple]
-c --> Rechazada : [No Cumple]
-Rechazada -->[*]
-Aceptada -->Muestra_Horario
-Muestra_Horario -->[*]
 @enduml
 ....
 
+
 ### Escenarios
 
-    1. Validación de datos introducidos por el estudiante.
-
-    2. Consulta Incorrecta.
-
-    3. Consulta Correcta.
+    1. Siglas de la materia incorrectas.
+    2. Estudiante no registrado.
+    3. Datos correctos.
 
 ### Casos de Prueba
 
-*Validación de datos introducidos por el estudiante*
+*Siglas de la materia incorrectas*
 
-_Descripción_: El Bot debe asegurarse de que  el estudiante esté inscrito a las materias para poder así obtener los horarios. Este proceso es verificando si el comando _Consulta_horarios_estudiante_ es validado. También es necesario verificar que los datos del usuario sean de un estudiante:
+_Descripción_: El Bot debe validar la informacion ingresada por el estudiante 
 
 _Pasos_:
 
