@@ -11,8 +11,7 @@ Este documento describe en detalle las historias de usuario para la construcció
 Las funcionalidad son las siguientes:
 
 
-    1. Identificacion de usuarios.
-    2. Acceso al sistema en funcion a los usuarios.
+    1. Identificacion de usuarios y acceso al sistema en funcion a estos.
     
 Para Estudiantes:
 
