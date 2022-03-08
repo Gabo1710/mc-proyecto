@@ -36,7 +36,7 @@ Para Docentes:
 
 *Fecha*:07/03/2022
 
-*Prioridad*: Alta
+*Prioridad*: Muy alta
 
 
 #### 1.1 Descripción
@@ -94,88 +94,3 @@ En caso de que el usuario no ingrese su información correctamente no se le otor
     - Datos: Contraseña incorrecta
     - Resultado: El BOT retorna un mensaje. "su contraseña es incorrecta, verifique"
     
-
-
-### 2 - Consulta de horario (Estudiante)
-
-*Autor*: Moises Carlos Valda Gutierrez
-
-*Fecha*:07/03/2022
-
-*Prioridad*: Alta
-
-
-#### Descripción
-Un estudiante debe solicitar su información de horarios y materias mediante el Bot, para esto debe enviar las siglas de su materia o simplemente solicitar al Bot todo el horario. Una vez enviada la solicitud y la sigla el Bot obtendrá la información respectiva, para esto el estudiante deberá enviar la información de la siguiente manera:  
-
- * Las siglas de la materia (Para obtener la información de una materia en específico) 
- 
- 
-Con esta información se realizara una consulta en la base de datos y se mostraran los resultados al estudiante
-
- 
-El diagrama de secuencia para la consulta será:
-[plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
-....
-@startuml
-actor Estudiante
-Estudiante -> BOT: Solicitar Información de horarios y aulas
-BOT --> Estudiante: Ingresar siglas de la materia
-Estudiante --> BOT: Siglas de la materia
-Bot --> estudiante: 
-
-@enduml
-....
-
-
-### Escenarios
-
-    1. Siglas de la materia incorrectas.
-    2. Estudiante no registrado.
-    3. Datos correctos.
-
-### Casos de Prueba
-
-*Siglas de la materia incorrectas*
-
-_Descripción_: El Bot debe validar la informacion ingresada por el estudiante 
-
-_Pasos_:
-
-1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta_horarios_estudiantes
-- Datos: NINGUNO.
-- Resultado esperado: El BOT retorna un mensaje. "Debe ingresar un comando válido".
-
-2. El `Estudiante` coloca un espacio en blanco
-- Datos: Coloca `un espacio en blanco`
-- Resultado: El BOT pide nuevamente que ingrese el comando.
-
-
-*Consulta Incorrecta*
-
-_Descripción_: Al momento de realizar alguna consulta por un estudiante, es importante que el BOT verifique que la materia exista o que el estudiante esté inscrito en la materia.
-
-_Pasos_:
-
-    1. El estudiante se identifica con el BOT, ingresa y envía el comando:
-    - /Consulta_horarios_estud
-    - Resultado: El Bot Retorna "Debe Ingresar un comando válido"
-
-    2. El estudiante ingresa el comando:
-    - /Consulta_horarios_estudiantes
-    - El BOT verifica que el estudiante no está inscrito a alguna materia.
-
-    3. El estudiante ingresa una sigla de materia:
-    - SIS-000
-    - El Bot responde: "Materia Inexistente".
-
-*Consulta Correcta*
-
-_Descripción_: El Estudiante ingresa datos validos, como ser el comando para consultar horarios, el Bot veririca los datos correctos y da una respuesta  dependiendo el caso.
-
-_Pasos_:
-
-    1. El estudiante se identifica con el BOT, e ingresa y envía el comando:
-    - /Consulta_horarios_estudiante
-    - Resultado: El Bot verifica los datos correctos y responde mostrando los horarios correspondientes.
-
