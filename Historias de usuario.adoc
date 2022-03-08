@@ -17,7 +17,6 @@ Para los estudiantes:
  
  5. Los estudiantes pueden acceder a su información de saldos dentro de la universidad mediante el Bot
  
- 
  Para los docentes:
  
  1. Los docentes deben identificarse con el Bot mediante su cedula de identidad y la clave del sistema académico 
