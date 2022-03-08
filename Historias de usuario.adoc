@@ -5,17 +5,32 @@ Universidad Católica Boliviana. <flavio.mirandaucb.edu.bo>
 El presente documento contiene el detalle de las historias de usuario para la construcción de un BOT de atención a estudiantes y docentes de la Universidad Católica Boliviana.
 Se ha establecido que la funcionalidad mínima para la implementación será:
 Para los estudiantes:
- 1. Los estudiantes deben identificarse con el Bot mediante su cedula de identidad y la clave del sistema académico 
+
+ 1. Los estudiantes deben identificarse con el Bot mediante su cedula de identidad y la clave del sistema académico
+ 
+ 
  2. Los estudiantes pueden consultar su horario y materias mediante el Bot
+ 
  3. Los estudiantes pueden consultar y acceder a la información para ponerse en contacto con una determinada materia.
+ 
  4. Los estudiantes pueden solicitar un permiso mediante un justificativo 
+ 
  5. Los estudiantes pueden acceder a su información de saldos dentro de la universidad mediante el Bot
+ 
+ 
  Para los docentes:
+ 
  1. Los docentes deben identificarse con el Bot mediante su cedula de identidad y la clave del sistema académico 
+ 
  2. Los docentes pueden revisar su horario y aulas asignadas.
+ 
  3. Acceder a un listado de sus alumnos en cada clase.
+ 
  4. Los docentes deben poder autorizar o rechazar las vacaciones solicitadas.
+ 
  5. El personal de RRHH debe poder autorizar o rechazar las vacaciones solicitadas.
+
+
 ## Historias de Usuario.
 
 ### 002 - Consulta de horario y materias (estudiantes).
