@@ -93,4 +93,73 @@ En caso de que el usuario no ingrese su información correctamente no se le otor
  4. El usuario ingresa contraseña incorrecta
     - Datos: Contraseña incorrecta
     - Resultado: El BOT retorna un mensaje. "su contraseña es incorrecta, verifique"
-    
+
+### 2 - Consulta de horario (Estudiante)
+
+Autor: Moises Carlos Valda Gutierrez
+
+Fecha:07/03/2022
+
+Prioridad: Alta
+
+
+#### Descripción
+Un estudiante debe solicitar su información de horarios y materias mediante el Bot, para esto debe enviar las siglas de su materia o simplemente solicitar al Bot todo el horario. Una vez enviada la solicitud y la sigla el Bot obtendrá la información respectiva, para esto el estudiante deberá enviar la información de la siguiente manera:
+
+* Las siglas de la materia (Para obtener la información de una materia en específico)
+
+
+Con esta información se realizara una consulta en la base de datos y se mostraran los resultados al estudiante
+
+
+El diagrama de secuencia para la consulta será:
+[plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
+....
+@startuml
+actor Estudiante
+Estudiante -> BOT: Solicitar Información de horarios y aulas
+BOT --> Estudiante: Ingresar siglas de la materia
+Estudiante --> BOT: Siglas de la materia
+Bot --> estudiante:
+
+@enduml
+....
+
+
+### Escenarios
+
+1. Siglas de la materia incorrectas o estudiante no registrado.
+3. Datos correctos.
+
+### Casos de Prueba
+
+Siglas de la materia incorrectas
+
+Descripción: El Bot debe validar la informacion ingresada por el estudiante y verificar que esta sea correcta ademas revisar si el estudiate esta registrado en esta ya que un estudiante que no está registrado en una materia no debería de poder ver la información de esta.
+
+
+Pasos:
+
+1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta_horarios_estudiantes
+- Datos: NINGUNO.
+- Resultado esperado: El BOT retorna un mensaje. "Ingrese las siglas de su materia".
+
+2. El `Estudiante` coloca un espacio en blanco
+- Datos: ¨  ¨
+- Resultado: El BOT retorna un mensaje. "Debe ingresar sus datos".
+
+3. El `Estudiante` coloca un espacio en blanco
+- Datos: ¨  ¨
+- Resultado: El BOT pide nuevamente las siglas de la materia.
+
+3. El `Estudiante` un emoji y un simbolo de dolar
+- Datos: ¨:3 $  ¨
+- Resultado:  El BOT retorna un mensaje. "No se aceptan caracteres especiales".
+
+4. El estudiante ingresa las siglas de una materia inexistente o incorrecta.
+- Datos:  `arq666`
+- Resultado:   El BOT retorna un mensaje. "Materia inexistente".
+
+4. El estudiante ingresa las siglas de una materia valida pero en la que no está registrado.
+- Datos:  `arq222`
+- Resultado: El Bot indica que no puede mostrar información de materias en las que el estudiante no está registrado.
