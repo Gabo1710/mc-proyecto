@@ -33,10 +33,15 @@ Para los estudiantes:
 ## Historias de Usuario.
 
 ### 002 - Consulta de horario y materias (estudiantes).
+
 *Autor*: Flavio Gabriel Miranda Velarde
+
 *Fecha*: 07/03/2022
+
 *Prioridad*: ALTA
+
 #### 002.1 Descripción
+
 Un estudiante debe solicitar su información de horarios y materias mediante el Bot, para esto debe enviar las siglas de su materia o simplemente solicitar al Bot todo el horario. Una vez enviada la solicitud y la sigla el Bot obtendrá la información respectiva, para esto el estudiante deberá enviar la información de la siguiente manera:  
 
  * Las siglas de la materia (Para obtener la información de una materia en específico) o la palabra "horario" para mostrar todo el horario.
