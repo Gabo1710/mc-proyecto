@@ -12,7 +12,7 @@ Las funcionalidad son las siguientes:
 
 Para Estudiantes:
 
-1. Consultar su horario.
+    1. Consultar su horario.
     2. Consultar el detalle por materia (enlaces).
     3. Consultar el estado de cuenta.
     4. Consultar notas.
@@ -20,7 +20,7 @@ Para Estudiantes:
 
 Para Docentes:
 
-1. Consultar su horario y aulas asignadas.
+    1. Consultar su horario y aulas asignadas.
     2. Consultar el listado de alumnos por clase.
     3. Aprobar o rechazar solicitudes de permiso.
     4. Subir notas por materia, uno a uno.
@@ -38,10 +38,8 @@ Para Docentes:
 #### Descripción
 Yo como `Estudiante` necesito conocer mis horarios semestrales, para esto necesito estar inscrito a una o más materias en el actual semestre. Es importante que el bot pueda notificar lo siguiente:
 
-    * Notificar si existe algún cruce de horarios.
     * Cantidad de materías inscritas.
-    * Cantidad de créditos por materia.
-    * Cantidad de créditos en total de las materias inscritas.
+    * El Horario con todas las materias isncritas.
 
 La consulta tendrá los siguientes estados:
 
@@ -49,7 +47,7 @@ La consulta tendrá los siguientes estados:
 
 *_Rechazada_*: Debido a que el estudiante no está inscrito al semestre actual, no puede consultar horarios.
 
-*_Aceptada_*: Consulta aceptada ya que cumple los requisitos anteriores.
+*_Aceptada_*: Consulta aceptada ya que cumple los requisitos anteriores (estar inscrito al semestre actual, comando ingresado correctamente).
 
 Diagrama de estado para la `consulta de horarios` es:
 
@@ -63,6 +61,61 @@ Realizada --> c
 c --> Aceptada : [Cumple]
 c --> Rechazada : [No Cumple]
 Rechazada -->[*]
-Aceptada -->[*]
+Aceptada -->Muestra_Horario
+Muestra_Horario -->[*]
 @enduml
+....
+
+### Escenarios
+
+    1. Validación de datos introducidos por el estudiante.
+
+    2. Consulta Incorrecta.
+
+    3. Consulta Correcta.
+
+### Casos de Prueba
+
+*Validación de datos introducidos por el estudiante*
+
+_Descripción_: El Bot debe asegurarse de que  el estudiante esté inscrito a las materias para poder así obtener los horarios. Este proceso es verificando si el comando _Consulta_horarios_estudiante_ es validado. También es necesario verificar que los datos del usuario sean de un estudiante:
+
+_Pasos_:
+
+1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta_horarios_estudiantes
+- Datos: NINGUNO.
+- Resultado esperado: El BOT retorna un mensaje. "Debe ingresar un comando válido".
+
+2. El `Estudiante` coloca un espacio en blanco
+- Datos: Coloca `un espacio en blanco`
+- Resultado: El BOT pide nuevamente que ingrese el comando.
+
+
+*Consulta Incorrecta*
+
+_Descripción_: Al momento de realizar alguna consulta por un estudiante, es importante que el BOT verifique que la materia exista o que el estudiante esté inscrito en la materia.
+
+_Pasos_:
+
+    1. El estudiante se identifica con el BOT, ingresa y envía el comando:
+    - /Consulta_horarios_estud
+    - Resultado: El Bot Retorna "Debe Ingresar un comando válido"
+
+    2. El estudiante ingresa el comando:
+    - /Consulta_horarios_estudiantes
+    - El BOT verifica que el estudiante no está inscrito a alguna materia.
+
+    3. El estudiante ingresa una sigla de materia:
+    - SIS-000
+    - El Bot responde: "Materia Inexistente".
+
+*Consulta Correcta*
+
+_Descripción_: El Estudiante ingresa datos validos, como ser el comando para consultar horarios, el Bot veririca los datos correctos y da una respuesta  dependiendo el caso.
+
+_Pasos_:
+
+    1. El estudiante se identifica con el BOT, e ingresa y envía el comando:
+    - /Consulta_horarios_estudiante
+    - Resultado: El Bot verifica los datos correctos y responde mostrando los horarios correspondientes.
 
