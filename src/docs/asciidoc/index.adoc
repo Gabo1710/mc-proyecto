@@ -284,4 +284,5 @@ Materia-Nota Parcial-Nota Final
 2. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta notas, el BOT preguntara actual o semestral, en caso de actual
 
 - Resultado esperado: El BOT retorna un mensaje Sus notas del semestre"1-2022"-> 
-Materia-Nota Parcial-Nota Final
+Materia-Nota Parcial-Nota Final.
+Modificar
