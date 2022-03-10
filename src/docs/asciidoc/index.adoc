@@ -166,15 +166,15 @@ Descripción: Al momento de identificarse el Bot identifica el tipo de usuario y
 
 #### Descripción
 
-Un `Estudiante` debe poder solicitar la información de `horarios` o `materias` mediante el BOT, para esto el estudiante debe enviar las siguiente información:
+Un `Estudiante` debe poder solicitar la información de `horarios` o `materias` mediante el BOT, para esto el estudiante debe enviar la siguiente información:
 
     * Las siglas de la materia _(Para obtener la información de una materia en específico)_ o simplemente solicitar al BOT el horario completo. 
     
-Una vez enviada la solicitud  con la sigla de la materia o el comando para conocer el horario correspondiente, el BOT obtendrá la información respectiva, realizando una consulta a la `Base de Datos` y retornará dando una respuesta a la solictud del estudiante.
+Una vez enviada la solicitud  con la sigla de la materia o el comando para conocer el horario correspondiente, el BOT obtendrá la información respectiva, realizando una consulta a la `Base de Datos` y retornará dando una respuesta a la solicitud del estudiante.
 
 *Solicitar Información de Materia:*
 
-El en siguiente `Diagrama de secuencia` se mostrará la secuencia de esta historia.
+En el siguiente `Diagrama de secuencia` se mostrará la secuencia de esta historia.
 
 [plantuml, format="png", id="estados_Consulta_materia"]
 
@@ -201,7 +201,7 @@ BOT -[#blue]-> Estudiante: ' Muestra información de la Materia'
 
 *Solicitar Horario:*
 
-El en siguiente `Diagrama de secuencia` se mostrará la secuencia de esta historia.
+En el siguiente `Diagrama de secuencia` se mostrará la secuencia de esta historia.
 
 [plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
 
@@ -226,7 +226,7 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra el Horario'
 ....
 
 
-### Escenarios
+=== Escenarios
 
     1. Estudiante ingresa siglas o comando incorrectos.
     2. Estudiante no se encuentra registrado.
@@ -251,7 +251,7 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra el Horario'
 - *Datos:* ¨  ¨
 - *Resultado esperado:* El BOT retorna un mensaje: "Por favor Ingrese Datos".
 
-3. El `Estudiante` ingresa un emoji y un simbolo de dólar
+3. El `Estudiante` ingresa un emoji y un símbolo de dólar
 - *Datos:* ¨:3 $  ¨
 - *Resultado esperado:*  El BOT retorna un mensaje: "No se aceptan caracteres especiales".
 
@@ -259,7 +259,7 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra el Horario'
 - *Datos:*  `arq666`
 - *Resultado esperado:*   El BOT retorna un mensaje: "Materia inexistente".
 
-5. El `Estudiante` ingresa las siglas de una materia válida pero en la que no se encuentra registrado.
+5. El `Estudiante` ingresa las siglas de una materia válida, en la que no se encuentra registrado.
 - *Datos:*  `arq222`
 - *Resultado esperado:* El Bot retorna: 'No se puede mostrar información de materias en las que el estudiante no se encuentra registrado.'
 
