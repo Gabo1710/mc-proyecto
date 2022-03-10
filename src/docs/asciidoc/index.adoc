@@ -320,33 +320,29 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra el Horario'
 *Prioridad*: Muy alta
 
 
-#### 1.1 Descripción
-Una Vez validada la información del estudiante y seleccionado la opcion de consulta de deuda
+#### 3.1 Descripción
+Un *Estudiante* podra consultar el estado de su cuenta por medio del *BOT* de telegram, para esto previa validacion del estudiante y seleccionado la opcion de consulta de deuda. El *BOT* debe llevar un control de: * El estado de cuenta del estudiante a la fecha * Los dias de retrazo del pago de la deuda.
 
-    * Cédula de identidad.
-    * Contraseña (La misma que en el sistema académico).
+La consulta pasará por los siguientes estados:
 
-* Cuenta para obtener el estado de cuenta del  estudiante
+- *Con Deuda:* Cuando el estudiante consulta su deuda al BOT, y el BOT muestra su deuda.
+- *No tiene Deuda:* Cuando el estudiante consulta su deuda al BOT, y el BOT responde que no tiene deuda.
 
 
 Con esta información se realizara una consulta en la base de datos y se mostraran los resultados al estudiante
 
 
-El diagrama de secuencia para la consulta será:
+El diagrama de estados para la *Consulta* será:
 [plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
-
 ....
 @startuml
-
-@startuml
-actor Estudiante
-Estudiante -> BOT: Solicitar Información cuenta
-Bot --> estudiante: su cuenta hasta la fecha es:
-Numero-Cuota-monto-FechaLimite
-
+[*] --> CONSULTA
+CONSULTA --> DEUDA
+DEUDA --> [*]
+CONSULTA -> SIN_DEUDA
+SIN_DEUDA --> [*]
 @enduml
 ....
-
 
 ### Escenarios
 
@@ -362,14 +358,47 @@ Descripción: El Bot una vez validado la informacion ingresada por el estudiante
 
 Pasos:
 
-1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta cuenta, en el caso con deuda
+1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando:
 
-- Resultado esperado: El BOT retorna un mensaje tiene deuda y muestra-> 
-Numero-Cuota-monto-FechaLimite
+ -/Consulta cuenta
 
-2. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta cuenta, en el caso sin deuda
+*- Resultado esperado*: El BOT retorna un mensaje tiene deuda y muestra:
 
-- Resultado esperado: El BOT retorna un mensaje Puede estar Feliz sin deuda alguna
+ -Numero-Cuota-monto-FechaLimite-DiasRetraso
+
+2. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando:
+
+ -/Consulta cuenta
+
+*- Resultado esperado*: El BOT retorna un mensaje tiene deuda y muestra:
+
+ -NO TIENE DEUDA
+
+*Consulta Deuda:*
+
+El en siguiente `Diagrama de secuencia` se mostrará la secuencia de esta historia.
+
+[plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
+
+....
+
+@startuml
+
+actor Estudiante #Yellow
+
+Estudiante -[#red]> BOT: consulta deuda
+BOT -[#blue]-> Estudiante: 'Ingrese Comando específico'
+Estudiante -[#red]> BOT: Ingresa: /ConsultarDeuda
+
+database BBDD #brown
+
+BOT -[#green]-> BBDD: 'Realiza consulta de la deuda'
+BBDD -[#green]-> BOT: 'Devuelve resultado de la consulta'
+BOT -[#blue]-> Estudiante: ' Genera y muestra la deuda'
+
+@enduml
+
+....
 
 
 == Historias de Usuario
@@ -378,16 +407,14 @@ Numero-Cuota-monto-FechaLimite
 
 *Autor*: Mauro Moya
 
-*Fecha*:08/03/2022
+*Fecha*:10/03/2022
 
 *Prioridad*: Muy alta
 
 
-#### 1.1 Descripción
-Una Vez validada la información del estudiante y seleccionado la opcion de consulta de deuda
+#### 4.1 Descripción
+Un *Estudiante* podra consultar sus notas por medio del *BOT* de telegram, para esto previa validacion del estudiante y escribiendo el comando de /consulta notas, el *BOT* el bot respondera *actuales o *semestre
 
-    * Cédula de identidad.
-    * Contraseña (La misma que en el sistema académico).
 
 * Para obtener las notas
 
@@ -395,40 +422,57 @@ Una Vez validada la información del estudiante y seleccionado la opcion de cons
 Con esta información se realizara una consulta en la base de datos y se mostraran los resultados al estudiante
 
 
-El diagrama de secuencia para la consulta será:
+*Consulta Notas:*
+
+El en siguiente `Diagrama de secuencia` se mostrará la secuencia de esta historia.
+
 [plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
+
 ....
+
 @startuml
-actor Estudiante
-Estudiante -> BOT: Solicitar Información notas
-Bot --> estudiante: actual o semestre "1-2022"
-Estudiante -> BOT: actual
-Bot --> estudiante: tus notas actuales son: Materia-Nota Parcial-Nota Final
+
+actor Estudiante #Yellow
+
+Estudiante -[#red]> BOT: consulta deuda
+BOT -[#blue]-> Estudiante: 'Ingrese Comando específico'
+Estudiante -[#red]> BOT: Ingresa: /ConsultarDeuda
+BOT -[#blue]-> Estudiante: 'Ingrese el comando /Actual o el semestre en formado l: 1-2020'
+database BBDD #brown
+
+Estudiante -[#red]> BOT: Ingresa: /Actual o el comando /1-2020
+
+BOT -[#green]-> BBDD: 'Realiza consulta de notas'
+BBDD -[#green]-> BOT: 'Devuelve resultado de las notas'
+BOT -[#blue]-> Estudiante: ' Genera y muestra la deuda'
+
 @enduml
+
 ....
 
 
-### Escenarios
+### 4.2 Escenarios
 
 1. Notas Actuales.
 2. Notas Semestre.
 
-### Casos de Prueba
+### 4.3 Casos de Prueba
 
-Notas
 
 Descripción: El Bot una vez validado la informacion ingresada por el estudiante y solicitando notas indicara actual o semestral
 
 
 Pasos:
 
-1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta notas, el BOT preguntara actual o semestral, en caso de actual
+1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando:
 
-- Resultado esperado: El BOT retorna un mensaje Sus notas actuales-> 
+ -Estudiante: /Consulta notas
+ BOT: Ingrese comando actual o semestral ejemplo 1-2022
+
+- Resultado esperado: El BOT retorna un mensaje Sus notas actuales->
 Materia-Nota Parcial-Nota Final
 
 2. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta notas, el BOT preguntara actual o semestral, en caso de actual
 
-- Resultado esperado: El BOT retorna un mensaje Sus notas del semestre"1-2022"-> 
-Materia-Nota Parcial-Nota Final.
-Modificar
+- Resultado esperado: El BOT retorna un mensaje Sus notas del semestre"1-2022"->
+Materia-Nota Parcial-Nota Final ...
