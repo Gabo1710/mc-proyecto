@@ -413,7 +413,7 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra la deuda'
 
 
 #### 4.1 Descripción
-Un *Estudiante* podra consultar sus notas por medio del *BOT* de telegram, para esto previa validacion del estudiante y escribiendo el comando de /consulta notas, el *BOT* el bot respondera *actuales o *semestre
+Un *Estudiante* podra consultar sus notas por medio del *BOT* de telegram, para esto previa validacion del estudiante y escribiendo el comando de /consulta notas, el *BOT* el bot respondera *actuales o *semestre 
 
 
 * Para obtener las notas
@@ -469,10 +469,11 @@ Pasos:
  -Estudiante: /Consulta notas
  BOT: Ingrese comando actual o semestral ejemplo 1-2022
 
-- Resultado esperado: El BOT retorna un mensaje Sus notas actuales->
+- Resultado esperado: El BOT retorna un mensaje Sus notas actuales-> 
 Materia-Nota Parcial-Nota Final
 
 2. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando /Consulta notas, el BOT preguntara actual o semestral, en caso de actual
 
-- Resultado esperado: El BOT retorna un mensaje Sus notas del semestre"1-2022"->
-Materia-Nota Parcial-Nota Final ...
+- Resultado esperado: El BOT retorna un mensaje Sus notas del semestre"1-2022"-> 
+Materia-Nota Parcial-Nota Final
+
