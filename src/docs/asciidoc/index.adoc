@@ -11,7 +11,7 @@ Este documento describe en detalle las historias de usuario para la construcció
 Las funcionalidad son las siguientes:
 
 
-    1. Identificacion de usuarios y acceso al sistema en funcion a estos.
+    1. Autenticación de usuarios y acceso al sistema en funcion a estos.
     
 Para Estudiantes:
 
@@ -30,7 +30,7 @@ Para Docentes:
 
 == Historias de Usuario
 
-### 1 - Identificación de usuario
+### 1 - Autenticación de usuario
 
 *Autor*: Flavio Gabriel Miranda Velarde
 
@@ -40,7 +40,7 @@ Para Docentes:
 
 
 #### 1.1 Descripción
-Para poder usar el Bot un usuario debe identificarse como estudiante o docente de la Universidad Católica Boliviana, para ello el usuario deberá proporcionar la siguiente información
+Para poder usar el Bot un usuario debe autenticarse como estudiante o docente de la Universidad Católica Boliviana, para ello el usuario deberá proporcionar la siguiente información
 
     * Cédula de identidad.
     * Contraseña (La misma que en el sistema académico).
@@ -53,12 +53,24 @@ El diagrama de secuencia para este proceso será:
 [plantuml, format="png", id="Identificacion"]
 ....
 @startuml
-Actor: Usuario
-Usuario --> BOT: Ingresa Ci y contraseña
-Usuario --> BOT:
-@enduml
-....
+actor Usuario #Yellow
 
+Usuario -[#red]> BOT: Solicitar Informacion del usuario
+BOT -[#blue]-> Estudiante: 'Ingrese su Ci'
+Usuario -[#red]> BOT: Ingresar Ci
+BOT -[#blue]-> Usuario: 'Ingrese Contraseña'
+Usuario -[#red]> BOT: Ingresar contraseña
+
+database BBDD #brown
+
+BOT -[#green]-> BBDD: 'Realiza consulta de los datos del usuario'
+BBDD -[#green]-> BOT: 'Envía respuesta a solicitud'
+BOT -[#blue]-> Estudiante: 'Verifica la informacion y notifica al usuario'
+
+
+@enduml
+
+....
 #### 1.2 Escenarios
 
 1. Usuario no registrados, los datos son incorrectos.
@@ -80,19 +92,68 @@ En caso de que el usuario no ingrese su información correctamente no se le otor
 
  1. Ingresar al BOT via Telegram y enviar el comando /start
     - Datos: ninguno.
-    - Resultado esperado: El BOT retorna un mensaje. "Ingrese su ci y contraseña"
-2. El usuario un espacio en blanco
-    - Datos: espacio en blanco
-    - Resultado: El BOT retorna un mensaje. "debe ingresar los datos correspondientes"
-3. El usuario ingresa Ci y contraseña incorrectos
-    - Datos: Ci y contraseña incorrectos
-    - Resultado: El BOT retorna un mensaje. "Datos incorrectos, verifique"
- 4. El usuario ingresa Ci  incorrecto
-    - Datos: Ci equivocado
-    - Resultado: El BOT retorna un mensaje. "Ci no registrado, verifique"
- 5. El usuario ingresa contraseña incorrecta
-    - Datos: Contraseña incorrecta
-    - Resultado: El BOT retorna un mensaje. "su contraseña es incorrecta, verifique"
+    - Resultado esperado: El BOT retorna un mensaje. "Ingrese un el comando correcto".
+2. El usuario ingresa un espacio en blanco
+    - Datos: ¨  ¨.
+    - Resultado: El BOT retorna un mensaje. "debe ingresar los datos correspondientes".
+3. El usuario ingresa un Ci incorrecto
+    - Datos: Ci no registrado.
+    - Resultado: El BOT retorna un mensaje. "Datos incorrectos, verifique".
+ 2. El usuario ingresa un emoji y un símbolo de exclamación
+    - Datos: ¨:) ! ¨.
+    - Resultado: El BOT retorna un mensaje. "No puede ingresar caracteres especiales"   
+ 4. El usuario ingresa un Ci correcto
+    - Datos: Ci. 
+    - Resultado: El BOT retorna un mensaje. "Ingrese su contraseña(la misma que eb sistema academico)".
+ 5.  El usuario ingresa un emoji
+    - Datos: :3.
+    - Resultado: El BOT retorna un mensaje. "No puede ingresar emoijs como datos".
+ 6.  El `Estudiante` ingresa datos en blanco o incorrectos más de
+     5 veces.
+     - *Datos:*  `  `
+     - *Resultado esperado:* El Bot retorna: 'Usted no puede realizar más consultas, siguiente intento en "4 horas, 59 minutos, 59 segundos" y elimina los mensajes anteriores.'   
+ 7. El usuario ingresa una contraseña correcta
+    - Datos: contraseña. 
+    - Resultado: El BOT muestra el menu de opciones.(de acuerdo al tipo de usuario) y elimina los mensajes anteriores.
+
+
+*Usuario registrado, datos de estudiante correctos*
+
+
+Descripción: Luego de registrarse el bot debe mostrar el menu respectivo.
+
+* Validación de parámetros* 
+Descripción: Al momento de identificarse el Bot identifica el tipo de usuario y en funcion a esto, en caso de ser de tipo estudiante, muestra el menu de opciones respectivas.
+
+
+1. El usuario ingresa al bot y se Autentica correctamente
+    - Resultado esperado: El BOT muestra el menu de opciones para estudiantes. 
+    "1. Consultar su horario y aulas asiganadas.
+    2. Consultar el detalle por materia (enlaces).
+    3. Consultar el estado de cuenta.
+    4. Consultar notas.
+    5. Solicitar permisos con adjuntos."
+
+*Usuario registrado, datos de docente correctos*
+
+
+Descripción: Luego de registrarse el bot debe mostrar el menu respectivo.
+
+* Validación de parámetros* 
+Descripción: Al momento de identificarse el Bot identifica el tipo de usuario y en funcion a esto, en caso de ser de tipo docentee, muestra las opciones de1 docente.
+
+
+1. El usuario ingresa al bot y se Autentica correctamente
+    - Resultado esperado: El BOT muestra el menu de opciones para docentes. 
+    "1. Consultar su horario y aulas asignadas.
+    2. Consultar el listado de alumnos por clase.
+    3. Aprobar o rechazar solicitudes de permiso.
+    4. Subir notas por materia, uno a uno."
+
+
+
+
+
 
 ### 2 - Consulta de horario (Estudiante)
 
