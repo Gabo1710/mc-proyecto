@@ -477,3 +477,91 @@ Materia-Nota Parcial-Nota Final
 - Resultado esperado: El BOT retorna un mensaje Sus notas del semestre"1-2022"-> 
 Materia-Nota Parcial-Nota Final
 
+### 5 - Solicitar permisos con adjuntos.
+
+*Autor*: Flavio Gabriel Miranda Velarde
+
+*Fecha*: 10/03/2022
+
+*Prioridad*:  Alta
+
+
+#### 5.1 Descripción
+Un estudiante puedee otorgar permisos para ausentarse a un docente mediante el Bot, para esto debe enviar el motivo de su falta ademas de una imagen adjunta de un justificativo, una vez enviada la solicitud, el docente procederá a autorizar o rechazar el permiso, hecho esto el Bot notificará al estudiante el resultado. 
+
+La solicitud del estudiante pasara por los siguientes estados:
+
+ * *SOLICITADO*: Cuando el estudiante envía su solicitud al BOT y es validada por este.
+  * *NO VÁLIDO*: Cuando el estudiante envía su solicitud al BOT y no cumple con los requisitos.
+  * *APROBADO*: Solicitud aprobada por el docente
+  * *RECHAZADO*: Solicitud rechazada por el docente
+
+El diagrama de estados para la `SOLICITUD` será:
+[plantuml, format="png", id="estados-solicitud"]
+....
+@startuml
+[*] --> SOLICITADO
+SOLICITADO --> NO_VALIDO
+NO_VALIDO --> [*]
+SOLICITADO -> APROBADO
+SOLICITADO -> RECHAZADO
+RECHAZADO --> [*]
+@enduml
+....
+
+5.2 Escenarios
+
+1. El estudiante emite la solicitud.
+2. El estudiante recibe los resultados de su solicitud.
+
+
+#### 5.3 Casos de Prueba
+
+ *El estudiante emite la solicitud.* 
+
+Descripción: 
+Al momento de realizar la solicitud es necesario que el estudiante identifique la fecha y la materia a la que solicitara el permiso y posteriormente ingresar la informacion respectiva  y en caso de no cumplir con los requisitos el Bot no debe dejar que la solicitud sea emitida. 
+
+1. El estudiante Ingresa y se autentifica con el BOT vía Telegram y envía el comando:
+    -/Enviar solicitud
+    - Resultado esperado: El BOT retorna un mensaje. ¨Ingrese la fecha de su permiso en el formato dd/mm/aa¨.
+2. El estudiante ingresa un espacio en blanco
+    - Datos: ¨  ¨.
+    - Resultado: El BOT retorna un mensaje. "debe ingresar los datos correspondientes".
+3. El estudiante ingresa los datos en el formato incorrecto
+    - Datos: 103222.
+    - Resultado: El BOT retorna un mensaje. "debe ingresar los datos en el formato dd/mm/aa".
+4. El estudiante ingresa una fecha no valida
+    - Datos: 65/16/516.
+    - Resultado: El BOT retorna un mensaje. "debe ingresar una fecha valida.
+5. El usuario ingresa la fecha correspondiente
+    - Datos: 10/03/2022
+    - Resultado: El Bot solicitara al estudiante que ingrese las siglas de la materia.
+6. El usuario ingresa la materia correspondiente
+    - Datos: Sis 211
+    - Resultado: El Bot solicitara al estudiante que ingrese un mensaja los motivos de su falta.
+ 7. El estudiante ingresa un espacio en blanc o
+    - Datos: ¨  ¨.
+    - Resultado: El BOT retorna un mensaje. "debe ingresar los datos correspondientes"."   
+ 8. El estudiante ingresa los motivos de su falta
+    - Resultado: El BOT Solicita al estudiante un justificativo en formato jpg o pdf.
+ 9.  El estudiante envia un video/audio
+    - Datos: : hola.mp3.
+    - Resultado: El BOT retorna un mensaje. "Solo puede Enviar datos en formato jpg o pdf".
+ 10.  El estudiante ingresa el justificativo correspondiente
+     - Datos: : justificativo.pfd.
+     - Resultado esperado: El Bot retorna 'Solicitud registrada" y notifica al docente.  
+
+*El estudiante recibe los resultados de su solicitud.*
+
+
+ *El estudiante emite la solicitud.* 
+
+Descripción: Una vez que el docente responde la solicitud del estudiante este debe ser notificado mediante el Bot.
+
+
+1. El estudiante estudiante esta autentificado en el BOT vía Telegram y este le envia una notificación.
+    - Resultado esperado: El BOT retorna un mensaje. ¨Su solicitud en la materia sis 111 tiene una respuesta:¨ y muestra el resultado del docente acompañado de una recomendación de este si existiera.
+
+
+
