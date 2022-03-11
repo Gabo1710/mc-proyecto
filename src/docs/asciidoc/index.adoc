@@ -926,5 +926,5 @@ Pasos:
 7. El docente ingreso datos anteriormente
 - Resultado esperado: El BOT muestra un mensaje. ¨Confirme que desea eliminar los datos¨.
 
-8. El docente ingresa unel comando /Confirmar
+8. El docente ingresa el comando /Confirmar
 - Resultado esperado: El BOT muestra un mensaje. ¨Datos eliminados¨ y procede a eliminar los datos en la base de datos.
