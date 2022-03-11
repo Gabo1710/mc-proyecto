@@ -477,7 +477,7 @@ Materia-Nota Parcial-Nota Final
 - Resultado esperado: El BOT retorna un mensaje Sus notas del semestre"1-2022"-> 
 Materia-Nota Parcial-Nota Final
 
-### 5 - Solicitar permisos con adjuntos.
+#### 5 - Solicitar permisos con adjuntos.
 
 *Autor*: Flavio Gabriel Miranda Velarde
 
@@ -487,7 +487,7 @@ Materia-Nota Parcial-Nota Final
 
 
 #### 5.1 Descripción
-Un estudiante puedee otorgar permisos para ausentarse a un docente mediante el Bot, para esto debe enviar el motivo de su falta ademas de una imagen adjunta de un justificativo, una vez enviada la solicitud, el docente procederá a autorizar o rechazar el permiso, hecho esto el Bot notificará al estudiante el resultado. 
+Un estudiante puede solicitar permisos para ausentarse a un docente mediante el Bot, para esto debe enviar el motivo de su falta ademas de una imagen adjunta de un justificativo, una vez enviada la solicitud, el docente procederá a autorizar o rechazar el permiso, hecho esto el Bot notificará al estudiante el resultado. 
 
 La solicitud del estudiante pasara por los siguientes estados:
 
@@ -513,6 +513,7 @@ RECHAZADO --> [*]
 
 1. El estudiante emite la solicitud.
 2. El estudiante recibe los resultados de su solicitud.
+3. La solicitud esta caducada
 
 
 #### 5.3 Casos de Prueba
@@ -520,7 +521,7 @@ RECHAZADO --> [*]
  *El estudiante emite la solicitud.* 
 
 Descripción: 
-Al momento de realizar la solicitud es necesario que el estudiante identifique la fecha y la materia a la que solicitara el permiso y posteriormente ingresar la informacion respectiva  y en caso de no cumplir con los requisitos el Bot no debe dejar que la solicitud sea emitida. 
+Al momento de realizar la solicitud es necesario que el estudiante identifique la fecha y la materia a la que solicitara el permiso y posteriormente ingresar la informacion respectiva  y en caso de no cumplir con los requisitos el Bot no debe dejar que la solicitud sea emitida, en caso de que la solicitud sea exitosa esta se guarda en la base de datos con un código
 
 1. El estudiante Ingresa y se autentifica con el BOT vía Telegram y envía el comando:
     -/Enviar solicitud
@@ -554,9 +555,6 @@ Al momento de realizar la solicitud es necesario que el estudiante identifique l
 
 *El estudiante recibe los resultados de su solicitud.*
 
-
- *El estudiante emite la solicitud.* 
-
 Descripción: Una vez que el docente responde la solicitud del estudiante este debe ser notificado mediante el Bot.
 
 
@@ -565,3 +563,366 @@ Descripción: Una vez que el docente responde la solicitud del estudiante este d
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### 3 - Aprobar o rechazar solicitudes de permiso.
+
+*Autor*: Flavio Gabriel Miranda Velarde
+
+*Fecha*: 10/03/2022
+
+*Prioridad*:  Alta
+
+
+#### 3.1 Descripción
+Un docente puede otorgar permisos a los estudiantes para ausentarse mediante el bot, para esto el docente recibe una notificacion con los sigueintes datos:
+
+-La fecha para el permiso
+-Un mensaje del estudiante con los motivos de su falta.
+-Un archivo jpg o pdf con el justificativo
+
+La solicitud del estudiante puede tener los siguientes resultados
+ * *PENDIENTE*: Cuando la solicitud valida aun no fue revisada por el docente.
+  * *RESPONDIDA*: Solicitud revisada por el docente
+  * *CADUCADA*: Solicitud caducadae
+
+El diagrama de estados para la `SOLICITUD` será:
+[plantuml, format="png", id="estados-solicitud"]
+....
+@startuml
+[*] --> PENDIENTE
+PENDIENTE -> RESPONDIDA
+PENDIENTE -> CADUCADA
+CADUCADA --> [*]
+@enduml
+....
+
+3.2 Escenarios
+
+1. Solicitud respondida.
+2. Solicitud caducada.
+
+
+#### 3.3 Casos de Prueba
+
+ *Solicitud respondida* 
+
+Descripción: 
+Luego de que la informacion pertinente es mostrada al docente por medio del Bot este debe de proporcionar una respuesta a esta seguida de un mensaje en caso de que el docente lo desee.
+
+1. El docente esta autentificado en el BOT vía Telegram y este le envia una notificación.
+    - Resultado esperado: El BOT muestra un mensaje. ¨Tiene una nueva solicitud del estudiante Juan Perez en la materia Sis 111, ingrese a la pestaña de solicitudes de permisos para responder¨.
+2. El docente Ingresa el comando /solicitudes
+    - Resultado: El BOT Le muestra al docente todas las solicitudes pendientes con sus datos respectivos sguidos del texto ¨Ingrese el código de una solicitud¨. 
+3.  El docente ingresa un espacio en blanco
+    - Datos: ¨  ¨.
+    - Resultado: El BOT retorna un mensaje. "debe ingresar los datos correspondientes"." 
+4. El docente ingresa un código inexistente
+    - Datos: 6461651.
+    - Resultado: El BOT retorna un mensaje. "debe ingresar un código valido"
+5. El docente ingresa un código valido
+    - Datos: 122
+    - Resultado: El Bot mostrará al docente el motivo del permiso y el justificativo del estudiante seguidos del texto "ingrese 'aprobar'o'rechazar'".
+6. El docente ingresa una palabra incorrecta
+    - Datos: hola
+    - Resultado: El Bot solicitará una respuesta al docente con el texto "ingrese 'aprobar'o'rechazar'".
+ 7. El docente ingresa "aprobar"
+    - Datos: "aprobar".
+    - Resultado: El BOT retorna un mensaje. "solicitud aprobada, se notificará al estudiante"   
+ 8. El docente ingresa "rechazar"
+    - Datos: "rechazar".
+    - Resultado: El BOT retorna un mensaje. "solicitud rechazada, se notificará al estudiante"
+
+
+
+
+
+*solicitud caducada*
+
+Descripción: Una vez que la fecha de una solicitud se ha vencido el Bot emite una notificación al docente indicandole que la solicitud ha vencido y que debe de responder a esta lo antes posible.
+
+
+
+1. El docente esta autentificado en el BOT vía Telegram y este le envia una notificación.
+    - Resultado esperado: El BOT muestra un mensaje. ¨La solicitud del estudiante Juan Perez en la fecha 10/0382022 ha caducado, responda a esta lo antes posible¨.
+2. El docente Ingresa el comando /solicitudes
+    - Resultado: El BOT Le muestra al docente todas las solicitudes pendientes con sus datos respectivos, tomando como prioridad las solicitudes mas antiguas, seguidos del texto ¨Ingrese el código de una solicitud¨. 
+3.  El docente ingresa un espacio en blanco
+    - Datos: ¨  ¨.
+    - Resultado: El BOT retorna un mensaje. "debe ingresar los datos correspondientes"." 
+4. El docente ingresa un código inexistente
+    - Datos: 6461651.
+    - Resultado: El BOT retorna un mensaje. "debe ingresar un código valido"
+5. El docente ingresa un código valido
+    - Datos: 122
+    - Resultado: El Bot mostrará al docente el motivo del permiso y el justificativo del estudiante seguidos del texto "ingrese 'aprobar'o'rechazar'".
+6. El docente ingresa una palabra incorrecta
+    - Datos: hola
+    - Resultado: El Bot solicitará una respuesta al docente con el texto "ingrese 'aprobar'o'rechazar'".
+ 7. El docente ingresa "aprobar"
+    - Datos: "aprobar".
+    - Resultado: El BOT retorna un mensaje. "solicitud aprobada, se notificará al estudiante"   
+ 8. El docente ingresa "rechazar"
+    - Datos: "rechazar".
+    - Resultado: El BOT retorna un mensaje. "solicitud rechazada, se notificará al estudiante"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 5 - Subir datos de la materia
+
+*Autor*: Falvio Gabriel Miranda Velarde
+
+*Fecha*:10/03/2022
+
+*Prioridad*: Alta
+
+
+#### 5.1 Descripción
+Un *Docente* puede subir, editar o eliminar los datos de la materia (enlaces) por medio del *BOT* de telegram, para esto el docente debe enviar los respectivos enlaces e informacion correspondiente, los datos seran opcionales para cada docente, pero estos pueden ser:
+    -Correos electronicos
+    -Enlaces a grupo de Whatsapp o Telegram
+    -Enlaces a reuniones de Zoom, Meet, etc
+
+
+Esta informacion se guardara en la base de datos para futuras consultas de estudiantes
+
+*Ingreso de datos:*
+
+El en siguiente `Diagrama de secuencia` se mostrará la secuencia de esta historia.
+
+[plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
+
+....
+
+@startuml
+
+actor Docente #Yellow
+
+Docente -[#red]> BOT: Ingresar datos
+BOT -[#blue]-> Docente : 'Ingrese Comando específico'
+Docente -[#red]> BOT: Ingresa: /IngresarDatos/editar/eliminar
+BOT -[#blue]-> Docente: 'Ingrese los datos que desee guardar'
+database BBDD #brown
+
+Docente  -[#red]> BOT: Ingresa: /Ingresar/editar/eliminar
+
+BOT -[#green]-> BBDD: 'Realiza los querys'
+BBDD -[#green]-> BOT: 'Devuelve resultado de la consulta'
+BOT -[#blue]-> Docente: 'Notifica resultados'
+
+@enduml
+
+....
+
+
+### 5.2 Escenarios
+
+1. Agregar datos.
+2. Editar datos.
+3. Eliminar datos
+
+### 5.3 Casos de Prueba
+
+*Agregar datos*
+
+Descripción: El docente puede agregar nuevos datos de la materia 
+
+Pasos:
+
+1. El docente Ingresa y se identifica con el BOT vía Telegram y envía el comando:
+ -DOCENTE: /DatosDeMateria
+ BOT: Ingrese Las siglas de su materia
+2. El docente ingresa unas siglas equivocadas o de una materia en la que no es docente
+ -Docente: sis-3313
+ -bot:"Ingrese una materia valida"
+3. El docente ingresa siglas validas 
+
+ BOT: Ingrese comando: /Ingresar/editar/eliminar
+
+4. El docente Ingresa el comando equivocado
+
+- Resultado esperado: El BOT retorna un mensaje. ¨Ingrese un comando Valido¨. 
+
+5. El doecente Ingresa el comando /Ingresar
+
+- Resultado esperado: El BOT retorna un mensaje. ¨ingrese los datos correspondientes en un mensaje¨. 
+
+6. El docente ingresa un espacio en blanco
+- Resultado esperado: El BOT muestra un mensaje. ¨Usted debe ingresar los datos correspondientes¨.
+
+7. El docente ingresa una imagen/video/audio
+- Resultado esperado: El BOT muestra un mensaje. ¨No puede ingresar archivos¨.
+
+8. El docente ingresa una link de Telegram
+- Resultado esperado: El BOt registra el link  y consulta al docente si desea ingresar mas datos.
+
+9. El docente ingresa el comando /Ingresar
+ - Resultado esperado: El BOT retorna un mensaje. ¨ingrese los datos correspondientes en un mensaje¨. 
+
+10. El docente ingresa un correo electronico
+- Resultado esperado: El BOT registra el correo y consulta al docente si desea ingresar mas datos.
+
+11. El docente ingresa el comando /Guardar
+- Resultado esperado: El BOt registra la informacion en la base de datos.
+
+
+
+*Editar datos*
+
+Descripción: El docente puede editar sus datos antes guardados 
+
+Pasos:
+
+
+1. El docente Ingresa y se identifica con el BOT vía Telegram y envía el comando:
+ -DOCENTE: /DatosDeMateria
+ BOT: Ingrese Las siglas de su materia
+2. El docente ingresa unas siglas equivocadas o de una materia en la que no es docente
+ -Docente: sis-3313
+ -bot:"Ingrese una materia valida"
+3. El docente ingresa siglas validas 
+
+ BOT: Ingrese comando: /Ingresar/editar/eliminar
+
+4. El docente Ingresa el comando equivocado
+
+- Resultado esperado: El BOT retorna un mensaje. ¨Ingrese un comando Valido¨. 
+
+5. El docente Ingresa el comando /Editar
+
+- Resultado esperado: El BOT muestra los datos antes guardados. 
+
+6. El docente no ingreso datos anteriormente.
+ Bot: "Usted no ingreso datos"
+
+7. El docente ingresa un espacio en blanco
+- Resultado esperado: El BOT muestra un mensaje. ¨Usted debe ingresar los datos correspondientes¨.
+
+8. El docente ingresa una imagen/video/audio
+- Resultado esperado: El BOT muestra un mensaje. ¨No puede ingresar archivos¨.
+
+9. El docente ingresa un enlace de zoom
+- Resultado esperado: El BOt registra el enlace y consulta al docente si desea ingresar mas datos.
+
+10. El docente ingresa el comando /Ingresar
+ - Resultado esperado: El BOT retorna un mensaje. ¨ingrese los datos correspondientes en un mensaje¨. 
+
+11. El docente ingresa un numero de telefono
+- Resultado esperado: El BOT registra el correo y consulta al docente si desea ingresar mas datos.
+
+12. El docente ingresa el comando /Guardar
+- Resultado esperado: El BOt registra la informacion en la base de datos.
+
+
+
+*Eliminar datos*
+
+Descripción: El docente puede eliminar sus datos antes guardados 
+
+Pasos:
+
+
+1. El docente Ingresa y se identifica con el BOT vía Telegram y envía el comando:
+ -DOCENTE: /DatosDeMateria
+ BOT: Ingrese Las siglas de su materia
+2. El docente ingresa unas siglas equivocadas o de una materia en la que no es docente
+ -Docente: sis-3313
+ -bot:"Ingrese una materia valida"
+3. El docente ingresa siglas validas 
+
+ BOT: Ingrese comando: /Ingresar/editar/eliminar
+
+4. El docente Ingresa el comando equivocado
+
+- Resultado esperado: El BOT retorna un mensaje. ¨Ingrese un comando Valido¨. 
+
+5. El docente Ingresa el comando /Eliminar
+
+- Resultado esperado: El BOT muestra los datos antes guardados. 
+
+6. El docente no ingreso datos anteriormente.
+ Bot: "Usted no ingreso datos"
+
+7. El docente ingreso datos anteriormente
+- Resultado esperado: El BOT muestra un mensaje. ¨Confirme que desea eliminar los datos¨.
+
+8. El docente ingresa unel comando /Confirmar
+- Resultado esperado: El BOT muestra un mensaje. ¨Datos eliminados¨ y procede a eliminar los datos en la base de datos.
