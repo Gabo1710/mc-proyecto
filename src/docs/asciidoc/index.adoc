@@ -552,10 +552,9 @@ Al momento de realizar la solicitud es necesario que el estudiante identifique l
      - Datos: : justificativo.pfd.
      - Resultado esperado: El Bot retorna 'Solicitud registrada" y notifica al docente.  
 
+
+
 *El estudiante recibe los resultados de su solicitud.*
-
-
- *El estudiante emite la solicitud.* 
 
 Descripción: Una vez que el docente responde la solicitud del estudiante este debe ser notificado mediante el Bot.
 
