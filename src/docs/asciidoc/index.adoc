@@ -1,10 +1,11 @@
 [#_bot_universidad__historias_de_usuario]
 = {product} - Historias de Usuario
 Universidad Católica Boliviana "San Pablo". <moises.valda@ucb.edu.bo>
+<mauro.moya@ucb.edu.bo>
 v1.0
 :product: BOT UNIVERSIDAD
 
-== Introducción
+== 1 Introducción
 
 Este documento describe en detalle las historias de usuario para la construcción de un Bot para, estudiantes o personal de la universidad.
 
@@ -28,9 +29,9 @@ Para Docentes:
     3. Aprobar o rechazar solicitudes de permiso.
     4. Subir notas por materia, uno a uno.
 
-== Historias de Usuario
 
-### 1 - Autenticación de usuario
+
+### 2 - Autenticación de usuario
 
 *Autor*: Flavio Gabriel Miranda Velarde
 
@@ -39,7 +40,7 @@ Para Docentes:
 *Prioridad*: Muy alta
 
 
-#### 1.1 Descripción
+#### 2.1 Descripción
 Para poder usar el Bot un usuario debe autenticarse como estudiante o docente de la Universidad Católica Boliviana, para ello el usuario deberá proporcionar la siguiente información
 
     * Cédula de identidad.
@@ -71,14 +72,14 @@ BOT -[#blue]-> Estudiante: 'Verifica la informacion y notifica al usuario'
 @enduml
 
 ....
-#### 1.2 Escenarios
+#### 2.2 Escenarios
 
 1. Usuario no registrados, los datos son incorrectos.
 2. Usuario registrado, datos de estudiante correctos.
 3. Usuario registrado, datos de docente correctos.
 
 
-#### 1.3 Casos de Prueba
+#### 2.3 Casos de Prueba
 
  *Usuario no registrado* 
 
@@ -117,7 +118,7 @@ En caso de que el usuario no ingrese su información correctamente no se le otor
     - Resultado: El BOT muestra el menu de opciones.(de acuerdo al tipo de usuario) y elimina los mensajes anteriores.
 
 
-*Usuario registrado, datos de estudiante correctos*
+#### 2.4 Usuario registrado, datos de estudiante correctos
 
 
 Descripción: Luego de registrarse el bot debe mostrar el menu respectivo.
@@ -134,7 +135,7 @@ Descripción: Al momento de identificarse el Bot identifica el tipo de usuario y
     4. Consultar notas.
     5. Solicitar permisos con adjuntos."
 
-*Usuario registrado, datos de docente correctos*
+#### 2.5 Usuario registrado, datos de docente correctos
 
 
 Descripción: Luego de registrarse el bot debe mostrar el menu respectivo.
@@ -155,7 +156,7 @@ Descripción: Al momento de identificarse el Bot identifica el tipo de usuario y
 
 
 
-### 2 - Consulta de horario (Estudiante)
+### 3 - Consulta de horario (Estudiante)
 
 *Autor:* Moises Carlos Valda Gutierrez
 
@@ -164,7 +165,7 @@ Descripción: Al momento de identificarse el Bot identifica el tipo de usuario y
 *Prioridad:* Alta
 
 
-#### Descripción
+#### 3.1 Descripción
 
 Un `Estudiante` debe poder solicitar la información de `horarios` o `materias` mediante el BOT, para esto el estudiante debe enviar la siguiente información:
 
@@ -230,16 +231,16 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra el Horario'
 ....
 
 
-=== Escenarios
+=== 3.2 Escenarios
 
     1. Estudiante ingresa siglas o comando incorrectos.
     2. Estudiante no se encuentra registrado.
     3. Estudiante se encuentra registrado.
     4. Estudiante ingresa datos correctos.
 
-### Casos de Prueba
+### 3.4 Casos de Prueba
 
-*10.1.1 Estudiante ingresa siglas o comando incorrectos.*
+*Estudiante ingresa siglas o comando incorrectos.*
 
 *_Descripción:_* El Bot debe validar la información ingresada por el `Estudiante` y verificar que sea correcta. Cabe recalcar que no existe diferencia a la hora de realizar una búsqueda con mayúsculas o minúsculas.
 
@@ -271,7 +272,7 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra el Horario'
 - *Datos:*  `arq45644564`
 - *Resultado esperado:* El Bot retorna: 'Usted no puede realizar más consultas, siguiente intento en "4 horas, 59 minutos, 59 segundos".'
 
-*10.1.2 Estudiante no se encuentra registrado*
+#### 3.4.1 Estudiante no se encuentra registrado
 
 *_Descripción:_* El Bot debe validar la información ingresada por el `Estudiante` y verificar que el estudiante se encuentre registrado. Si no se encuentra registrado, no puede proceder a pedir información requerida.
 
@@ -283,7 +284,7 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra el Horario'
 - *Datos:* NINGUNO.
 - *Resultado esperado:* El BOT retorna un mensaje: "Usted no se encuentra registrado, por favor ingrese el comando /registrarme para comenzar el proceso de registro".
 
-*10.1.3 Estudiante se encuentra registrado*
+#### 3.4.2 Estudiante se encuentra registrado*
 
 *_Descripción:_* El Bot debe validar la información ingresada por el `Estudiante` y verificar que el estudiante se encuentre registrado.
 
@@ -307,15 +308,13 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra el Horario'
 - *Resultado esperado:* El BOT retorna un mensaje: "Los detalles de la materia son los siguientes: 'Martes 13:30-15:15, 'Aula:' D15 y Jueves 18:45-21:15', 'Aula:' D15".
 
 2. El `Estudiante` ingresa el comando para consultar su horario.
-- */Consulta_horarios_estudiante*
+- */horarios*
 - *Datos:* NINGUNO.
 - *Resultado esperado:* El BOT retorna un mensaje: "Su horario es el siguiente: _'Muestra Horario_' ".
 
 
 
-== Historias de Usuario
-
-### 3 - Consulta Estado de Cuenta
+### 4 - Consulta Estado de Cuenta
 
 *Autor*: Mauro Moya
 
@@ -324,7 +323,7 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra el Horario'
 *Prioridad*: Muy alta
 
 
-#### 3.1 Descripción
+#### 4.1 Descripción
 Un *Estudiante* podra consultar el estado de su cuenta por medio del *BOT* de telegram, para esto previa validacion del estudiante y seleccionado la opcion de consulta de deuda. El *BOT* debe llevar un control de: * El estado de cuenta del estudiante a la fecha * Los dias de retrazo del pago de la deuda.
 
 La consulta pasará por los siguientes estados:
@@ -348,12 +347,12 @@ SIN_DEUDA --> [*]
 @enduml
 ....
 
-### Escenarios
+### 4.2 Escenarios
 
 1. Cuenta con deuda
 2. Cuenta con Sin deuda
 
-### Casos de Prueba
+### 4.3 Casos de Prueba
 
 Cuenta con deuda o sin deuda
 
@@ -364,7 +363,7 @@ Pasos:
 
 1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando:
 
- -/Consulta cuenta
+ -/cuenta
 
 *- Resultado esperado*: El BOT retorna un mensaje tiene deuda y muestra:
 
@@ -372,7 +371,7 @@ Pasos:
 
 2. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando:
 
- -/Consulta cuenta
+ -/cuenta
 
 *- Resultado esperado*: El BOT retorna un mensaje tiene deuda y muestra:
 
@@ -405,9 +404,7 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra la deuda'
 ....
 
 
-== Historias de Usuario
-
-### 4 - Consulta Notas
+### 5 - Consulta Notas
 
 *Autor*: Mauro Moya
 
@@ -416,8 +413,8 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra la deuda'
 *Prioridad*: Muy alta
 
 
-#### 4.1 Descripción
-Un *Estudiante* podra consultar sus notas por medio del *BOT* de telegram, para esto previa validacion del estudiante y escribiendo el comando de /consulta notas, el *BOT* el bot respondera *actuales o *semestre 
+#### 5.1 Descripción
+Un *Estudiante* podra consultar sus notas por medio del *BOT* de telegram, para esto previa validacion del estudiante y escribiendo el comando de /notas, el *BOT* el bot respondera *actuales o *semestre 
 
 
 * Para obtener las notas
@@ -455,12 +452,12 @@ BOT -[#blue]-> Estudiante: ' Genera y muestra la deuda'
 ....
 
 
-#### 4.2 Escenarios
+#### 5.2 Escenarios
 
 1. Notas Actuales.
 2. Notas Semestre.
 
-#### 4.3 Casos de Prueba
+#### 5.3 Casos de Prueba
 
 
 Descripción: El Bot una vez validado la informacion ingresada por el estudiante y solicitando notas indicara actual o semestral
@@ -470,7 +467,7 @@ Pasos:
 
 1. El estudiante Ingresa y se identifica con el BOT vía Telegram y envía el comando:
 
- -Estudiante: /Consulta notas
+ -Estudiante: /notas
  BOT: Ingrese comando actual o semestral ejemplo 1-2022
 
 - Resultado esperado: El BOT retorna un mensaje Sus notas actuales-> 
@@ -482,7 +479,7 @@ Materia-Nota Parcial-Nota Final
 Materia-Nota Parcial-Nota Final
 
 
-### 5 - Solicitar permisos con adjuntos.
+### 6 - Solicitar permisos con adjuntos.
 
 *Autor*: Flavio Gabriel Miranda Velarde
 
@@ -491,7 +488,7 @@ Materia-Nota Parcial-Nota Final
 *Prioridad*:  Alta
 
 
-#### 5.1 Descripción
+#### 6.1 Descripción
 Un estudiante puede solicitar permisos para ausentarse a un docente mediante el Bot, para esto debe enviar el motivo de su falta ademas de una imagen adjunta de un justificativo, una vez enviada la solicitud, el docente procederá a autorizar o rechazar el permiso, hecho esto el Bot notificará al estudiante el resultado. 
 
 La solicitud del estudiante pasara por los siguientes estados:
@@ -514,14 +511,14 @@ RECHAZADO --> [*]
 @enduml
 ....
 
-5.2 Escenarios
+6.2 Escenarios
 
 1. El estudiante emite la solicitud.
 2. El estudiante recibe los resultados de su solicitud.
 3. La solicitud esta caducada
 
 
-#### 5.3 Casos de Prueba
+#### 6.3 Casos de Prueba
 
  *El estudiante emite la solicitud.* 
 
@@ -529,7 +526,7 @@ Descripción:
 Al momento de realizar la solicitud es necesario que el estudiante identifique la fecha y la materia a la que solicitara el permiso y posteriormente ingresar la informacion respectiva  y en caso de no cumplir con los requisitos el Bot no debe dejar que la solicitud sea emitida, en caso de que la solicitud sea exitosa esta se guarda en la base de datos con un código
 
 1. El estudiante Ingresa y se autentifica con el BOT vía Telegram y envía el comando:
-    -/Enviar solicitud
+    -/Enviarsolicitud
     - Resultado esperado: El BOT retorna un mensaje. ¨Ingrese la fecha de su permiso en el formato dd/mm/aa¨.
 2. El estudiante ingresa un espacio en blanco
     - Datos: ¨  ¨.
@@ -568,7 +565,7 @@ Descripción: Una vez que el docente responde la solicitud del estudiante este d
 1. El estudiante estudiante esta autentificado en el BOT vía Telegram y este le envia una notificación.
     - Resultado esperado: El BOT retorna un mensaje. ¨Su solicitud en la materia sis 111 tiene una respuesta:¨ y muestra el resultado del docente acompañado de una recomendación de este si existiera.
 
-### 1 - Consulta de horario y aulas (DOCENTE)
+### 7 - Consulta de horario y aulas (DOCENTE)
 
 *Autor:* Moises Carlos Valda Gutierrez
 
@@ -577,7 +574,7 @@ Descripción: Una vez que el docente responde la solicitud del estudiante este d
 *Prioridad:* Muy Alta
 
 
-#### Descripción
+#### 7.1 Descripción
 
 Un `Docente` debe poder solicitar la información de `horarios` o `materias` mediante el BOT, para este proceso el docente debe enviar la siguiente información:
 
@@ -595,7 +592,7 @@ En el siguiente `Diagrama de secuencia` se mostrará la secuencia de esta histor
 
 @startuml
 
-actor Docente #Yellow
+actor Docente #Blue
 
 Docente -[#red]> BOT: /start
 BOT -[#blue]-> Docente: '¿Qué desea?'
@@ -624,7 +621,7 @@ En el siguiente `Diagrama de secuencia` se mostrará la secuencia de esta histor
 
 @startuml
 
-actor Docente #Yellow
+actor Docente #Blue
 
 Docente -[#red]> BOT: /start
 BOT -[#blue]-> Docente: '¿Qué desea?'
@@ -643,16 +640,16 @@ BOT -[#blue]-> Docente: 'Genera y muestra el Horario'
 ....
 
 
-=== Escenarios
+=== 7.2 Escenarios
 
 1. Docente ingresa siglas o comando incorrectos.
 2. Docente no se encuentra registrado.
 3. Docente se encuentra registrado.
 4. Docente ingresa datos correctos.
 
-### Casos de Prueba
+### 7.3 Casos de Prueba
 
-*10.1.1 Docente ingresa siglas o comando incorrectos.*
+#### 7.3.1 Docente ingresa siglas o comando incorrectos.*
 
 *_Descripción:_* El Bot debe validar la información ingresada por el `Docente` y verificar que sea correcta. Cabe recalcar que no existe diferencia a la hora de realizar una búsqueda con mayúsculas o minúsculas.
 
@@ -660,7 +657,7 @@ BOT -[#blue]-> Docente: 'Genera y muestra el Horario'
 
 1. El `Docente` ingresa, se identifica con el `BOT` vía Telegram y envía el comando:
 
-- */Consulta_horarios_doc....*
+- */horarios*
 - *Datos:* NINGUNO.
 - *Resultado esperado:* El BOT retorna un mensaje: "Ingrese comando correcto".
 
@@ -684,7 +681,7 @@ BOT -[#blue]-> Docente: 'Genera y muestra el Horario'
 - *Datos:*  `arq45644564`
 - *Resultado esperado:* El Bot retorna: 'Usted no puede realizar más consultas, siguiente intento en "4 horas, 59 minutos, 59 segundos".'
 
-*10.1.2 Docente no se encuentra registrado*
+#### 7.3.2 Docente no se encuentra registrado*
 
 *_Descripción:_* El Bot debe validar la información ingresada por el `Docente` y verificar que se encuentre registrado. Si no se encuentra registrado, no puede proceder a pedir la información requerida.
 
@@ -696,7 +693,7 @@ BOT -[#blue]-> Docente: 'Genera y muestra el Horario'
 - *Datos:* NINGUNO.
 - *Resultado esperado:* El BOT retorna un mensaje: "Usted no se encuentra registrado, por favor ingrese el comando /registrarme para comenzar el proceso de registro".
 
-*10.1.3 Docente se encuentra registrado*
+#### 7.3.3 Docente se encuentra registrado*
 
 *_Descripción:_* El Bot debe validar la información ingresada por el `Docente` y verificar que el estudiante se encuentre registrado.
 
@@ -708,7 +705,7 @@ BOT -[#blue]-> Docente: 'Genera y muestra el Horario'
 - *Datos:* NINGUNO.
 - *Resultado esperado:* El BOT retorna un mensaje: "¿Qué necesita?".
 
-*10.1.4 Docente ingresa datos correctos*
+#### 7.3.4 Docente ingresa datos correctos*
 
 *_Descripción:_* El Bot debe validar la información ingresada por el `Docente`.
 
@@ -724,54 +721,59 @@ BOT -[#blue]-> Docente: 'Genera y muestra el Horario'
 - *Datos:* NINGUNO.
 - *Resultado esperado:* El BOT retorna un mensaje: "Su horario es el siguiente: _'Muestra Horario_' ".
 
-### 2 - Consultar listado de Alumnos por clase
+### 8 Consultar listado de Alumnos por clase
 
-*Autor*: Moises Carlos Valda Gutiérrez
+*Autores*: Moises Carlos Valda Gutiérrez -
+Mauro Moya
 
-*Fecha*: 12/03/2022
+*Fecha*: 15/03/2022
 
 *Prioridad*: Alta
 
-#### 2.1 Descripción
+#### 8.1 Descripción
 El `Docente` puede realizar una consulta al BOT para conocer el listado de los alumnos por clase o materia, para este proceso el docente debe enviar la siguiente información:
 
-* Enviar el comando /SolicitarLista
+* Enviar el comando /ConsultarAlumnos
+* Sigla de la Materia-Paralelo
+
 
 El diagrama de secuencia para esta Historia es el siguiente:
 
-[plantuml, format="png", id="estados_Consulta_lista"]
+
+[plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
 
 ....
 
 @startuml
 
-actor Docente #Yellow
+actor Docente #Blue
 
-Docente -[#red]> BOT: /start
-BOT -[#blue]-> Docente: '¿Qué desea?'
-Docente -[#red]> BOT: /SolicitarLista
-BOT -[#blue]-> Docente: 'Ingrese Sigla de la materia'
-Docente -[#red]> BOT: Ingresa sigla de la materia
-
+Docente -[#red]> BOT: Comando Erroneo
+BOT -[#blue]-> Docente: 'Ingrese Comando específico'
+Docente -[#red]> BOT: Ingresa: /ConsultarAlumnos
+BOT -[#blue]-> Docente: 'Ingrese el comando /SIGLA-PARALELO: EJ: MAT224-1'
+Docente -[#red]> BOT: Comando Erroneo
+BOT -[#blue]-> Docente: 'Ingrese Comando específico'
 database BBDD #brown
 
-BOT -[#green]-> BBDD: 'Realiza consulta'
-BBDD -[#green]-> BOT: 'Información requerida '
-BOT -[#blue]-> Docente: 'Genera y muestra la Lista de la materia'
+Docente -[#red]> BOT: Ingresa: /MAT224-1
 
+BOT -[#green]-> BBDD: 'Realiza consulta de alumnos'
+BBDD -[#green]-> BOT: 'Devuelve resultado de las alumnos de la materia y paralelo'
+BOT -[#blue]-> Docente: ' muestra el listado de alumnos:'
 
 @enduml
 
 ....
 
-#### 2.2 Escenarios
+#### 8.2 Escenarios
 1. Docente no se encuentra registrado.
 2. Docente ingresa comando no válido.
 3. Docente ingresa comando válido.
 
-#### 2.3 Casos de Prueba
+#### 8.3 Casos de Prueba
 
-*20.1.1 Docente no se encuentra registrado.*
+#### 8.3.1 Docente no se encuentra registrado.*
 
 *_Descripción:_* El Bot debe validar la información ingresada por el `Docente` y verificar que dicho docente se encuentre registrado, en caso de no estar registrado no puede proceder a solicitar información específica.
 
@@ -783,7 +785,7 @@ BOT -[#blue]-> Docente: 'Genera y muestra la Lista de la materia'
 - *Datos:* NINGUNO.
 - *Resultado esperado:* El BOT retorna un mensaje: "Usted no se encuentra registrado, por favor ingrese el comando /registrarme para comenzar el proceso de registro".
 
-*20.1.2 Docente ingresa comando no válido.*
+#### 8.3.2 Docente ingresa comando no válido.*
 
 *_Descripción:_* El Bot debe validar la información ingresada por el `Docente` y verificar que esta información sea correcta para poder responder a la solicitud de manera efectiva.
 
@@ -805,7 +807,7 @@ BOT -[#blue]-> Docente: 'Genera y muestra la Lista de la materia'
 - *Resultado esperado:* El Bot retorna: 'Usted no puede realizar más consultas, siguiente intento en "4 horas, 59 minutos, 59 segundos".'
 
 
-*20.1.3 Docente ingresa comando válido.*
+#### 8.3.3 Docente ingresa comando válido.*
 
 *_Descripción:_* El Bot debe validar la información ingresada por el `Docente` y verificar que esta información sea correcta para poder responder a la solicitud de manera efectiva. Cabe mencionar que la consulta es independiente de ingresar mayúsculas o minúsculas
 
@@ -813,14 +815,15 @@ BOT -[#blue]-> Docente: 'Genera y muestra la Lista de la materia'
 
 1. El `Docente` ingresa, se identifica con el `BOT` vía Telegram y envía el comando:
 
-- */start
-- *Resultado esperado:* ¿Qué necesita?
-- */SolicitarLista*
-- *Resultado esperado:* El BOT retorna un mensaje: "Ingrese siglas de la materia".
-- *Datos:* 'SiS213'
-- *Resultado esperado:* El BOT 'Genera y muestra la Lista de la materia'.
+ -Docente: /ConsultaAlumnos
+ -BOT: Ingrese el comando /SIGLA-PARALELO: EJ: MAT224-1
+ -Docente: /SIS224-1
+ -BOT: En la materia de Ingenieria del Software Paralelo 1 pertecen los siguientes Estudiantes:
+ 1) Moises Valda
+ 2) Gabriel Miranda
+ 3) Mauro Moya
 
-### 3 - Aprobar o rechazar solicitudes de permiso.
+### 9 - Aprobar o rechazar solicitudes de permiso.
 
 *Autor*: Flavio Gabriel Miranda Velarde
 
@@ -829,7 +832,7 @@ BOT -[#blue]-> Docente: 'Genera y muestra la Lista de la materia'
 *Prioridad*:  Alta
 
 
-#### 3.1 Descripción
+#### 9.1 Descripción
 Un docente puede otorgar permisos a los estudiantes para ausentarse mediante el bot, para esto el docente recibe una notificacion con los sigueintes datos:
 
 -La fecha para el permiso
@@ -852,13 +855,13 @@ CADUCADA --> [*]
 @enduml
 ....
 
-#### 3.2 Escenarios
+#### 9.2 Escenarios
 
 1. Solicitud respondida.
 2. Solicitud caducada.
 
 
-#### 3.3 Casos de Prueba
+#### 9.3 Casos de Prueba
 
  *Solicitud respondida* 
 
@@ -921,22 +924,6 @@ Descripción: Una vez que la fecha de una solicitud se ha vencido el Bot emite u
     - Datos: "rechazar".
     - Resultado: El BOT retorna un mensaje. "solicitud rechazada, se notificará al estudiante"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### 4 - Subir datos de la materia
 
 *Autor*: Falvio Gabriel Miranda Velarde
@@ -946,7 +933,7 @@ Descripción: Una vez que la fecha de una solicitud se ha vencido el Bot emite u
 *Prioridad*: Alta
 
 
-#### 4.1 Descripción
+#### 10.1 Descripción
 Un *Docente* puede subir, editar o eliminar los datos de la materia (enlaces) por medio del *BOT* de telegram, para esto el docente debe enviar los respectivos enlaces e informacion correspondiente, los datos seran opcionales para cada docente, pero estos pueden ser:
     -Correos electronicos
     -Enlaces a grupo de Whatsapp o Telegram
@@ -965,7 +952,7 @@ El en siguiente `Diagrama de secuencia` se mostrará la secuencia de esta histor
 
 @startuml
 
-actor Docente #Yellow
+actor Docente #Blue
 
 Docente -[#red]> BOT: Ingresar datos
 BOT -[#blue]-> Docente : 'Ingrese Comando específico'
@@ -984,13 +971,13 @@ BOT -[#blue]-> Docente: 'Notifica resultados'
 ....
 
 
-### 4.2 Escenarios
+### 10.2 Escenarios
 
 1. Agregar datos.
 2. Editar datos.
 3. Eliminar datos
 
-### 4.3 Casos de Prueba
+### 10.3 Casos de Prueba
 
 *Agregar datos*
 
@@ -1117,3 +1104,86 @@ Pasos:
 
 8. El docente ingresa el comando /Confirmar
 - Resultado esperado: El BOT muestra un mensaje. ¨Datos eliminados¨ y procede a eliminar los datos en la base de datos.
+
+###  11 Consulta Ayuda
+
+*Autor*: Mauro Moya
+
+*Fecha*:10/03/2022
+
+*Prioridad*: Muy alta
+
+
+#### 11.1 Descripción
+Un *Estudiante* o *Docente* podra consultar el listado de sus alumnos por medio del *BOT* de telegram, para esto previa validacion del *Estudiante* o *Docente* y escribiendo el comando de /Ayuda, el *BOT* el bot tendra los siguientes aspectos: 
+
+* Ayuda de comandos *Estudiante*
+* Ayuda de comandos *Docente* 
+
+El en siguiente `Diagrama de secuencia` se mostrará la secuencia de esta historia para el `Estudiante`.
+
+[plantuml, format="png", id="estados_Consulta_horarios_estudiantes"]
+
+....
+
+@startuml
+
+actor Docente #Blue
+
+Docente -[#red]> BOT: Comando Erroneo
+BOT -[#blue]-> Docente: 'Ingrese Comando específico'
+Docente -[#red]> BOT: Ingresa: /Ayuda
+BOT -[#green]-> BBDD: 'Realiza consulta de comandos de Docente'
+BBDD -[#green]-> BOT: 'Devuelve resultado de los comandos disponibles'
+BOT -[#blue]-> Docente: ' muestra las opciones de los Comandos'
+
+@enduml
+
+....
+
+
+### 11.2 Escenarios
+
+1. Comandos Erroneos
+2. Seleccion de Ayuda Estudiante.
+3. Seleccion de Ayuda Docente.
+
+### 11.3 Casos de Prueba
+
+
+Descripción: El Bot una vez validado la informacion ingresada por el *Estudiante* o *Docente* mismos que realizara la consulta al *Bot*
+
+Pasos:
+
+1. El *estudiante* Ingresa y se identifica con el BOT vía Telegram y envía el comando a seguir 
+
+ -Estudiante: /Ayudame
+ -BOT: Ingrese el comando /correcto o la palabra ayuda: 
+ -Estudiante: /ayuda
+ -BOT: Estos son los comandos que puedes usar:
+ 1) /ayuda-> Para solicitar ayuda con el bot
+ 2) /horarios-> Para solicitar los horarios del Estudiante
+ *2.1) /SIGLA-PARALELO-> Para consular los horarios del curso y paralelo
+ 3) /notas->  Para consultar las notas
+ 4) /cuenta-> Para consultar las cuentas
+ 5) /Enviarsolicitud-> Para solicitar permiso de ausencia
+
+
+2. El *docente* Ingresa y se identifica con el BOT vía Telegram y envía el comando a seguir
+
+ -Docente: /Ayudame
+ -BOT: Ingrese el comando /correcto o la palabra ayuda: 
+ -Docente: /ayuda
+ -BOT: Estos son los comandos que puedes usar:
+ 1) /ayuda-> Para solicitar ayuda con el bot
+ 2) /horarios-> Para solicitar los horarios del docente
+ *2.1) /SIGLA-PARALELO-> Para consular los horarios del curso y paralelo
+ 3) /alumnos->  Para consultar la lista de alumnos
+ *3.1) /SIGLA-PARALELO-> Para consultar los estudiantes del curso y paralelo
+ 4) /datosdemateria-> Para subir actualizar notas de las materias.
+ *4.1)  /SIGLA-PARALELO-> Para registrar cambios de nota
+*4.2) /Ingresar-> Ingresa nuevas notas
+*4.3) /editar-> Corrige alguna nota
+*4.4) /eliminar-> Elimina la nota
+
+
