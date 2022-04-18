@@ -1,7 +1,8 @@
 package bo.edu.ucb.ingsoft.botuni.BussinesLogic;
 
-import bo.edu.ucb.ingsoft.botuni.DAO.ConsultaHorarioDao;
-import bo.edu.ucb.ingsoft.botuni.DTO.ConsultaHorarioDto;
+import bo.edu.ucb.ingsoft.botuni.DAO.HorarioDao;
+
+import bo.edu.ucb.ingsoft.botuni.DTO.HorarioDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +11,14 @@ import java.util.List;
 @Service
 public class ConsultaHorarioBL {
 
-    private ConsultaHorarioDao consultaHorarioDao;
+    private HorarioDao horarioDao;
 
     @Autowired
-    public ConsultaHorarioBL(ConsultaHorarioDao consultaHorarioDao) {
-        this.consultaHorarioDao = consultaHorarioDao;
+    public ConsultaHorarioBL(HorarioDao horarioDao) {
+        this.horarioDao = horarioDao;
     }
 
-    public List<ConsultaHorarioDto> findLast10ConsultasByChatId(Long chatId) {
-        return consultaHorarioDao.findAllConsultasByBotChatId(chatId+"");
+    public List<HorarioDto> findAllHorario(Long chatId) {
+        return horarioDao.findHorarioByBotChatId(chatId+"");
     }
 }

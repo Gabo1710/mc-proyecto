@@ -1,19 +1,12 @@
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
-import org.telegram.telegrambots.meta.api.methods.GetFile;
-import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Document;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import javax.xml.bind.DatatypeConverter;
-import java.io.File;
-public class ConsultaProcess extends ProcesoAbstracto {
+public class ConsultaHorarioProcess extends ProcesoAbstracto {
 
-    public ConsultaProcess() {
+    public ConsultaHorarioProcess() {
         this.setName("Consultar Horario");
         this.setDefault(false);
         this.setExpires(false);
@@ -34,18 +27,20 @@ public class ConsultaProcess extends ProcesoAbstracto {
         Long chatId = update.getMessage().getChatId();
         StringBuffer sb = new StringBuffer();
         sb.append("SU HORARIO ES EL SIGUIENTE \r\n");
-        
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId.toString());
         sendMessage.setText(sb.toString());
+
         try {
             bot.execute(sendMessage);
         } catch (Exception ex) {
             // relanzamos la excepción
             throw new RuntimeException(ex);
         }
-        return this;
+        return new ProcesoMenu();
+
+
     }
 
     @Override
@@ -55,11 +50,11 @@ public class ConsultaProcess extends ProcesoAbstracto {
 
     @Override
     public ProcesoAbstracto onSuccess() {
-        return null;
+        return new ProcesoMenu();
     }
 
     @Override
     public ProcesoAbstracto onTimeout() {
-        return null;
+        return new ProcesoMenu();
     }
 }

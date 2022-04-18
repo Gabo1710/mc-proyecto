@@ -43,9 +43,9 @@ public class ProcesoMenu extends ProcesoAbstracto {
                     try {
                         int opcion = Integer.parseInt(text);
                         switch (opcion){
-                            case 1 : result = new ConsultaProcess(); // FIXME
+                            case 1 : result = context.getBean(QueryConsultaProcess.class) ;
                                 break;
-                            //case 2 : result = new ConsultaDetallePorMateria(); // FIXME
+                            //case 2 : result = new QueryConsultaProcess(); // FIXME
                               //  break;
                             default: showMainMenu(bot, chatId);
                         }

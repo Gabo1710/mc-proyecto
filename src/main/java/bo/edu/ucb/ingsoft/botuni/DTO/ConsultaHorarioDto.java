@@ -6,8 +6,6 @@ public class ConsultaHorarioDto {
     private Integer consultaId;
     private Integer estudianteId;
     private Date fecha_consulta;
-    private Date endDate;
-    private String reason;
 
     public ConsultaHorarioDto() {
     }
@@ -18,11 +16,11 @@ public class ConsultaHorarioDto {
         this.fecha_consulta = startDate;
     }
 
-    public Integer getPermissionId() {
+    public Integer getConsultaId() {
         return consultaId;
     }
 
-    public void setPermissionId(Integer permissionId) {
+    public void setConsultaId(Integer permissionId) {
         this.consultaId = permissionId;
     }
 
@@ -47,9 +45,9 @@ public class ConsultaHorarioDto {
     @Override
     public String toString() {
         return "ConsultaHorarioDto{" +
-                "consultaId=" + consultaId +
-                ", estudianteId=" + estudianteId +
-                ", startDate=" + fecha_consulta +
+                "consulta_id=" + consultaId +
+                ", estudiante_id=" + estudianteId +
+                ", Fecha_consulta=" + fecha_consulta +
                 '}';
     }
 }

@@ -2,11 +2,13 @@ package bo.edu.ucb.ingsoft.botuni.ChatBot;
 
 import bo.edu.ucb.ingsoft.botuni.BussinesLogic.ConsultaHorarioBL;
 import bo.edu.ucb.ingsoft.botuni.DTO.ConsultaHorarioDto;
+import bo.edu.ucb.ingsoft.botuni.DTO.HorarioDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -17,7 +19,7 @@ public class QueryConsultaProcess extends ProcesoAbstracto {
     @Autowired
     public QueryConsultaProcess(ConsultaHorarioBL ConsultaHorarioBL) {
         this.consultaBL = ConsultaHorarioBL;
-        this.setName("Consultar solicitudes pasadas");
+        this.setName("Consultar Horario");
         this.setDefault(false);
         this.setExpires(false);
         this.setStartDate(System.currentTimeMillis()/1000);
@@ -34,13 +36,11 @@ public class QueryConsultaProcess extends ProcesoAbstracto {
     @Override
     public ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot) {
         Long chatId = update.getMessage().getChatId();
-        List<ConsultaHorarioDto> consultaList = consultaBL.findLast10ConsultasByChatId(chatId);
+        List<HorarioDto> consultaList = consultaBL.findAllHorario(chatId);
         StringBuffer sb = new StringBuffer();
-        sb.append("Este año has solicitado " ).append(consultaList.size());
-        sb.append(" permisos. Bajo el siguiente detalle\r\n");
-        for(ConsultaHorarioDto permission: consultaList) {
-            sb.append(permission.toString()).append("\n\r");
-        }
+        sb.append("Tu Horario es el siguiente " );
+        //sb.append(consultaList.spliterator());
+        sb.append((consultaList));
         sendStringBuffer(bot, chatId, sb);
         return new ProcesoMenu();
     }
