@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class ProcesoMenuProfesores extends ProcesoAbstracto {
 
     public ProcesoMenuProfesores() {
-        this.setName("Menú principal");
+        this.setName("Menú principal DOCENTES");
         this.setDefault(true);
         this.setExpires(false);
         this.setStartDate(System.currentTimeMillis()/1000);
@@ -61,15 +61,15 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
 
     }
 
-
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("MENU PRINCIPAL Docentes - BOT UNIVERSIDAD\r\n");
+        sb.append("*********BOT UCB**********\r\n");
+        sb.append("-------------MENU PRINCIPAL DOCENTES------------- \r\n");
         sb.append("¿Qué Desea? Por Favor elija una opción:\r\n");
         sb.append("1. Consultar Horario\r\n");
         sb.append("2. Detalle de materias\r\n");
-//holabola
+
         sendStringBuffer(bot, chatId, sb);
 
         String nombre = "Juan";
