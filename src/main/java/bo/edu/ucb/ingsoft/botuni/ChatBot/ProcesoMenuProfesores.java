@@ -69,7 +69,7 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
         sb.append("¿Qué Desea? Por Favor elija una opción:\r\n");
         sb.append("1. Consultar Horario\r\n");
         sb.append("2. Detalle de materias\r\n");
-
+//holabola
         sendStringBuffer(bot, chatId, sb);
 
         String nombre = "Juan";
