@@ -1,14 +1,27 @@
+
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
-import org.springframework.context.ApplicationContext;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.HashMap;
+        import org.springframework.context.ApplicationContext;
+        import org.telegram.telegrambots.meta.api.objects.Message;
+        import org.telegram.telegrambots.meta.api.objects.Update;
 
-public class ProcesoMenu extends ProcesoAbstracto {
+        import java.util.HashMap;
 
-    public ProcesoMenu() {
-        this.setName("Menú principal");
+
+
+
+
+
+        import org.springframework.context.ApplicationContext;
+        import org.telegram.telegrambots.meta.api.objects.Message;
+        import org.telegram.telegrambots.meta.api.objects.Update;
+
+        import java.util.HashMap;
+
+public class SolicitarPermiso extends ProcesoAbstracto {
+
+    public SolicitarPermiso() {
+        this.setName("Solicitar Permiso");
         this.setDefault(true);
         this.setExpires(false);
         this.setStartDate(System.currentTimeMillis()/1000);
@@ -29,6 +42,7 @@ public class ProcesoMenu extends ProcesoAbstracto {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
         Long chatId = update.getMessage().getChatId();
         //768564158
+        StringBuffer sb = new StringBuffer();
 
         if (this.getStatus().equals("STARTED"))  {
 
@@ -40,18 +54,18 @@ public class ProcesoMenu extends ProcesoAbstracto {
             if ( message.hasText() ) {
                 // Intentamos transformar en número
                 String text = message.getText(); // El texto contiene asdasdas
+                System.out.println(text);
                 try {
-                    int opcion = Integer.parseInt(text);
-                    switch (opcion){
-                        case 1 : result = context.getBean(QueryConsultaProcess.class) ;
-                            break;
-                        case 2 : result = new DetalleProces(); // FIXME
-                            break;
 
-                        case 3 : result = new DetalleDeuda();
-                            break;
+                    switch (text){
+                        case "sis111" :
 
-                        case 4 : result = new SolicitarPermiso();
+                            ShowPermiso(bot, chatId);
+                            break;
+                        case "sis222" :
+                            ShowPermiso(bot, chatId);
+                            break;
+                        case "0" : result = new ProcesoMenu(); // FIXME
                             break;
                         default: showMainMenu(bot, chatId);
                     }
@@ -71,22 +85,30 @@ public class ProcesoMenu extends ProcesoAbstracto {
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("MENU PRINCIPAL - BOT UNIVERSIDAD\r\n\n");
-        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
-        sb.append("1. Consultar Horario\r\n");
-        sb.append("2. Detalle de Materias\r\n");
-        sb.append("3. Consultar Deuda\r\n");
-        sb.append("4. Solicitar Permiso\r\n");
-
+        sb.append("*******SOLICITAR PERMISO**********\r\n");
+        sb.append("INGRESE SIGLAS VALIDAS DE SU MATERIA A SOLICITAR PERMISO: Ej: sis111 \r\n");
+        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
         sendStringBuffer(bot, chatId, sb);
 
-        String nombre = "Juan";
-        String apellido = "Perez";
-        String nombreCompleto = nombre + " " + apellido;
+        // String nombre = "Juan";
+        // String apellido = "Perez";
+        //String nombreCompleto = nombre + " " + apellido;
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
 
+    private void ShowPermiso(BotUniLongPolling bot, Long chatId) {
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("Escriba el motivo del permiso:\r\n");
+        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
+        sendStringBuffer(bot, chatId, sb);
+
+        // String nombre = "Juan";
+        // String apellido = "Perez";
+        //String nombreCompleto = nombre + " " + apellido;
+        this.setStatus("AWAITING_USER_RESPONSE");
+    }
 
     @Override
     public ProcesoAbstracto onError() {

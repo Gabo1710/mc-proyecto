@@ -1,13 +1,25 @@
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
+
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.HashMap;
 
-public class ProcesoMenu extends ProcesoAbstracto {
 
-    public ProcesoMenu() {
+
+
+
+
+        import org.springframework.context.ApplicationContext;
+        import org.telegram.telegrambots.meta.api.objects.Message;
+        import org.telegram.telegrambots.meta.api.objects.Update;
+
+        import java.util.HashMap;
+
+public class DetalleDocente extends ProcesoAbstracto {
+
+    public DetalleDocente() {
         this.setName("Menú principal");
         this.setDefault(true);
         this.setExpires(false);
@@ -29,6 +41,7 @@ public class ProcesoMenu extends ProcesoAbstracto {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
         Long chatId = update.getMessage().getChatId();
         //768564158
+        StringBuffer sb = new StringBuffer();
 
         if (this.getStatus().equals("STARTED"))  {
 
@@ -40,18 +53,18 @@ public class ProcesoMenu extends ProcesoAbstracto {
             if ( message.hasText() ) {
                 // Intentamos transformar en número
                 String text = message.getText(); // El texto contiene asdasdas
+                System.out.println(text);
                 try {
-                    int opcion = Integer.parseInt(text);
-                    switch (opcion){
-                        case 1 : result = context.getBean(QueryConsultaProcess.class) ;
-                            break;
-                        case 2 : result = new DetalleProces(); // FIXME
-                            break;
 
-                        case 3 : result = new DetalleDeuda();
-                            break;
+                    switch (text){
+                        case "sis111" :
 
-                        case 4 : result = new SolicitarPermiso();
+                            ShowDetalle(bot, chatId);
+                            break;
+                        case "sis222" :
+                            ShowDetalle(bot, chatId);
+                            break;
+                        case "0" : result = new ProcesoMenuProfesores(); // FIXME
                             break;
                         default: showMainMenu(bot, chatId);
                     }
@@ -71,22 +84,31 @@ public class ProcesoMenu extends ProcesoAbstracto {
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("MENU PRINCIPAL - BOT UNIVERSIDAD\r\n\n");
-        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
-        sb.append("1. Consultar Horario\r\n");
-        sb.append("2. Detalle de Materias\r\n");
-        sb.append("3. Consultar Deuda\r\n");
-        sb.append("4. Solicitar Permiso\r\n");
-
+        sb.append("DETALLE DE MATERIA BOT UNIVERSIDAD\r\n");
+        sb.append("INGRESE SIGLAS VALIDAS DE SU MATERIA: Ej: sis111 \r\n");
+        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
         sendStringBuffer(bot, chatId, sb);
 
-        String nombre = "Juan";
-        String apellido = "Perez";
-        String nombreCompleto = nombre + " " + apellido;
+        // String nombre = "Juan";
+        // String apellido = "Perez";
+        //String nombreCompleto = nombre + " " + apellido;
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
 
+    private void ShowDetalle(BotUniLongPolling bot, Long chatId) {
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("LA MATERIA TIENE LOS SIGUIENTES LINKS:\r\n");
+        sb.append("https://neo.ucb.edu.bo/\r\n");
+        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
+        sendStringBuffer(bot, chatId, sb);
+
+        // String nombre = "Juan";
+        // String apellido = "Perez";
+        //String nombreCompleto = nombre + " " + apellido;
+        this.setStatus("AWAITING_USER_RESPONSE");
+    }
 
     @Override
     public ProcesoAbstracto onError() {
