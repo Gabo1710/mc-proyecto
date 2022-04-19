@@ -16,14 +16,6 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
         this.setStatus("STARTED");
     }
 
-    // Retornar un Widget de tipo menu
-//    @Override
-//    public AbstractWidget onInit() {
-//        MenuWidgetImpl menuWidget = new MenuWidgetImpl(messages);
-//        return menuWidget;
-//    }
-
-
     @Override
     public ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot) {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
@@ -34,7 +26,7 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
 
             showMainMenu(bot, chatId);
         } else if (this.getStatus().equals("AWAITING_USER_RESPONSE")) {
-            // Estamos esperando por un numero 1 o 2
+            // Estamos esperando por una opción
 
             Message message = update.getMessage();
             if ( message.hasText() ) {
@@ -45,7 +37,7 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
                     switch (opcion){
                         case 1 : result = context.getBean(QueryConsultaProcess.class) ;
                             break;
-                        case 2 : result = new DetalleProces(); // FIXME
+                        case 2 : result = new DetalleProces();
                             break;
                         default: showMainMenu(bot, chatId);
                     }
@@ -72,9 +64,6 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
 
         sendStringBuffer(bot, chatId, sb);
 
-        String nombre = "Juan";
-        String apellido = "Perez";
-        String nombreCompleto = nombre + " " + apellido;
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 

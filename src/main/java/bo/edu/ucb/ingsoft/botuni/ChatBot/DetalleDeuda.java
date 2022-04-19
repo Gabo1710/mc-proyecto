@@ -30,14 +30,6 @@ public class DetalleDeuda extends ProcesoAbstracto {
         this.setStatus("STARTED");
     }
 
-    // Retornar un Widget de tipo menu
-//    @Override
-//    public AbstractWidget onInit() {
-//        MenuWidgetImpl menuWidget = new MenuWidgetImpl(messages);
-//        return menuWidget;
-//    }
-
-
     @Override
     public ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot) {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
@@ -49,8 +41,7 @@ public class DetalleDeuda extends ProcesoAbstracto {
 
             showMainMenu(bot, chatId);
         } else if (this.getStatus().equals("AWAITING_USER_RESPONSE")) {
-            // Estamos esperando por un numero 1 o 2
-
+            // Estamos esperando por un número alguna opción
             Message message = update.getMessage();
             if ( message.hasText() ) {
                 // Intentamos transformar en número
@@ -60,7 +51,6 @@ public class DetalleDeuda extends ProcesoAbstracto {
 
                     switch (text){
                         case "1" :
-
                             ShowDetalle(bot, chatId);
                             break;
                         case "0" : result = new ProcesoMenu(); // FIXME
@@ -79,7 +69,6 @@ public class DetalleDeuda extends ProcesoAbstracto {
 
     }
 
-
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
@@ -87,10 +76,6 @@ public class DetalleDeuda extends ProcesoAbstracto {
         sb.append("1) Para consultar deuda actual \r\n");
         sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
         sendStringBuffer(bot, chatId, sb);
-
-        // String nombre = "Juan";
-        // String apellido = "Perez";
-        //String nombreCompleto = nombre + " " + apellido;
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
@@ -106,14 +91,8 @@ public class DetalleDeuda extends ProcesoAbstracto {
         sb.append("1-2022 | 5ta cuota | 3240 bs:\r\n");
         sb.append("Total------------> | 16200 bs:\r\n");
 
-
-
-
         sendStringBuffer(bot, chatId, sb);
 
-        // String nombre = "Juan";
-        // String apellido = "Perez";
-        //String nombreCompleto = nombre + " " + apellido;
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 

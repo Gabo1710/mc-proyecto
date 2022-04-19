@@ -29,14 +29,6 @@ public class SolicitarPermiso extends ProcesoAbstracto {
         this.setStatus("STARTED");
     }
 
-    // Retornar un Widget de tipo menu
-//    @Override
-//    public AbstractWidget onInit() {
-//        MenuWidgetImpl menuWidget = new MenuWidgetImpl(messages);
-//        return menuWidget;
-//    }
-
-
     @Override
     public ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot) {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
@@ -48,7 +40,7 @@ public class SolicitarPermiso extends ProcesoAbstracto {
 
             showMainMenu(bot, chatId);
         } else if (this.getStatus().equals("AWAITING_USER_RESPONSE")) {
-            // Estamos esperando por un numero 1 o 2
+            // Estamos esperando por alguna opción
 
             Message message = update.getMessage();
             if ( message.hasText() ) {
@@ -59,7 +51,6 @@ public class SolicitarPermiso extends ProcesoAbstracto {
 
                     switch (text){
                         case "sis111" :
-
                             ShowPermiso(bot, chatId);
                             break;
                         case "sis222" :
@@ -90,9 +81,7 @@ public class SolicitarPermiso extends ProcesoAbstracto {
         sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
         sendStringBuffer(bot, chatId, sb);
 
-        // String nombre = "Juan";
-        // String apellido = "Perez";
-        //String nombreCompleto = nombre + " " + apellido;
+
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
@@ -104,9 +93,6 @@ public class SolicitarPermiso extends ProcesoAbstracto {
         sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
         sendStringBuffer(bot, chatId, sb);
 
-        // String nombre = "Juan";
-        // String apellido = "Perez";
-        //String nombreCompleto = nombre + " " + apellido;
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 

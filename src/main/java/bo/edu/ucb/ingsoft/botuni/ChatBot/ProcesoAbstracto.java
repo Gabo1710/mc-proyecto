@@ -15,10 +15,10 @@ public abstract class ProcesoAbstracto {
     // Atributo me dice si el proceso expira
     private boolean expires;
 
-    // Cantidad de segundos para que expira
+    // Cantidad de segundos para que expire
     private long timeout;
 
-    // La fecha de inicio seran la cantidad de segundos desde 1970
+    // La fecha de inicio serán la cantidad de segundos desde 1970
     // Se lo puede obtener con System.getCurretnMillis()/1000
     private long startDate;
 
@@ -28,7 +28,7 @@ public abstract class ProcesoAbstracto {
     // Posibles valores: STARTED, FINISH, ERROR, AWAITING_USER_RESPONSE
     private String status;
 
-    // Este metodo decide que hacer con el usuario en cada tipo de proceso.
+    // Este método decide que hacer con el usuario en cada tipo de proceso.
     public abstract ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot);
 
 //    // Método que se invoca al iniciar el proceso
@@ -40,7 +40,7 @@ public abstract class ProcesoAbstracto {
     // A que proceso se debe ir en caso de terminar satisfactoriamente.
     public abstract ProcesoAbstracto onSuccess();
 
-    // En caso de que el proceso de timeout con cual continuo
+    // En caso de que el proceso de timeout con cuál continuo
     public abstract ProcesoAbstracto onTimeout();
 
     protected void sendStringBuffer(BotUniLongPolling bot, Long chatId, StringBuffer sb) {
@@ -54,6 +54,7 @@ public abstract class ProcesoAbstracto {
             throw new RuntimeException(ex);
         }
     }
+
 
     public String getName() {
         return name;

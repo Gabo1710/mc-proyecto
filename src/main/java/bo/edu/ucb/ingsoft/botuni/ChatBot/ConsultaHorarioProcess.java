@@ -26,7 +26,7 @@ public class ConsultaHorarioProcess extends ProcesoAbstracto {
     public ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot) {
         Long chatId = update.getMessage().getChatId();
         StringBuffer sb = new StringBuffer();
-        sb.append("SU HORARIO ES EL SIGUIENTE \r\n");
+        sb.append("*** \r\n");
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId.toString());

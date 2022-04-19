@@ -32,7 +32,7 @@ class BotuniApplicationTests {
 		assertEquals(1, messages.size(), "El chat devolvió mas de un mensaje." );
 		// Obtener el mensaje
 		SendMessage sendMessage = (SendMessage) messages.get(0);
-		assertTrue(sendMessage.getText().contains("MENU PRINCIPAL"),"Se obtuvo un proceso diferetena a menu principal");
+		assertTrue(sendMessage.getText().contains("MENU PRINCIPAL"),"Se obtuvo un proceso diferente a menú principal");
 		// Limpiamos los mensajes
 		bot.getTestMessages().clear();
 
@@ -41,7 +41,7 @@ class BotuniApplicationTests {
 		bot.onUpdateReceived(createUpdate("1"));
 		assertEquals(1, messages.size(), "El chat devolvió mas de un mensaje." );
 		sendMessage = (SendMessage) messages.get(0);
-		assertTrue(sendMessage.getText().contains("has solicitado"), "Se obtuvo un proceso diferetena solicitudes pasadas");
+		assertTrue(sendMessage.getText().contains("Su horario es el siguiente:"), "Proceso correcto");
 		bot.getTestMessages().clear();
 
 
@@ -49,7 +49,7 @@ class BotuniApplicationTests {
 		bot.onUpdateReceived(createUpdate("hello"));
 		assertEquals(1, messages.size(), "El chat devolvió mas de un mensaje." );
 		sendMessage = (SendMessage) messages.get(0);
-		assertTrue(sendMessage.getText().contains("MENU PRINCIPAL"), "Se obtuvo un proceso diferetena a Menu Principal");
+		assertTrue(sendMessage.getText().contains("MENÚ PRINCIPAL"), "Se obtuvo un proceso diferetena a Menu Principal");
 	}
 
 	private Update createUpdate(String text) {

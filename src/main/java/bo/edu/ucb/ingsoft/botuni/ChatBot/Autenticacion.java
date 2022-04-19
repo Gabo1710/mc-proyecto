@@ -55,28 +55,25 @@ public class Autenticacion extends ProcesoAbstracto {
 
     }
 
-
     private int AutCi(BotUniLongPolling bot, Long chatId,  Update update) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("Autenticación - BOT UNIVERSIDAD\r\n");
-        sb.append("Ingrese su Ci\r\n");
+        sb.append("AUTENTICACIÓN - BOT UNIVERSIDAD\r\n\n");
+        sb.append("Para comprobar su identidad, Ingrese su Ci:\r\n\n");
         int x=0;
         Message message = update.getMessage();
         sendStringBuffer(bot, chatId, sb);
         if ( message.hasText() ) {
             // Intentamos transformar en número
             String text = message.getText(); // El texto contiene asdasdas
-            //Profesores
+            //Menú para Profesores
             if(text.equals("123")){
-
                 x= 1;}
-            //Estudiantes
+            //Menú para Estudiantes
             if(text.equals("321")){
                 x= 2;
             }
         }
-
         this.setStatus("AWAITING_USER_RESPONSE");
         return x;
     }

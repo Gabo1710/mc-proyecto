@@ -28,14 +28,6 @@ public class DetalleDocente extends ProcesoAbstracto {
         this.setStatus("STARTED");
     }
 
-    // Retornar un Widget de tipo menu
-//    @Override
-//    public AbstractWidget onInit() {
-//        MenuWidgetImpl menuWidget = new MenuWidgetImpl(messages);
-//        return menuWidget;
-//    }
-
-
     @Override
     public ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot) {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
@@ -80,7 +72,6 @@ public class DetalleDocente extends ProcesoAbstracto {
 
     }
 
-
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
@@ -89,9 +80,6 @@ public class DetalleDocente extends ProcesoAbstracto {
         sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
         sendStringBuffer(bot, chatId, sb);
 
-        // String nombre = "Juan";
-        // String apellido = "Perez";
-        //String nombreCompleto = nombre + " " + apellido;
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
@@ -104,9 +92,6 @@ public class DetalleDocente extends ProcesoAbstracto {
         sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
         sendStringBuffer(bot, chatId, sb);
 
-        // String nombre = "Juan";
-        // String apellido = "Perez";
-        //String nombreCompleto = nombre + " " + apellido;
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
