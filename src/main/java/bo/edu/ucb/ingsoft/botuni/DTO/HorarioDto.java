@@ -1,46 +1,69 @@
 package bo.edu.ucb.ingsoft.botuni.DTO;
 
+import java.sql.Time;
+import java.util.Date;
+
 public class HorarioDto {
-    private Integer horarioId;
     private Integer estudianteId;
-    private Integer materiaId;
+    private String codigo;
+    private String materia;
+    private Time horainicio;
+    private Time horafin;
+    private String dia;
 
     public HorarioDto() {
     }
 
-    public HorarioDto(Integer horarioId, Integer estudianteId, Integer materiaId) {
-        this.horarioId = horarioId;
+    public HorarioDto(Integer estudianteId, String codigo, String materia, Time horainicio, Time horafin, String dia) {
         this.estudianteId = estudianteId;
-        this.materiaId = materiaId;
+        this.codigo = codigo;
+        this.materia = materia;
+        this.horainicio = horainicio;
+        this.horafin = horafin;
+        this.dia = dia;
     }
 
-    public Integer getHorarioId() {
-        return horarioId;
+    public Integer getEstudianteId(){return estudianteId;}
+
+    public void setEstudianteId (Integer estudianteId) {this.estudianteId = estudianteId;}
+
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setHorarioId(Integer horarioId) {
-        this.horarioId = horarioId;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public Integer getEstudianteId() {
-        return estudianteId;
+    public String getMateria() {
+        return materia;
     }
 
-    public void setEstudianteId(Integer estudianteId) {this.estudianteId = estudianteId; }
+    public void setMateria(String materia) {this.materia = materia; }
 
-    public Integer getMateriaId() {
-        return materiaId;
+    public Time getHorainicio() {
+        return horainicio;
     }
 
-    public void setMateriaId(Integer materiaId) {this.materiaId = materiaId; }
+    public void setHorainicio(Time horainicio) {this.horainicio = horainicio; }
+
+    public Time getHorafin() {    return horafin;}
+
+    public void setHorafin(Time horafin) {this.horafin = horafin; }
+
+    public String getDia(String dia) {return dia;}
+
+    public void setDia(String dia) {this.dia = dia;}
 
 
     @Override
     public String toString() {
         return "HorarioDto{" +
-                "horario_id=" + horarioId +
-                ", estudiante_id=" + estudianteId +
-                ", materia_id=" + materiaId +
-                '}';
+                "estudiante_id" + estudianteId +
+                ", codigo=" + codigo +
+                ", materia=" + materia +
+                ", horainicio=" + horainicio +
+                ", horafin=" + horafin +
+                ", dia=" + dia +'}';
     }
 }

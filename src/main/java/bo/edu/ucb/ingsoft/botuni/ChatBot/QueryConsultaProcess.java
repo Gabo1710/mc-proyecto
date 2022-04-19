@@ -1,14 +1,11 @@
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
 
 import bo.edu.ucb.ingsoft.botuni.BussinesLogic.ConsultaHorarioBL;
-import bo.edu.ucb.ingsoft.botuni.DTO.ConsultaHorarioDto;
 import bo.edu.ucb.ingsoft.botuni.DTO.HorarioDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,21 +23,16 @@ public class QueryConsultaProcess extends ProcesoAbstracto {
         //this.setUserData(new HashMap<>());
         this.setStatus("STARTED");
     }
-
-    // Retornar un Widget con la información de los permisos solicitados
-//    @Override
-//    public AbstractWidget onInit() {
-//        return null;
-//    }
-
     @Override
     public ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot) {
         Long chatId = update.getMessage().getChatId();
         List<HorarioDto> consultaList = consultaBL.findAllHorario(chatId);
         StringBuffer sb = new StringBuffer();
-        sb.append("Tu Horario es el siguiente " );
-        //sb.append(consultaList.spliterator());
-        sb.append((consultaList));
+        sb.append("Tu Horario es el siguiente: \r\n\n" );
+        //IMPRIMIR HORARIO DE ESTUDIANTE
+       for(HorarioDto horario: (consultaList)){
+           sb.append(horario.toString()).append("\r\n\n");
+       }
         sendStringBuffer(bot, chatId, sb);
         return new ProcesoMenu();
     }
