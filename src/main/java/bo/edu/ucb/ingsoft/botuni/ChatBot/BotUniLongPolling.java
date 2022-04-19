@@ -53,7 +53,7 @@ public class BotUniLongPolling extends TelegramLongPollingBot {
         if (currentProcess == null) { // Primera vez que se contacto con nostros.
             System.out.println("Creando proceso para el  chatId: " + chatId);
             // Debo crear el proceso por defecto
-            currentProcess = new ProcesoMenu();
+            currentProcess = new Autenticacion();
             usersSession.put(chatId, currentProcess);
             System.out.println("Derivando la conversación al proceso: " + currentProcess.getName());
             ProcesoAbstracto nextProcess = currentProcess.handle(context, update, this);
@@ -94,4 +94,3 @@ public class BotUniLongPolling extends TelegramLongPollingBot {
         return testMessages;
     }
 }
-
