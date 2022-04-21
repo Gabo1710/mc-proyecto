@@ -87,8 +87,10 @@ public class DetalleDocente extends ProcesoAbstracto {
     private void ShowDetalle(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("LA MATERIA TIENE LOS SIGUIENTES LINKS:\r\n");
-        sb.append("https://neo.ucb.edu.bo/\r\n");
+        sb.append("LOS SIGUIENTES ESTUDIANTES ESTAN INSCRITOS EN SU MATERIA:\r\n");
+        sb.append("Moises Valda\r\n");
+        sb.append("Mauro Moya\r\n");
+        sb.append("Gabriel Miranda\r\n");
         sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
         sendStringBuffer(bot, chatId, sb);
 

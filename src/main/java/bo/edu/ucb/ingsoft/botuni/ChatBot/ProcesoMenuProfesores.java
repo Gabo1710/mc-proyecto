@@ -37,8 +37,11 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
                     switch (opcion){
                         case 1 : result = context.getBean(QueryConsultaProcess.class) ;
                             break;
-                        case 2 : result = new DetalleProces();
+                        case 2 : result = new DetalleDocente();
                             break;
+                        case 0 : result = new Autenticacion();
+                            break;
+                        
                         default: showMainMenu(bot, chatId);
                     }
                 } catch (NumberFormatException ex) {
@@ -60,7 +63,8 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
         sb.append("-------------MENU PRINCIPAL DOCENTES------------- \r\n");
         sb.append("¿Qué Desea? Por Favor elija una opción:\r\n");
         sb.append("1. Consultar Horario\r\n");
-        sb.append("2. Detalle de materias\r\n");
+        sb.append("2. Detalle de estudiantes y materias\r\n");
+        sb.append("0  Volver\r\n");
 
         sendStringBuffer(bot, chatId, sb);
 

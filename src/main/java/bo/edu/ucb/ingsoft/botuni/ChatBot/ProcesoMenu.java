@@ -45,6 +45,11 @@ public class ProcesoMenu extends ProcesoAbstracto {
 
                         case 4 : result = new SolicitarPermiso();
                             break;
+
+                            case 0 : result = new Autenticacion();
+                            break;
+
+                            
                         default: showMainMenu(bot, chatId);
                     }
                 } catch (NumberFormatException ex) {
@@ -69,7 +74,7 @@ public class ProcesoMenu extends ProcesoAbstracto {
         sb.append("2. Detalle de Materias\r\n");
         sb.append("3. Consultar Deuda\r\n");
         sb.append("4. Solicitar Permiso\r\n");
-
+        sb.append("0. Volver\r\n");
         sendStringBuffer(bot, chatId, sb);
 
         String nombre = "Juan";
