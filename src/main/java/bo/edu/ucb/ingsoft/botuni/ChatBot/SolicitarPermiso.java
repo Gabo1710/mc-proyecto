@@ -56,7 +56,7 @@ public class SolicitarPermiso extends ProcesoAbstracto {
                         case "sis222" :
                             ShowPermiso(bot, chatId);
                             break;
-                        case "0" : result = new ProcesoMenu(); // FIXME
+                        case "0" : result = new ProcesoMenu();
                             break;
                         default: showMainMenu(bot, chatId);
                     }
@@ -72,16 +72,13 @@ public class SolicitarPermiso extends ProcesoAbstracto {
 
     }
 
-
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("*******SOLICITAR PERMISO**********\r\n");
-        sb.append("INGRESE SIGLAS VALIDAS DE SU MATERIA A SOLICITAR PERMISO: Ej: sis111 \r\n");
-        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
+        sb.append("******SOLICITAR PERMISO*****\r\n\n");
+        sb.append("Ingrese siglas válidas de su materia a solicitar permiso: Ej: sis111 \r\n\n");
+        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
         sendStringBuffer(bot, chatId, sb);
-
-
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
@@ -89,10 +86,9 @@ public class SolicitarPermiso extends ProcesoAbstracto {
     private void ShowPermiso(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("Escriba el motivo del permiso:\r\n");
-        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
+        sb.append("Escriba el motivo del permiso:\r\n\n");
+        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
         sendStringBuffer(bot, chatId, sb);
-
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 

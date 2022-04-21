@@ -3,6 +3,7 @@ package bo.edu.ucb.ingsoft.botuni.BussinesLogic;
 import bo.edu.ucb.ingsoft.botuni.DAO.HorarioDao;
 
 import bo.edu.ucb.ingsoft.botuni.DTO.HorarioDto;
+import bo.edu.ucb.ingsoft.botuni.DTO.MateriaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -24,3 +25,4 @@ public class ConsultaHorarioBL {
         return horarioDao.findHorarioByBotChatId(chatId+"");
     }
 }
+

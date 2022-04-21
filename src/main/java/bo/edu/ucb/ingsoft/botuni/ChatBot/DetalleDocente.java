@@ -75,9 +75,9 @@ public class DetalleDocente extends ProcesoAbstracto {
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("DETALLE DE MATERIA BOT UNIVERSIDAD\r\n");
-        sb.append("INGRESE SIGLAS VALIDAS DE SU MATERIA: Ej: sis111 \r\n");
-        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
+        sb.append("DETALLE DE MATERIA - BOT UNIVERSIDAD\r\n\n");
+        sb.append("Ingrese siglas válidas de su materia: Ej: sis111 \r\n");
+        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
         sendStringBuffer(bot, chatId, sb);
 
         this.setStatus("AWAITING_USER_RESPONSE");
@@ -87,11 +87,11 @@ public class DetalleDocente extends ProcesoAbstracto {
     private void ShowDetalle(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("LOS SIGUIENTES ESTUDIANTES ESTAN INSCRITOS EN SU MATERIA:\r\n");
+        sb.append("Los siguientes estudiantes están inscritos en su materia:\r\n\n");
         sb.append("Moises Valda\r\n");
         sb.append("Mauro Moya\r\n");
-        sb.append("Gabriel Miranda\r\n");
-        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
+        sb.append("Gabriel Miranda\r\n\n");
+        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
         sendStringBuffer(bot, chatId, sb);
 
         this.setStatus("AWAITING_USER_RESPONSE");

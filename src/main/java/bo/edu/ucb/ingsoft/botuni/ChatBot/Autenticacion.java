@@ -8,20 +8,13 @@ import java.util.HashMap;
 public class Autenticacion extends ProcesoAbstracto {
 
     public Autenticacion() {
-        this.setName("Autenticacion");
+        this.setName("Autenticación");
         this.setDefault(true);
-        this.setExpires(false);
+        this.setExpires(true);
         this.setStartDate(System.currentTimeMillis()/1000);
         this.setUserData(new HashMap<>());
         this.setStatus("STARTED");
     }
-
-    // Retornar un Widget de tipo menu
-//    @Override
-//    public AbstractWidget onInit() {
-//        MenuWidgetImpl menuWidget = new MenuWidgetImpl(messages);
-//        return menuWidget;
-//    }
 
 
     @Override
@@ -44,12 +37,6 @@ public class Autenticacion extends ProcesoAbstracto {
             if((ci==1)){
                 result = new ProcesoMenuProfesores();
             }
-
-
-
-
-
-
         }
         return result;
 

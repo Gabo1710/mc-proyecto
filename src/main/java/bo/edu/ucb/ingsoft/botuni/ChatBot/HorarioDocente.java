@@ -1,13 +1,15 @@
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
+
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.HashMap;
 
-public class ProcesoMenu extends ProcesoAbstracto {
 
-    public ProcesoMenu() {
+public class HorarioDocente extends ProcesoAbstracto {
+
+    public HorarioDocente() {
         this.setName("Menú principal");
         this.setDefault(true);
         this.setExpires(false);
@@ -21,6 +23,7 @@ public class ProcesoMenu extends ProcesoAbstracto {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
         Long chatId = update.getMessage().getChatId();
         //768564158
+        StringBuffer sb = new StringBuffer();
 
         if (this.getStatus().equals("STARTED"))  {
 
@@ -32,24 +35,21 @@ public class ProcesoMenu extends ProcesoAbstracto {
             if ( message.hasText() ) {
                 // Intentamos transformar en número
                 String text = message.getText(); // El texto contiene asdasdas
+                System.out.println(text);
                 try {
-                    int opcion = Integer.parseInt(text);
-                    switch (opcion){
-                        case 1 : result = context.getBean(QueryConsultaProcess.class) ;
-                            break;
-                        case 2 : result = new DetalleProces();
-                            break;
 
-                        case 3 : result = new DetalleDeuda();
-                            break;
+                    switch (text){
+                        case "sis111" :
 
-                        case 4 : result = new SolicitarPermiso();
+                            ShowDetalle(bot, chatId);
                             break;
-
-                            case 0 : result = new Autenticacion();
+                        case "sis222" :
+                            ShowDetalle2(bot, chatId);
                             break;
-
-                            
+                        case "0" : result = new ProcesoMenuProfesores();
+                            break;
+                        case "1" : result = new HorarioDocente();
+                            break;
                         default: showMainMenu(bot, chatId);
                     }
                 } catch (NumberFormatException ex) {
@@ -61,25 +61,45 @@ public class ProcesoMenu extends ProcesoAbstracto {
             }
         }
         return result;
-
     }
-
 
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("MENU PRINCIPAL - BOT UNIVERSIDAD\r\n\n");
-        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
-        sb.append("1. Consultar Horario\r\n");
-        sb.append("2. Detalle de Materias\r\n");
-        sb.append("3. Consultar Deuda\r\n");
-        sb.append("4. Solicitar Permiso\r\n");
-        sb.append("0. Volver\r\n");
+        sb.append("HORARIO DOCENTE - BOT UNIVERSIDAD\r\n\n");
+        sb.append("Ingrese siglas válidas de su materia:\r\n\n");// ejemplo sis111 o sis222
+        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
         sendStringBuffer(bot, chatId, sb);
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
 
+    private void ShowDetalle(BotUniLongPolling bot, Long chatId) {
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("Su horario es el siguiente:\r\n\n");
+        sb.append("Materia: Análisis de Algoritmos\r\n\n");
+        sb.append("Lunes: 11:00-12:30 - Aula D9\r\n");
+        sb.append("Viernes: 11:00-12:30 - Aula D18\r\n\n");
+        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
+        sb.append("Ingrese 1 para consultar otra materia\r\n");
+        sendStringBuffer(bot, chatId, sb);
+
+        this.setStatus("AWAITING_USER_RESPONSE");
+    }
+    private void ShowDetalle2(BotUniLongPolling bot, Long chatId) {
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("Su horario es el siguiente:\r\n\n");
+        sb.append("Materia: Ingeniería del Software\r\n\n");
+        sb.append("Martes: 13:30-15:15 - Aula C003\r\n");
+        sb.append("Jueves: 18:45-21:15 - Aula C105\r\n\n");
+        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
+        sb.append("Ingrese 1 para consultar otra materia\r\n");
+        sendStringBuffer(bot, chatId, sb);
+
+        this.setStatus("AWAITING_USER_RESPONSE");
+    }
 
     @Override
     public ProcesoAbstracto onError() {

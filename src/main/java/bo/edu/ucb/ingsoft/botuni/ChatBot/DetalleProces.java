@@ -58,21 +58,15 @@ public class DetalleProces extends ProcesoAbstracto {
             }
         }
         return result;
-
     }
-
 
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("DETALLE DE MATERIA BOT UNIVERSIDAD\r\n");
-        sb.append("INGRESE SIGLAS VALIDAS DE SU MATERIA:\r\n");
-        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
+        sb.append("DETALLE DE MATERIA - BOT UNIVERSIDAD\r\n\n");
+        sb.append("Ingrese siglas válidas de su materia:\r\n");// ejemplo sis111
+        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
         sendStringBuffer(bot, chatId, sb);
-
-        // String nombre = "Juan";
-        // String apellido = "Perez";
-        //String nombreCompleto = nombre + " " + apellido;
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
@@ -80,9 +74,9 @@ public class DetalleProces extends ProcesoAbstracto {
     private void ShowDetalle(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("LA MATERIA TIENE LOS SIGUIENTES LINKS:\r\n");
+        sb.append("La materia tiene los siguientes Links:\r\n\n");
         sb.append("https://neo.ucb.edu.bo/\r\n\n");
-        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
+        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
         sendStringBuffer(bot, chatId, sb);
 
         this.setStatus("AWAITING_USER_RESPONSE");

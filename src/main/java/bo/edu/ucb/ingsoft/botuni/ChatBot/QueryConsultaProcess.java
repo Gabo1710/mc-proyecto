@@ -29,6 +29,7 @@ public class QueryConsultaProcess extends ProcesoAbstracto {
         List<HorarioDto> consultaList = consultaBL.findAllHorario(chatId);
         StringBuffer sb = new StringBuffer();
         sb.append("Tu Horario es el siguiente: \r\n\n" );
+        sb.append("Usted pasa: \n" ).append(consultaList.size()).append(" clases en la semana \r\n\n");
         //IMPRIMIR HORARIO DE ESTUDIANTE
        for(HorarioDto horario: (consultaList)){
            sb.append(horario.toString()).append("\r\n\n");
@@ -50,10 +51,6 @@ public class QueryConsultaProcess extends ProcesoAbstracto {
         sb.append("4. Solicitar Permiso\r\n");
 
         sendStringBuffer(bot, chatId, sb);
-
-        String nombre = "Juan";
-        String apellido = "Perez";
-        String nombreCompleto = nombre + " " + apellido;
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 

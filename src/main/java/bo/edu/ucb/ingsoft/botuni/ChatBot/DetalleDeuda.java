@@ -53,7 +53,7 @@ public class DetalleDeuda extends ProcesoAbstracto {
                         case "1" :
                             ShowDetalle(bot, chatId);
                             break;
-                        case "0" : result = new ProcesoMenu(); // FIXME
+                        case "0" : result = new ProcesoMenu();
                             break;
                         default: showMainMenu(bot, chatId);
                     }
@@ -72,9 +72,9 @@ public class DetalleDeuda extends ProcesoAbstracto {
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("-----DETALLE DE DEUDA----------\r\n");
-        sb.append("1) Para consultar deuda actual \r\n");
-        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
+        sb.append("---DETALLE DE DEUDA---\r\n\n");
+        sb.append("1. Para consultar deuda actual \r\n");
+        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
         sendStringBuffer(bot, chatId, sb);
         this.setStatus("AWAITING_USER_RESPONSE");
     }
@@ -83,13 +83,14 @@ public class DetalleDeuda extends ProcesoAbstracto {
     private void ShowDetalle(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("USTED TIENE LA SIGUIENTE DEUDA:\r\n");
+        sb.append("Uste tiene la siguiente deuda:\r\n\n");
         sb.append("1-2022 | 1ra cuota | 3240 bs:\r\n");
         sb.append("2-2022 | 2da cuota | 3240 bs:\r\n");
         sb.append("1-2022 | 3ra cuota | 3240 bs:\r\n");
         sb.append("1-2022 | 4ta cuota | 3240 bs:\r\n");
         sb.append("1-2022 | 5ta cuota | 3240 bs:\r\n");
-        sb.append("Total------------> | 16200 bs:\r\n");
+        sb.append("Total------------> | 16200 bs:\r\n\n");
+        sb.append("Ingrese cualquier tecla para continuar \r\n\n" );
 
         sendStringBuffer(bot, chatId, sb);
 

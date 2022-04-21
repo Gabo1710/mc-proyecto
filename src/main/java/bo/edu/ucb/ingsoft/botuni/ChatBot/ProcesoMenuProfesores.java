@@ -35,7 +35,7 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
                 try {
                     int opcion = Integer.parseInt(text);
                     switch (opcion){
-                        case 1 : result = context.getBean(QueryConsultaProcess.class) ;
+                        case 1 : result = new HorarioDocente() ;
                             break;
                         case 2 : result = new DetalleDocente();
                             break;
@@ -59,12 +59,11 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("*********BOT UCB**********\r\n");
-        sb.append("-------------MENU PRINCIPAL DOCENTES------------- \r\n");
-        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n");
+        sb.append("---MENÚ PRINCIPAL DOCENTES--- \r\n\n");
+        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
         sb.append("1. Consultar Horario\r\n");
         sb.append("2. Detalle de estudiantes y materias\r\n");
-        sb.append("0  Volver\r\n");
+        sb.append("0. Volver\r\n");
 
         sendStringBuffer(bot, chatId, sb);
 

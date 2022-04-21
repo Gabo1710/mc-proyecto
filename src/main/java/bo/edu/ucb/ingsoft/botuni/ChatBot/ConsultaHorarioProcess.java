@@ -16,12 +16,6 @@ public class ConsultaHorarioProcess extends ProcesoAbstracto {
     }
 
 
-    // Retornar un Widget Solicitando Fecha Inicio
-//    @Override
-//    public AbstractWidget onInit() {
-//        return null;
-//    }
-
     @Override
     public ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot) {
         Long chatId = update.getMessage().getChatId();
@@ -39,8 +33,6 @@ public class ConsultaHorarioProcess extends ProcesoAbstracto {
             throw new RuntimeException(ex);
         }
         return new ProcesoMenu();
-
-
     }
 
     @Override
