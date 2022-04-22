@@ -1,14 +1,16 @@
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
+
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
-public class ProcesoMenuProfesores extends ProcesoAbstracto {
+public class DetalleDocenteHorario extends ProcesoAbstracto {
 
-    public ProcesoMenuProfesores() {
-        this.setName("Menú principal DOCENTES");
+    public DetalleDocenteHorario() {
+        this.setName("Menú principal");
         this.setDefault(true);
         this.setExpires(false);
         this.setStartDate(System.currentTimeMillis()/1000);
@@ -21,27 +23,25 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
         Long chatId = update.getMessage().getChatId();
         //768564158
+        StringBuffer sb = new StringBuffer();
 
         if (this.getStatus().equals("STARTED"))  {
 
             showMainMenu(bot, chatId);
         } else if (this.getStatus().equals("AWAITING_USER_RESPONSE")) {
-            // Estamos esperando por una opción
+            // Estamos esperando por un numero 1 o 2
 
             Message message = update.getMessage();
             if ( message.hasText() ) {
                 // Intentamos transformar en número
                 String text = message.getText(); // El texto contiene asdasdas
+                System.out.println(text);
                 try {
-                    int opcion = Integer.parseInt(text);
-                    switch (opcion){
-                        case 1 : result = new DetalleDocenteHorario() ;
+
+                    switch (text){
+
+                        case "0" : result = new ProcesoMenuProfesores(); // FIXME
                             break;
-                        case 2 : result = new DetalleDocente();
-                            break;
-                        case 0 : result = new Autenticacion();
-                            break;
-                        
                         default: showMainMenu(bot, chatId);
                     }
                 } catch (NumberFormatException ex) {
@@ -57,15 +57,23 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
     }
 
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
+        Calendar fecha = Calendar.getInstance();
+        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+        int minuto = fecha.get(Calendar.MINUTE);
+        int segundo = fecha.get(Calendar.SECOND);
+
+        // Dias de la semana
+        String DIA[] = {"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
+
+        Calendar calendario = Calendar.getInstance();
+
 
         StringBuffer sb = new StringBuffer();
-        sb.append("*********BOT UCB**********\r\n");
-        sb.append("-------------MENU PRINCIPAL DOCENTES------------- \r\n");
-        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n");
-        sb.append("1. Consultar Horario\r\n");
-        sb.append("2. Detalle de estudiantes y materias\r\n");
-        sb.append("0  Volver\r\n");
-
+        sb.append("BOT UNIVERSIDAD\r\n");
+        sb.append("Tiene Clases hoy "+DIA[calendario.get(Calendar.DAY_OF_WEEK) - 1]+ " a partir de horas " +hora+":"+minuto+" las siguientes materias \r\n");
+        sb.append("Sistemas Operativos---21:00--Paralelo 2--->Aula D2\r\n");
+        sb.append("INGENIERIA DEL SOFTWARE---22:00--Paralelo 1--->Aula D10\r\n");
+        sb.append("INGRESE 0 PARA VOLVER AL MENU PRINCIPAL\r\n");
         sendStringBuffer(bot, chatId, sb);
 
         this.setStatus("AWAITING_USER_RESPONSE");
