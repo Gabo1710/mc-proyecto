@@ -35,7 +35,7 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
                 try {
                     int opcion = Integer.parseInt(text);
                     switch (opcion){
-                        case 1 : result = new DetalleDocenteHorario() ;
+                        case 1 : result = new HorarioDocente() ;
                             break;
                         case 2 : result = new DetalleDocente();
                             break;
