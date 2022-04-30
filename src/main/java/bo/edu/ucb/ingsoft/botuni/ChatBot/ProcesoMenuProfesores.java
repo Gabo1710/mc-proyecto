@@ -35,9 +35,9 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
                 try {
                     int opcion = Integer.parseInt(text);
                     switch (opcion){
-                        case 1 : result = new HorarioDocente() ;
+                        case 1 : result = context.getBean(QueryHorarioDocente.class) ;
                             break;
-                        case 2 : result = new DetalleDocente();
+                        case 2 : result = context.getBean(QueryListaDocente.class);
                             break;
                         case 0 : result = new Autenticacion();
                             break;
