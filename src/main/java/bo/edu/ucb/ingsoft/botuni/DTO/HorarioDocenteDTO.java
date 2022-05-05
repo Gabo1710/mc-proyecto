@@ -11,11 +11,12 @@ public class HorarioDocenteDTO {
     private Time horafin;
     private String aula;
     private String paralelo;
+    private String dia;
 
     public HorarioDocenteDTO() {
     }
 
-    public HorarioDocenteDTO(Integer id, String siglas, String materia, Time horainicio, Time horafin, String aula, String paralelo) {
+    public HorarioDocenteDTO(Integer id, String siglas, String materia, Time horainicio, Time horafin, String aula, String paralelo, String dia) {
         this.id = id;
         this.siglas = siglas;
         this.materia = materia;
@@ -23,6 +24,7 @@ public class HorarioDocenteDTO {
         this.horafin = horafin;
         this.aula = aula;
         this.paralelo = paralelo;
+        this.dia = dia;
     }
 
     public Integer getId() {
@@ -81,6 +83,14 @@ public class HorarioDocenteDTO {
         this.paralelo = paralelo;
     }
 
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
     @Override
     public String toString() {
         return "HorarioDocenteDTO{" +
@@ -91,6 +101,7 @@ public class HorarioDocenteDTO {
                 ", horafin=" + horafin +
                 ", aula='" + aula + '\'' +
                 ", paralelo='" + paralelo + '\'' +
+                ", dia='" + dia + '\'' +
                 '}';
     }
 }

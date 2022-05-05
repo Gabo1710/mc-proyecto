@@ -1,4 +1,5 @@
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
+import org.jruby.RubyProcess;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -32,14 +33,17 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
             if ( message.hasText() ) {
                 // Intentamos transformar en número
                 String text = message.getText(); // El texto contiene asdasdas
+                //System.out.println("TEXT ES = "+ text);
                 try {
-                    int opcion = Integer.parseInt(text);
-                    switch (opcion){
-                        case 1 : result = context.getBean(QueryHorarioDocente.class) ;
+                    //int opcion = Integer.parseInt(text);
+                    //System.out.println("USTED INGRESÓ LA OPCIÓN "+text);
+
+                    switch (text){
+                        case "a" : result = context.getBean(QueryHorarioDocente.class) ;
                             break;
-                        case 2 : result = context.getBean(QueryListaDocente.class);
+                        case "b" : result = context.getBean(QueryListaDocente.class);
                             break;
-                        case 0 : result = new Autenticacion();
+                        case "0" : result = new Autenticacion();
                             break;
                         
                         default: showMainMenu(bot, chatId);
@@ -59,12 +63,12 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("*********BOT UCB**********\r\n");
-        sb.append("-------------MENU PRINCIPAL DOCENTES------------- \r\n");
-        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n");
-        sb.append("1. Consultar Horario\r\n");
-        sb.append("2. Detalle de estudiantes y materias\r\n");
-        sb.append("0  Volver\r\n");
+        sb.append("BOT - UNIVERSIDAD\r\n\n");
+        sb.append("-----MENÚ DOCENTES-----\r\n\n");
+        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
+        sb.append("a. Consultar Horario\r\n");
+        sb.append("b. Detalle de estudiantes y materias\r\n");
+        sb.append("0. Volver\r\n");
 
         sendStringBuffer(bot, chatId, sb);
 

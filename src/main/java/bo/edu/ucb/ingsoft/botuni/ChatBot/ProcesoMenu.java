@@ -27,26 +27,24 @@ public class ProcesoMenu extends ProcesoAbstracto {
             showMainMenu(bot, chatId);
         } else if (this.getStatus().equals("AWAITING_USER_RESPONSE")) {
             // Estamos esperando por una opción
-
             Message message = update.getMessage();
             if ( message.hasText() ) {
                 // Intentamos transformar en número
                 String text = message.getText(); // El texto contiene asdasdas
                 try {
-                    int opcion = Integer.parseInt(text);
-                    switch (opcion){
-                        case 1 : result = context.getBean(QueryConsultaProcess.class) ;
+                    switch (text){
+                        case "a" : result = context.getBean(QueryConsultaProcess.class) ;
                             break;
-                        case 2 : result = new DetalleProces();
-                            break;
-
-                        case 3 : result = new DetalleDeuda();
+                        case "b" : result = new DetalleProces();
                             break;
 
-                        case 4 : result = new SolicitarPermiso();
+                        case "c" : result = new DetalleDeuda();
                             break;
 
-                            case 0 : result = new Autenticacion();
+                        case "d" : result = new SolicitarPermiso();
+                            break;
+
+                            case "0" : result = new Autenticacion();
                             break;
 
                             
@@ -60,6 +58,7 @@ public class ProcesoMenu extends ProcesoAbstracto {
                 showMainMenu(bot, chatId);
             }
         }
+
         return result;
 
     }
@@ -68,12 +67,13 @@ public class ProcesoMenu extends ProcesoAbstracto {
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("MENU PRINCIPAL - BOT UNIVERSIDAD\r\n\n");
+        sb.append("BOT - UNIVERSIDAD\r\n\n");
+        sb.append("---MENÚ ESTUDIANTES---\r\n\n");
         sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
-        sb.append("1. Consultar Horario\r\n");
-        sb.append("2. Detalle de Materias\r\n");
-        sb.append("3. Consultar Deuda\r\n");
-        sb.append("4. Solicitar Permiso\r\n");
+        sb.append("a. Consultar Horario\r\n");
+        sb.append("b. Detalle de Materias\r\n");
+        sb.append("c. Consultar Deuda\r\n");
+        sb.append("d. Solicitar Permiso\r\n");
         sb.append("0. Volver\r\n");
         sendStringBuffer(bot, chatId, sb);
         this.setStatus("AWAITING_USER_RESPONSE");

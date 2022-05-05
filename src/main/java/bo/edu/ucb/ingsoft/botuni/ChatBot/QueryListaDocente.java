@@ -34,12 +34,13 @@ public class QueryListaDocente extends ProcesoAbstracto {
         Long chatId = update.getMessage().getChatId();
         List<ListaEstudianteDTO> lista = ListaBL.findListaEstudianteByBotChatId(chatId);
         StringBuffer sb = new StringBuffer();
-        sb.append("Usted tiene: \n" ).append(lista.size()).append(" alumnos en esta materia \r\n\n");
+        sb.append("Usted tiene: \r\n" ).append(lista.size()).append(" alumnos en esta materia \r\n\n");
         sb.append("La lista de Alumnos es la siguiente: \r\n\n" );
+        sb.append("      Apellidos           Nombres            Ci \n\n" );
         for(ListaEstudianteDTO horario: (lista)){
-            sb.append(horario.toString()).append("\r\n\n");
+            sb.append(horario.getApellidos()).append("   ").append(horario.getNombres()).append("   ").append(horario.getCi()).append("\n\n\n");
         }
-        sb.append("Ingrese cualquier tecla para continuar \r\n\n" );
+        sb.append("**Ingrese cualquier tecla para continuar** \r\n\n" );
 
         sendStringBuffer(bot, chatId, sb);
         return new ProcesoMenuProfesores();

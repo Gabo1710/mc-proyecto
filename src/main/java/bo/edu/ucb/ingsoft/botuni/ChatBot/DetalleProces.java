@@ -45,7 +45,7 @@ public class DetalleProces extends ProcesoAbstracto {
                         case "sis222" :
                             ShowDetalle(bot, chatId);
                             break;
-                        case "0" : result = new ProcesoMenu(); // FIXME
+                        case "0" : result = new ProcesoMenu();
                             break;
                         default: showMainMenu(bot, chatId);
                     }

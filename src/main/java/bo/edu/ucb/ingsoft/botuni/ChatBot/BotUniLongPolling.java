@@ -32,15 +32,24 @@ public class BotUniLongPolling extends TelegramLongPollingBot {
         usersSession = new HashMap<Long, ProcesoAbstracto>();
     }
 
-    @Override
-    public String getBotUsername() {
-        return "ucb_uni_bot";
-    }
+    //@Override
+    //public String getBotUsername() {
+     //   return "demo_ucb_bot";
+    //}TODO BOT DEMO
 
-    @Override
+    //@Override
+    //public String getBotToken() {
+    //  return "5182243986:AAHFVYdPl67M0aLQLDIuTEjnnq0s47hsXUQ";
+    //} TODO BOT DEMO
+
+    public String getBotUsername() {
+       return "ucb_uni_bot";
+    }//TODO BOT OFICIAL
+
+
     public String getBotToken() {
         return "5330759754:AAEV8WiCCmFs22tPrdDHY4pOCzwVEjWpzbo";
-    }
+    } //TODO BOT OFICIAL
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -49,14 +58,15 @@ public class BotUniLongPolling extends TelegramLongPollingBot {
         System.out.println("\n\n===========> Recibiendo chatId: " + chatId);
         // Busco si ya existe Proceso en el map userSession
         ProcesoAbstracto currentProcess = usersSession.get(chatId);
-
+        //currentProcess = new Autenticacion();
         if (currentProcess == null) { // Primera vez que se contacto con nostros.
             System.out.println("Creando proceso para el  chatId: " + chatId);
             // Debo crear el proceso por defecto
-            currentProcess = new Autenticacion();
-            usersSession.put(chatId, currentProcess);
-            System.out.println("Derivando la conversación al proceso: " + currentProcess.getName());
-            ProcesoAbstracto nextProcess = currentProcess.handle(context, update, this);
+
+                usersSession.put(chatId, currentProcess);
+                currentProcess = new Autenticacion();
+                System.out.println("Derivando la conversación al proceso: " + currentProcess.getName());
+                ProcesoAbstracto nextProcess = currentProcess.handle(context, update, this);
 
             if (!nextProcess.equals(currentProcess)) { // Si el siguiente proceso es diferente lo iniciamos
                 System.out.println("Iniciando siguiente proceso: " + nextProcess.getName());

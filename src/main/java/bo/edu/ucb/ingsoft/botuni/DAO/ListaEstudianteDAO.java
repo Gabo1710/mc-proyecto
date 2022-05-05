@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 public interface ListaEstudianteDAO {
-    @Select("SELECT a.apellidos as apellidos, a.nombres as nombres, a.ci as Carnet " +
+    @Select("SELECT a.apellidos as apellidos, a.nombres as nombres, a.ci " +
             "FROM estudiante a " +
             "   JOIN materia_detalle_estudiante e ON (a.estudiante_id = e.estudiante_id) " +
             "   JOIN materia_detalle b ON (b.materia_detalle_id = e. materia_detalle_id) " +
@@ -18,7 +18,8 @@ public interface ListaEstudianteDAO {
             "   JOIN materia d ON (b.materia_id = d.materia_id) " +
             "WHERE " +
             " c.bot_chat_id = #{id} " +
-            "GROUP BY a.apellidos, a.nombres, a.ci " )
+            "GROUP BY a.apellidos, a.nombres, a.ci " +
+            "ORDER BY a.apellidos" )
     List<ListaEstudianteDTO> findListaEstudianteByBotChatId(@Param("id")String botchatId);
 }
 

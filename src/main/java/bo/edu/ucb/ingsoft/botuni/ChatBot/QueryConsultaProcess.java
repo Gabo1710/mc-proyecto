@@ -29,33 +29,20 @@ public class QueryConsultaProcess extends ProcesoAbstracto {
     }
     @Override
     public ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot) {
+
         Long chatId = update.getMessage().getChatId();
         List<HorarioEstudianteDTO> consultaList = consultaBL.findHorarioEstudianteByBotChatId(chatId);
         StringBuffer sb = new StringBuffer();
         sb.append("Tu Horario es el siguiente: \r\n\n" );
-        sb.append("Usted pasa: \n" ).append(consultaList.size()).append(" clases en la semana \r\n\n");
+        sb.append("Pasas: " ).append(consultaList.size()).append(" clases en la semana \r\n\n");
         //IMPRIMIR HORARIO DE ESTUDIANTE
        for(HorarioEstudianteDTO horario: (consultaList)){
-           sb.append(horario.toString()).append("\r\n\n");
+           sb.append("Día: ").append(horario.getDia()).append(" \nMateria: ").append(horario.getMateria()).append(" Paralelo: ").append(horario.getParalelo()).append("               Aula: ").append(horario.getAula()).append(" \nInicio: ").append(horario.getHorainicio()).append("        Fin: ").append(horario.getHorafin()).append("\r\n\n");
        }
-        sb.append("Ingrese cualquier tecla para continuar \r\n\n" );
-
+        sb.append("**Ingrese cualquier tecla para continuar**\r\n\n" );
         sendStringBuffer(bot, chatId, sb);
         return new ProcesoMenu();
 
-    }
-    private void showMainMenu(BotUniLongPolling bot, Long chatId) {
-
-        StringBuffer sb = new StringBuffer();
-        sb.append("MENU PRINCIPAL - BOT UNIVERSIDAD\r\n\n");
-        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
-        sb.append("1. Consultar Horario\r\n");
-        sb.append("2. Detalle de Materias\r\n");
-        sb.append("3. Consultar Deuda\r\n");
-        sb.append("4. Solicitar Permiso\r\n");
-
-        sendStringBuffer(bot, chatId, sb);
-        this.setStatus("AWAITING_USER_RESPONSE");
     }
 
     @Override
