@@ -35,7 +35,7 @@ public class ProcesoMenu extends ProcesoAbstracto {
                     switch (text){
                         case "a" : result = context.getBean(QueryConsultaProcess.class) ;
                             break;
-                        case "b" : result = new DetalleProces();
+                        case "b" : result =  context.getBean(QueryDetalleProces.class);
                             break;
 
                         case "c" : result = new DetalleDeuda();
