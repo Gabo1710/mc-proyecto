@@ -1,12 +1,12 @@
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
 
 import bo.edu.ucb.ingsoft.botuni.BussinesLogic.ConsultaListaBL;
-import bo.edu.ucb.ingsoft.botuni.DTO.HorarioEstudianteDTO;
+
 import bo.edu.ucb.ingsoft.botuni.DTO.ListaEstudianteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.Message;
+
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.HashMap;
@@ -18,8 +18,8 @@ public class QueryListaDocente extends ProcesoAbstracto {
     ConsultaListaBL ListaBL;
 
     @Autowired
-    public QueryListaDocente(ConsultaListaBL ConsultaListaBL) {
-        this.ListaBL = ConsultaListaBL;
+    public QueryListaDocente() {
+
         this.setName("Listado de Alumnos");
         this.setDefault(false);
         this.setExpires(false);

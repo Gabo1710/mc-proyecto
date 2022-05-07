@@ -46,8 +46,10 @@ public class Autenticacion extends ProcesoAbstracto {
     private int AutCi(BotUniLongPolling bot, Long chatId,  Update update) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("AUTENTICACIÓN - BOT UNIVERSIDAD\r\n\n");
-        sb.append("Para comprobar su identidad, Ingrese su Ci:\r\n\n");
+        sb.append("AUTENTICACIÓN-AUTOMÁTICA - BOT UNIVERSIDAD\r\n\n");
+        sb.append("*Recuerde conectarse desde la cuenta de Telegram registrada\r\n\n");
+        sb.append("1. Para Estudiantes:\r\n\n");
+        sb.append("2. Para Docentes:\r\n\n");
         int x=0;
         Message message = update.getMessage();
         sendStringBuffer(bot, chatId, sb);
@@ -55,10 +57,10 @@ public class Autenticacion extends ProcesoAbstracto {
             // Intentamos transformar en número
             String text = message.getText(); // El texto contiene asdasdas
             //Menú para Profesores
-            if(text.equals("123")){
+            if(text.equals("2")){
                 x= 1;}
             //Menú para Estudiantes
-            if(text.equals("321")){
+            if(text.equals("1")){
                 x= 2;
             }
         }

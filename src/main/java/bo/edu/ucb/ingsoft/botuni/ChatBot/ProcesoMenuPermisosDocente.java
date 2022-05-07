@@ -1,15 +1,14 @@
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
-import org.jruby.RubyProcess;
-import org.springframework.context.ApplicationContext;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
+        import org.springframework.context.ApplicationContext;
+        import org.telegram.telegrambots.meta.api.objects.Message;
+        import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.HashMap;
+        import java.util.HashMap;
 
-public class ProcesoMenuProfesores extends ProcesoAbstracto {
+public class ProcesoMenuPermisosDocente extends ProcesoAbstracto {
 
-    public ProcesoMenuProfesores() {
-        this.setName("Menú principal DOCENTES");
+    public ProcesoMenuPermisosDocente() {
+        this.setName("Menú principal");
         this.setDefault(true);
         this.setExpires(false);
         this.setStartDate(System.currentTimeMillis()/1000);
@@ -28,26 +27,21 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
             showMainMenu(bot, chatId);
         } else if (this.getStatus().equals("AWAITING_USER_RESPONSE")) {
             // Estamos esperando por una opción
-
             Message message = update.getMessage();
             if ( message.hasText() ) {
                 // Intentamos transformar en número
                 String text = message.getText(); // El texto contiene asdasdas
-                //System.out.println("TEXT ES = "+ text);
                 try {
-                    //int opcion = Integer.parseInt(text);
-                    //System.out.println("USTED INGRESÓ LA OPCIÓN "+text);
-
                     switch (text){
-                        case "a" : result = context.getBean(QueryHorarioDocente.class) ;
+                        case "a" : result = context.getBean(PermisoDocente.class);
                             break;
-                        case "b" : result = context.getBean(QueryListaDocente.class);
+                        case "b" : result =  context.getBean(QueryDetalleProces.class);
                             break;
-                        case "c" : result = new ProcesoMenuPermisosDocente();
+
+                         case "0" : result = new Autenticacion();
                             break;
-                       case "0" : result = new Autenticacion();
-                            break;
-                        
+
+
                         default: showMainMenu(bot, chatId);
                     }
                 } catch (NumberFormatException ex) {
@@ -58,23 +52,21 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
                 showMainMenu(bot, chatId);
             }
         }
+
         return result;
 
     }
+
 
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
         sb.append("BOT - UNIVERSIDAD\r\n\n");
-        sb.append("-----MENÚ DOCENTES-----\r\n\n");
+        sb.append("---MENÚ PERMISO ESTUDIANTES---\r\n\n");
         sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
-        sb.append("a. Consultar Horario\r\n");
-        sb.append("b. Detalle de estudiantes y materias\r\n");
-        sb.append("c. Permisos Solicitados\r\n");
+        sb.append("a. Consultar permisos\r\n");
         sb.append("0. Volver\r\n");
-
         sendStringBuffer(bot, chatId, sb);
-
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 

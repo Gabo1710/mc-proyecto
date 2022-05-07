@@ -1,27 +1,16 @@
 
+
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
-
         import org.springframework.context.ApplicationContext;
         import org.telegram.telegrambots.meta.api.objects.Message;
         import org.telegram.telegrambots.meta.api.objects.Update;
 
         import java.util.HashMap;
 
+public class ProcesoMenuPermisos extends ProcesoAbstracto {
 
-
-
-
-
-        import org.springframework.context.ApplicationContext;
-        import org.telegram.telegrambots.meta.api.objects.Message;
-        import org.telegram.telegrambots.meta.api.objects.Update;
-
-        import java.util.HashMap;
-
-public class SolicitarPermiso extends ProcesoAbstracto {
-
-    public SolicitarPermiso() {
-        this.setName("Solicitar Permiso");
+    public ProcesoMenuPermisos() {
+        this.setName("Menú principal");
         this.setDefault(true);
         this.setExpires(false);
         this.setStartDate(System.currentTimeMillis()/1000);
@@ -34,30 +23,33 @@ public class SolicitarPermiso extends ProcesoAbstracto {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
         Long chatId = update.getMessage().getChatId();
         //768564158
-        StringBuffer sb = new StringBuffer();
 
         if (this.getStatus().equals("STARTED"))  {
 
             showMainMenu(bot, chatId);
         } else if (this.getStatus().equals("AWAITING_USER_RESPONSE")) {
-            // Estamos esperando por alguna opción
-
+            // Estamos esperando por una opción
             Message message = update.getMessage();
             if ( message.hasText() ) {
                 // Intentamos transformar en número
                 String text = message.getText(); // El texto contiene asdasdas
-                System.out.println(text);
                 try {
-
                     switch (text){
-                        case "sis111" :
-                            ShowPermiso(bot, chatId);
+                        case "a" : result = context.getBean(QueryPermisoEstudiante.class);
                             break;
-                        case "sis222" :
-                            ShowPermiso(bot, chatId);
+                        case "b" : result =  context.getBean(QueryDetalleProces.class);
                             break;
-                        case "0" : result = new ProcesoMenu();
+
+                        case "c" : result = new DetalleDeuda();
                             break;
+
+                        case "d" : result = context.getBean(QueryPermisoEstudiante.class);
+                            break;
+
+                        case "0" : result = new Autenticacion();
+                            break;
+
+
                         default: showMainMenu(bot, chatId);
                     }
                 } catch (NumberFormatException ex) {
@@ -68,29 +60,25 @@ public class SolicitarPermiso extends ProcesoAbstracto {
                 showMainMenu(bot, chatId);
             }
         }
+
         return result;
 
     }
 
+
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("******SOLICITAR PERMISO*****\r\n\n");
-        sb.append("Ingrese siglas válidas de su materia a solicitar permiso: Ej: sis111 \r\n\n");
-        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
+        sb.append("BOT - UNIVERSIDAD\r\n\n");
+        sb.append("---MENÚ PERMISO ESTUDIANTES---\r\n\n");
+        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
+        sb.append("a. Consultar permisos\r\n");
+        sb.append("0. Volver\r\n");
         sendStringBuffer(bot, chatId, sb);
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
 
-    private void ShowPermiso(BotUniLongPolling bot, Long chatId) {
-
-        StringBuffer sb = new StringBuffer();
-        sb.append("Escriba el motivo del permiso:\r\n\n");
-        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
-        sendStringBuffer(bot, chatId, sb);
-        this.setStatus("AWAITING_USER_RESPONSE");
-    }
 
     @Override
     public ProcesoAbstracto onError() {

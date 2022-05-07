@@ -41,7 +41,7 @@ public class ProcesoMenu extends ProcesoAbstracto {
                         case "c" : result = new DetalleDeuda();
                             break;
 
-                        case "d" : result = new SolicitarPermiso();
+                        case "d" : result = new ProcesoMenuPermisos();
                             break;
 
                             case "0" : result = new Autenticacion();
@@ -73,7 +73,7 @@ public class ProcesoMenu extends ProcesoAbstracto {
         sb.append("a. Consultar Horario\r\n");
         sb.append("b. Detalle de Materias\r\n");
         sb.append("c. Consultar Deuda\r\n");
-        sb.append("d. Solicitar Permiso\r\n");
+        sb.append("d. Permisos\r\n");
         sb.append("0. Volver\r\n");
         sendStringBuffer(bot, chatId, sb);
         this.setStatus("AWAITING_USER_RESPONSE");

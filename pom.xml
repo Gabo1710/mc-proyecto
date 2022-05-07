@@ -14,7 +14,7 @@
 	<name>botuni</name>
 	<description>Bot para Universidad </description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>18</java.version>
 	</properties>
 	<dependencies>
 		<!-- Dependencias para telegram -->
