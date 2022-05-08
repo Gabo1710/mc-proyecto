@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.List;
-
 @Component
 public class QueryConsultaProcess extends ProcesoAbstracto {
 
@@ -36,14 +35,16 @@ public class QueryConsultaProcess extends ProcesoAbstracto {
         sb.append("Tu Horario es el siguiente: \r\n\n" );
         sb.append("Pasas: " ).append(consultaList.size()).append(" clases en la semana \r\n\n");
         //IMPRIMIR HORARIO DE ESTUDIANTE
-       for(HorarioEstudianteDTO horario: (consultaList)){
-           sb.append("Día: ").append(horario.getDia()).append(" \nMateria: ").append(horario.getMateria()).append(" Paralelo: ").append(horario.getParalelo()).append("               Aula: ").append(horario.getAula()).append(" \nInicio: ").append(horario.getHorainicio()).append("        Fin: ").append(horario.getHorafin()).append("\r\n\n");
-       }
+        for(HorarioEstudianteDTO horario: (consultaList)){
+            sb.append("Día: ").append(horario.getDia()).append(" \nMateria: ").append(horario.getMateria()).append(" Paralelo: ").append(horario.getParalelo()).append("               Aula: ").append(horario.getAula()).append(" \nInicio: ").append(horario.getHorainicio()).append("        Fin: ").append(horario.getHorafin()).append("\r\n\n");
+        }
         sb.append("**Ingrese cualquier tecla para continuar**\r\n\n" );
         sendStringBuffer(bot, chatId, sb);
         return new ProcesoMenu();
 
     }
+
+
 
     @Override
     public ProcesoAbstracto onError() {
@@ -60,3 +61,4 @@ public class QueryConsultaProcess extends ProcesoAbstracto {
         return null;
     }
 }
+

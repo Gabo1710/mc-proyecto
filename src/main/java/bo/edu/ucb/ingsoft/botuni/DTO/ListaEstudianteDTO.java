@@ -4,14 +4,18 @@ public class ListaEstudianteDTO {
     private String nombres;
     private String apellidos;
     private String ci;
+    private String materia;
+    private Integer docenteId;
 
     public ListaEstudianteDTO() {
     }
 
-    public ListaEstudianteDTO(String nombres, String apellidos, String ci) {
+    public ListaEstudianteDTO(String nombres, String apellidos, String ci, String materia, Integer docenteId) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.ci = ci;
+        this.materia = materia;
+        this.docenteId = docenteId;
     }
 
     public String getNombres() {
@@ -38,12 +42,31 @@ public class ListaEstudianteDTO {
         this.ci = ci;
     }
 
+    public String getMateria() {
+        return materia;
+    }
+
+    public void setMateria(String materia) {
+        this.materia = materia;
+    }
+
+    public Integer getDocenteId() {
+        return docenteId;
+    }
+
+    public void setDocenteId(Integer docenteId) {
+        this.docenteId = docenteId;
+    }
+
     @Override
     public String toString() {
         return "ListaEstudianteDTO{" +
                 "nombres='" + nombres + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", ci='" + ci + '\'' +
+                ", materia='" + materia + '\'' +
+                ", docenteId=" + docenteId +
                 '}';
     }
 }
+

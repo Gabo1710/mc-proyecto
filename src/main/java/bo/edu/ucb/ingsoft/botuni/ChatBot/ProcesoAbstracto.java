@@ -31,6 +31,8 @@ public abstract class ProcesoAbstracto {
     // Este método decide que hacer con el usuario en cada tipo de proceso.
     public abstract ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot);
 
+
+
 //    // Método que se invoca al iniciar el proceso
 //    public abstract AbstractWidget onInit();
 

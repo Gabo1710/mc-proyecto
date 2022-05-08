@@ -31,7 +31,7 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
 
             Message message = update.getMessage();
             if ( message.hasText() ) {
-                // Intentamos transformar en número
+
                 String text = message.getText(); // El texto contiene asdasdas
                 //System.out.println("TEXT ES = "+ text);
                 try {
@@ -49,6 +49,7 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
                             break;
                         
                         default: showMainMenu(bot, chatId);
+                            break;
                     }
                 } catch (NumberFormatException ex) {
                     showMainMenu(bot, chatId);
