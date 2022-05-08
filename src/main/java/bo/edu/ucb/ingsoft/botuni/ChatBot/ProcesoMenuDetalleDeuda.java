@@ -1,28 +1,16 @@
 
 
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
+import org.springframework.context.ApplicationContext;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
-        import org.springframework.context.ApplicationContext;
-        import org.telegram.telegrambots.meta.api.objects.Message;
-        import org.telegram.telegrambots.meta.api.objects.Update;
+import java.util.HashMap;
 
-        import java.util.HashMap;
+public class ProcesoMenuDetalleDeuda extends ProcesoAbstracto {
 
-
-
-
-
-
-        import org.springframework.context.ApplicationContext;
-        import org.telegram.telegrambots.meta.api.objects.Message;
-        import org.telegram.telegrambots.meta.api.objects.Update;
-
-        import java.util.HashMap;
-
-public class DetalleDeuda extends ProcesoAbstracto {
-
-    public DetalleDeuda() {
-        this.setName("Menú detalle deuda");
+    public ProcesoMenuDetalleDeuda() {
+        this.setName("Menú principal");
         this.setDefault(true);
         this.setExpires(false);
         this.setStartDate(System.currentTimeMillis()/1000);
@@ -35,26 +23,26 @@ public class DetalleDeuda extends ProcesoAbstracto {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
         Long chatId = update.getMessage().getChatId();
         //768564158
-        StringBuffer sb = new StringBuffer();
 
         if (this.getStatus().equals("STARTED"))  {
 
             showMainMenu(bot, chatId);
         } else if (this.getStatus().equals("AWAITING_USER_RESPONSE")) {
-            // Estamos esperando por un número alguna opción
+            // Estamos esperando por una opción
             Message message = update.getMessage();
             if ( message.hasText() ) {
                 // Intentamos transformar en número
                 String text = message.getText(); // El texto contiene asdasdas
-                System.out.println(text);
                 try {
-
                     switch (text){
-                        case "1" :
-                            ShowDetalle(bot, chatId);
+                        case "a" : result = context.getBean(QueryDeuda.class);
                             break;
-                        case "0" : result = new ProcesoMenu();
+
+
+                        case "0" : result = new Autenticacion();
                             break;
+
+
                         default: showMainMenu(bot, chatId);
                     }
                 } catch (NumberFormatException ex) {
@@ -65,37 +53,25 @@ public class DetalleDeuda extends ProcesoAbstracto {
                 showMainMenu(bot, chatId);
             }
         }
+
         return result;
 
     }
 
+
     private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
-        sb.append("---DETALLE DE DEUDA---\r\n\n");
-        sb.append("1. Para consultar deuda actual \r\n");
-        sb.append("Ingrese 0 para volver al Menú Principal\r\n");
+        sb.append("BOT - UNIVERSIDAD\r\n\n");
+        sb.append("---MENÚ PERMISO ESTUDIANTES---\r\n\n");
+        sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
+        sb.append("a. Consultar Deuda\r\n");
+        sb.append("0. Volver\r\n");
         sendStringBuffer(bot, chatId, sb);
         this.setStatus("AWAITING_USER_RESPONSE");
     }
 
 
-    private void ShowDetalle(BotUniLongPolling bot, Long chatId) {
-
-        StringBuffer sb = new StringBuffer();
-        sb.append("Uste tiene la siguiente deuda:\r\n\n");
-        sb.append("1-2022 | 1ra cuota | 3240 bs:\r\n");
-        sb.append("2-2022 | 2da cuota | 3240 bs:\r\n");
-        sb.append("1-2022 | 3ra cuota | 3240 bs:\r\n");
-        sb.append("1-2022 | 4ta cuota | 3240 bs:\r\n");
-        sb.append("1-2022 | 5ta cuota | 3240 bs:\r\n");
-        sb.append("Total------------> | 16200 bs:\r\n\n");
-        sb.append("Ingrese cualquier tecla para continuar \r\n\n" );
-
-        sendStringBuffer(bot, chatId, sb);
-
-        this.setStatus("AWAITING_USER_RESPONSE");
-    }
 
     @Override
     public ProcesoAbstracto onError() {
