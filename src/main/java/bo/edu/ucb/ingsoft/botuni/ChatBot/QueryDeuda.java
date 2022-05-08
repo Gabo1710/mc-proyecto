@@ -33,11 +33,11 @@ public class QueryDeuda extends ProcesoAbstracto {
         Long chatId = update.getMessage().getChatId();
         List<DeudaDTO> consultaList = consultaBL.findDeudaByBotChatId(chatId);
         StringBuffer sb = new StringBuffer();
-        sb.append("Los Permisos Solicitados son los siguientes: \r\n\n" );
+        sb.append("Sus deudas son las siguientes: \r\n\n" );
         int u=1;
         //IMPRIMIR HORARIO DE ESTUDIANTE
         for(DeudaDTO de: (consultaList)){
-            sb.append("N°: ").append(u++).append(" fecha de pago: ").append(de.getFecha_pago()).append(" Interes: ").append(de.getInteres()).append      (" \nEstado: ").append("\r\n\n");
+            sb.append("N°: ").append(u++).append(" fecha de pago: ").append(de.getFecha_pago()).append(" Interes: ").append(de.getInteres()).append  (" Monto: ").append(de.getMonto()).append(" \nEstado: ").append(de.getEstado()).append("\r\n\n");
         }
         sb.append("**Ingrese cualquier tecla para continuar**\r\n\n" );
         sendStringBuffer(bot, chatId, sb);
