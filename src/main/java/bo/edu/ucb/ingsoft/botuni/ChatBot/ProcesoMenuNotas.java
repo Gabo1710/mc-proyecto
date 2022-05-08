@@ -1,3 +1,5 @@
+
+
 package bo.edu.ucb.ingsoft.botuni.ChatBot;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -5,9 +7,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.HashMap;
 
-public class ProcesoMenu extends ProcesoAbstracto {
+public class ProcesoMenuNotas extends ProcesoAbstracto {
 
-    public ProcesoMenu() {
+    public ProcesoMenuNotas() {
         this.setName("Menú principal");
         this.setDefault(true);
         this.setExpires(false);
@@ -33,23 +35,14 @@ public class ProcesoMenu extends ProcesoAbstracto {
                 String text = message.getText(); // El texto contiene asdasdas
                 try {
                     switch (text){
-                        case "a" : result = context.getBean(QueryConsultaProcess.class) ;
-                            break;
-                        case "b" : result =  context.getBean(QueryDetalleProces.class);
+                        case "a" : result = context.getBean(QueryNotas.class);
                             break;
 
-                        case "c" : result = new ProcesoMenuDetalleDeuda();
+
+                        case "0" : result = new Autenticacion();
                             break;
 
-                        case "d" : result = new ProcesoMenuPermisos();
-                            break;
-                        case "e" : result = new ProcesoMenuNotas();
-                            break;
 
-                            case "0" : result = new Autenticacion();
-                            break;
-
-                            
                         default: showMainMenu(bot, chatId);
                     }
                 } catch (NumberFormatException ex) {
@@ -70,14 +63,9 @@ public class ProcesoMenu extends ProcesoAbstracto {
 
         StringBuffer sb = new StringBuffer();
         sb.append("BOT - UNIVERSIDAD\r\n\n");
-        sb.append("---MENÚ ESTUDIANTES---\r\n\n");
+        sb.append("---MENÚ CALIFICACIONES DE ESTUDIANTES---\r\n\n");
         sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
-        sb.append("a. Consultar Horario\r\n");
-        sb.append("b. Detalle de Materias\r\n");
-        sb.append("c. Consultar Deuda\r\n");
-        sb.append("d. Permisos\r\n");
-        sb.append("e. Consultar Calificaciones\r\n");
-
+        sb.append("a. Consultar Calificaciones\r\n");
         sb.append("0. Volver\r\n");
         sendStringBuffer(bot, chatId, sb);
         this.setStatus("AWAITING_USER_RESPONSE");

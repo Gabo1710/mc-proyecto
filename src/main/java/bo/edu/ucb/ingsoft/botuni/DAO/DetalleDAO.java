@@ -14,9 +14,7 @@ public interface DetalleDAO {
             "   JOIN materia_detalle_estudiante e ON (a.materia_detalle_id = e.materia_detalle_id) " +
             "   JOIN docente c ON (a.docente_id=c.docente_id) " +
             "   JOIN materia d ON (a.materia_id = d.materia_id) " +
-            "   JOIN aula f ON (a.aula_id = f.aula_id) " +
-            "WHERE " +
-            " c.bot_chat_id = #{id}")
+            "   JOIN aula f ON (a.aula_id = f.aula_id) " )
     List<DetalleDTO> findDetalleByBotChatId(@Param("id")String botchatId);
 }
 
