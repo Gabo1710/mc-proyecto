@@ -73,6 +73,7 @@ public class ProcesoMenuPermisos extends ProcesoAbstracto {
         sb.append("---MENÚ PERMISO ESTUDIANTES---\r\n\n");
         sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
         sb.append("a. Consultar permisos\r\n");
+        sb.append("b. Solicitar permisos\r\n");
         sb.append("0. Volver\r\n");
         sendStringBuffer(bot, chatId, sb);
         this.setStatus("AWAITING_USER_RESPONSE");

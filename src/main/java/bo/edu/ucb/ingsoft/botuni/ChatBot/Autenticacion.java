@@ -18,86 +18,56 @@ public class Autenticacion extends ProcesoAbstracto {
     }
 
 
+
+
     @Override
     public ProcesoAbstracto handle(ApplicationContext context, Update update, BotUniLongPolling bot) {
         ProcesoAbstracto result = this; // sigo en el mismo proceso.
         Long chatId = update.getMessage().getChatId();
         //768564158
-        int ci=0;
-        if (this.getStatus().equals("STARTED")) {
-            ci=AutCi(bot, chatId, update);
-        }
-        else if (this.getStatus().equals("AWAITING_USER_RESPONSE")) {
-            ci=AutCi(bot, chatId, update);
-            int c=0;
 
-            if(ci==2){
+        if (this.getStatus().equals("STARTED"))  {
 
-                result = new ProcesoMenu();
-            }
-            if((ci==1)){
-                result = new ProcesoMenuProfesores();
+            showMainMenu(bot, chatId);
+        } else if (this.getStatus().equals("AWAITING_USER_RESPONSE")) {
+            // Estamos esperando por una opción
+            Message message = update.getMessage();
+            if ( message.hasText() ) {
+                // Intentamos transformar en número
+                String text = message.getText(); // El texto contiene asdasdas
+                try {
+                    switch (text){
+                        case "1" : result = new ProcesoMenu() ;
+                            break;
+                        case "2" : result = new ProcesoMenuProfesores();
+                            break;
+                        default: showMainMenu(bot, chatId);
+                    }
+                } catch (NumberFormatException ex) {
+                    showMainMenu(bot, chatId);
+                }
+                // continuar con el proceso seleccionado
+            } else { // Si me enviaron algo diferente de un texto.
+                showMainMenu(bot, chatId);
             }
         }
+
         return result;
 
     }
 
-    private int AutCi(BotUniLongPolling bot, Long chatId,  Update update) {
+
+    private void showMainMenu(BotUniLongPolling bot, Long chatId) {
 
         StringBuffer sb = new StringBuffer();
         sb.append("AUTENTICACIÓN-AUTOMÁTICA - BOT UNIVERSIDAD\r\n\n");
         sb.append("*Recuerde conectarse desde la cuenta de Telegram registrada\r\n\n");
         sb.append("1. Para Estudiantes:\r\n\n");
         sb.append("2. Para Docentes:\r\n\n");
-        int x=0;
-        Message message = update.getMessage();
         sendStringBuffer(bot, chatId, sb);
-        if ( message.hasText() ) {
-            // Intentamos transformar en número
-            String text = message.getText(); // El texto contiene asdasdas
-            //Menú para Profesores
-            if(text.equals("2")){
-                x= 1;}
-            //Menú para Estudiantes
-            if(text.equals("1")){
-                x= 2;
-            }
-        }
         this.setStatus("AWAITING_USER_RESPONSE");
-        return x;
     }
 
-
-
-
-    /*private int Autpass(BotUniLongPolling bot, Long chatId,  Update update) {
-
-        StringBuffer sb = new StringBuffer();
-        sb.append("Autenticacion - BOT UNIVERSIDAD\r\n");
-        sb.append("Ingrese su Pasword\r\n");
-        int x=0;
-        Message message = update.getMessage();
-        sendStringBuffer(bot, chatId, sb);
-        if ( message.hasText() ) {
-            // Intentamos transformar en número
-            String text = message.getText(); // El texto contiene asdasdas
-if(text.equals("123")){
-
-    x= 1;
-    if(text.equals("321")){
-        x= 2;
-        }}
-else{
-   x= 0;
-}}
-        String nombre = "Juan";
-        String apellido = "Perez";
-        String nombreCompleto = nombre + " " + apellido;
-        this.setStatus("AWAITING_USER_RESPONSE");
-return x;
-    }
-*/
 
 
     @Override
