@@ -70,7 +70,7 @@ public class ProcesoMenuProfesores extends ProcesoAbstracto {
         sb.append("-----MENÚ DOCENTES-----\r\n\n");
         sb.append("¿Qué Desea? Por Favor elija una opción:\r\n\n");
         sb.append("a. Consultar Horario\r\n");
-        sb.append("b. Detalle de estudiantes y materias\r\n");
+        sb.append("b. Lista de alumnos por clase\r\n");
         sb.append("c. Permisos Solicitados\r\n");
         sb.append("0. Volver\r\n");
 

@@ -32,24 +32,24 @@ public class BotUniLongPolling extends TelegramLongPollingBot {
         usersSession = new HashMap<Long, ProcesoAbstracto>();
     }
 
-    @Override
+    //@Override
+    //public String getBotUsername() {
+     //  return "demo_ucb_bot";
+    //}//TODO BOT DEMO
+
+    //@Override
+    //public String getBotToken() {
+     // return "5182243986:AAHFVYdPl67M0aLQLDIuTEjnnq0s47hsXUQ";
+    //} //TODO BOT DEMO
+
     public String getBotUsername() {
-       return "demo_ucb_bot";
-    }//TODO BOT DEMO
-
-    @Override
-    public String getBotToken() {
-      return "5182243986:AAHFVYdPl67M0aLQLDIuTEjnnq0s47hsXUQ";
-    } //TODO BOT DEMO
-
-    /**public String getBotUsername() {
        return "ucb_uni_bot";
     }//TODO BOT OFICIAL
 
 
     public String getBotToken() {
         return "5330759754:AAEV8WiCCmFs22tPrdDHY4pOCzwVEjWpzbo";
-    } //TODO BOT OFICIAL**/
+    } //TODO BOT OFICIAL
 
     @Override
     public void onUpdateReceived(Update update) {
