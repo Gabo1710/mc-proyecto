@@ -20,7 +20,7 @@ public class QueryDeuda extends ProcesoAbstracto {
     @Autowired
     public QueryDeuda(ConsultaDeudaBL ConsultaDeudaBL) {
         this.consultaBL = ConsultaDeudaBL;
-        this.setName("Consultar Permiso");
+        this.setName("Consultar deuda");
         this.setDefault(false);
         this.setExpires(false);
         this.setStartDate(System.currentTimeMillis()/1000);
@@ -41,7 +41,7 @@ public class QueryDeuda extends ProcesoAbstracto {
         }
         sb.append("**Ingrese cualquier tecla para continuar**\r\n\n" );
         sendStringBuffer(bot, chatId, sb);
-        return new ProcesoMenuPermisos();
+        return new ProcesoMenu();
 
     }
 

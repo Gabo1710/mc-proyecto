@@ -20,7 +20,7 @@ public class QueryNotas extends ProcesoAbstracto {
     @Autowired
     public QueryNotas(NotaBL NotaBL) {
         this.consultaBL = NotaBL;
-        this.setName("Consultar Permiso");
+        this.setName("Consultar Notas");
         this.setDefault(false);
         this.setExpires(false);
         this.setStartDate(System.currentTimeMillis()/1000);
@@ -41,7 +41,7 @@ public class QueryNotas extends ProcesoAbstracto {
         }
         sb.append("**Ingrese cualquier tecla para continuar**\r\n\n" );
         sendStringBuffer(bot, chatId, sb);
-        return new ProcesoMenuPermisos();
+        return new ProcesoMenu();
 
     }
 
