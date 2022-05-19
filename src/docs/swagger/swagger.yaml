@@ -222,6 +222,71 @@ paths:
 
         403:
           description: Datos obligatorios no enviados
+ 
+  /{EstudianteId}/permisosid:
+
+    ### 5.Permisos
+    get:
+      tags:
+        - Estudiante
+      summary: Obtener La Informacion Permisos Solicitados
+      description: Obtener la informacion de permisos solicitados
+      parameters:
+        - name: EstudianteId
+          in: path
+          description: id del estudiante
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Lista de calificaciones
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/InfPermiso'
+
+        400:
+          description: No se pudoencontrar la información
+          
+        404:
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: string
+                example: { "message": "Usuario no encontrado" }
+
+        403:
+          description: Datos obligatorios no enviados
+ 
+  /EstudianteId/{SolicitudPermisos}:
+  ### Enviar solicitud de amistad
+
+    post:
+      tags:
+      - "Estudiante"
+      summary: "Solicitar Permisos"
+      description: "Estudiante puede Solicitar Permisos"
+      operationId: "permisosid"
+      parameters:
+      - in: path
+        name: SolicitudPermisos
+        description: "Solicitud de permisos"
+        required: true
+        schema:
+          $ref: "#/components/schemas/SolicPermiso"
+       
+      responses:
+        200:
+          description: La solicitud ha sido enviada
+        403:
+          description: No se pudo enviar la solicitud
+       
+    
+          
+          
+        
   ##LOGIN DOCENTE
   /Docente/login:
     get:
@@ -415,6 +480,9 @@ paths:
               schema:
                 type: string
                 example: { "message": "Servicio no disponible" }
+                
+                
+ 
 
 components:
   schemas:
@@ -490,6 +558,31 @@ components:
         NOTA:
           type: string
           example: 75
+    InfPermiso:
+      type: object
+      properties:
+        idPermiso:
+          type: integer
+          example: 1
+        materia:
+          type: string
+          example: Ingenieria de Software
+        estado:
+          type: string
+          example: Rechazado
+    SolicPermiso:
+      type: object
+      properties:
+        EstudianteId:
+          type: integer
+          example: 1
+        MateriaId:
+          type: integer
+          example: 1
+        Fecha:
+          type: string
+          example: 20/01/2022
+       
 
     InfoLoginDocente:
       type: object
@@ -538,6 +631,7 @@ components:
         Carnet:
           type: string
           example: 12345678
+
 
 
 
