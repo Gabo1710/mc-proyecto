@@ -44,8 +44,9 @@ public class ListaMateria extends ProcesoAbstracto {
         sb.append("       Apellidos              Nombres                Ci \n\n" );
         int i=1;
         for(ListaEstudianteDTO horario: (lista)){
-            sb.append(i++).append(". ").append(horario.getApellidos()).append("   ").append(horario.getNombres()).append("   ").append(horario.getCi()).append("\n\n\n");
+            sb.append(i++).append(". ").append(horario.getApellidos()).append("   ").append(horario.getNombres()).append("   ").append(horario.getCi()).append("\n");
         }
+        sb.append("\n" );
         sb.append("**Ingrese cualquier tecla para continuar** \r\n\n" );
 
         sendStringBuffer(bot, chatId, sb);
