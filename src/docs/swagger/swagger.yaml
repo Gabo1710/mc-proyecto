@@ -111,7 +111,7 @@ components:
         Monto:
           type: string
           example: 80
-        Penalización:
+        Multa:
           type: string
           example: 2
     InfoNotas:
