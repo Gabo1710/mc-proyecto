@@ -1,7 +1,7 @@
 openapi: '3.0.0'
 info:
   title: UCB API
-  description: representacion de la API del proyecto de la app de la ucb
+  description: representación de la API del proyecto de la app de la ucb
   version: 1.0.0
 
 paths:
@@ -95,7 +95,7 @@ components:
       properties:
         Nombre:
           type: string
-          example: ingenieria del software
+          example: ingeniería del software
         link:
           type: string
           example: https://neo.ucb.edu.bo/
