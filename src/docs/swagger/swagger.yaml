@@ -222,7 +222,7 @@ paths:
 
         403:
           description: Datos obligatorios no enviados
-
+  ##LOGIN DOCENTE
   /Docente/login:
     get:
       tags:
@@ -286,6 +286,7 @@ paths:
                 type: string
                 example: { "message": "Servicio no disponible" }
 
+  ##CONSULTA DE HORARIO POR MATERIA - DOCENTE
   /{DocenteId}/ConsultaHorario/MateriaId:
     get:
       tags:
@@ -350,6 +351,7 @@ paths:
                 type: string
                 example: { "message": "Servicio no disponible" }
 
+  ##CONSULTA DE LISTA DE ESTUDIANTES POR MATERIA - DOCENTE
   /{DocenteId}/ListaAlumnos/MateriaId:
     get:
       tags:
