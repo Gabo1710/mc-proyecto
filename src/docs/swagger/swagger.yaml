@@ -1,152 +1,19 @@
-openapi: 3.0.1
-
+openapi: '3.0.0'
 info:
-  title: API Universidad Católica Boliviana San Pablo
-  description: _La función principal de esta API es controlar y manejar de manera correcta la información que se encuentra en la Base de Datos, cuando estudiantes o docentes de la universidad realicen consultas como ser consulta horario, consulta de detalle de materias, consultar lista de estudiantes, solicitar permisos o hagan un registro de algo específico._
-  contact:
-    email: moises.valda@ucb.edu.bo
-
+  title: UCB API
+  description: representación de la API del proyecto de la app de la ucb
   version: 1.0.0
 
-servers:
-  - url: http://api/v1/estudiante
-    description: Estudiante
-  - url: http://api/v1/docente
-    description: Docente
-
-tags:
-  - name: Estudiante
-    description: Este es el Endpoint que maneja toda la información necesaria de los estudiantes de la Universidad Católcia Boliviana San Pablo.
-  - name: Docente
-    description: Este es el Endpoint que maneja toda la información necesaria de los docentes de la Universidad Católcia Boliviana San Pablo.
-
-externalDocs:
-  description: Documentación API Swagger Version 3.0
-  url: https://swagger.io/docs/specification/about/
-
 paths:
-  ##LOGIN ESTUDIANTE
-  /Estudiante/login:
+
+  /{matid}/link:
+
+    ### Detalle de materias
     get:
-      tags:
-        - Estudiante
-      summary: Login de un Estudiante en la Aplicación
-      description: Permite hacer login al estudiante
-      operationId: loginEstudiante
-      parameters:
-        - in: query
-          name: Carnet de Identidad
-          required: true
-          description: El carnet de Identidad del estudiante
-          schema:
-            type: string
-            example: 12345678
-
-        - in: query
-          name: Contraseña
-          description: La contraseña del estudiante
-          required: true
-          schema:
-            type: string
-            example: passEstudiante
-
-      responses:
-        200:
-          description: Operación exitosa
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InfoLoginEstudiante"
-        400:
-          description: Carnet de identidad o Contraseña incorrectos
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Carnet de identidad o contraseña incorrectos, por favor revise sus datos e ingrese nuevamente." }
-
-        404:
-          description: Usuario no encontrado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Usuario no encontrado" }
-
-        408:
-          description: Tiempo expirado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Tiempo de espera agotado" }
-
-        503:
-          description: Servicio no disponible
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Servicio no disponible" }
-
-  ##1.CONSULTA DE HORARIO DE ESTUDIANTE
-  /{EstudianteId}/ConsultaHorario/:
-    get:
-      tags:
-        - Estudiante
-      summary: El estudiante tiene información de su horario.
-      description: Un estudiante puede realizar una consulta para conocer su horario, eso conlleva mostrar todas las materias a las que se encuentra inscrito, el detalle incluye hora de inicio, hora de finalización, paralelo, aula y los días en específico.
-      operationId: QueryEstudiante
-      parameters:
-        - in: path
-          name: EstudianteId
-          required: true
-          description: El Id del estudiante que realiza la consulta
-          schema:
-            type: integer
-            example: 1
-      responses:
-        200:
-          description: Consulta exitosa
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InfoHorarioEst"
-
-        404:
-          description: Usuario no encontrado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Usuario no encontrado" }
-
-        408:
-          description: Tiempo expirado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Tiempo de espera agotado" }
-
-        503:
-          description: Servicio no disponible
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Servicio no disponible" }
-
-  /{MateriaId}/link:
-
-    ### 2.Detalle de materias
-    get:
-      tags:
-        - Estudiante
       summary: Obtener el detalle de una materia(links de l clase)
       description: obtener el detalle de una materia seleccionada por el estudiante
       parameters:
-        - name: MateriaId
+        - name: matid
           in: path
           description: id de la materia
           required: true
@@ -166,16 +33,14 @@ paths:
           description: Datos obligatorios no enviados
 
 
-  /{EstudianteId}/deudasid:
+  /{estid}/deudasid:
 
-    ### 3.Deudas
+    ### Deudas
     get:
-      tags:
-        - Estudiante
       summary: Obtener deudas del estudiante
       description: Obtener deudas del usuario que inició la sesión
       parameters:
-        - name: EstudianteId
+        - name: estid
           in: path
           description: id del estudiante
           required: true
@@ -194,16 +59,14 @@ paths:
           description: No se pudo encontrar la información
 
 
-  /{EstudianteId}/materiasid:
+  /{estid}/materiasid:
 
-    ### 4.Notas
+    ### Notas
     get:
-      tags:
-        - Estudiante
       summary: Obtener notas del estudiante
       description: Obtener notas del usuario que inició la sesión
       parameters:
-        - name: EstudianteId
+        - name: estid
           in: path
           description: id del estudiante
           required: true
@@ -223,238 +86,16 @@ paths:
         403:
           description: Datos obligatorios no enviados
 
-  /Docente/login:
-    get:
-      tags:
-        - Docente
-      summary: Login de un Docente en la Aplicación.
-      description: Permite hacer login al Docente.
-      operationId: loginDocente
-      parameters:
-        - in: query
-          name: Carnet de Identidad
-          required: true
-          description: El carnet de Identidad del docente
-          schema:
-            type: string
-            example: 987654321
 
-        - in: query
-          name: Contraseña
-          description: La contraseña del docente
-          required: true
-          schema:
-            type: string
-            example: passDocente
-
-      responses:
-        200:
-          description: Operación exitosa
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InfoLoginDocente"
-        400:
-          description: Carnet de identidad o Contraseña incorrectos
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Carnet de identidad o contraseña incorrectos, por favor revise sus datos e ingrese nuevamente." }
-
-        404:
-          description: Usuario no encontrado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Usuario no encontrado" }
-
-        408:
-          description: Tiempo expirado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Tiempo de espera agotado" }
-
-        503:
-          description: Servicio no disponible
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Servicio no disponible" }
-
-  /{DocenteId}/ConsultaHorario/MateriaId:
-    get:
-      tags:
-        - Docente
-      summary: El docente tiene información de su horario.
-      description: Un docente puede realizar una consulta para conocer su horario, cada docente tiene asignadas ciertas materias, dependiendo de la materia seleccionada se mostrará el horario correspondiente que incluye hora de inicio, hora de finalización, paralelo, aula y los días en específico para dicha materia.
-      operationId: QueryHorarioDoc
-
-      parameters:
-        - in: path
-          name: DocenteId
-          required: true
-          description: El Id del docente que realiza la consulta.
-          schema:
-            type: integer
-            example: 1
-
-        - in: query
-          name: MateriaId
-          required: true
-          description: El Id de la materia de la cual se quiere conocer el horario.
-          schema:
-            type: integer
-            example: 1
-      responses:
-        200:
-          description: Consulta exitosa
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InfoHorarioDoc"
-
-        204:
-          description: Consulta exitosa, pero sin información
-          content:
-             application/json:
-              schema:
-                type: string
-                example: { "message": "Usted no tiene ninguna materia asignada" }
-
-        404:
-          description: Usuario no encontrado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Usuario no encontrado" }
-
-        408:
-          description: Tiempo expirado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Tiempo de espera agotado" }
-
-        503:
-          description: Servicio no disponible
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Servicio no disponible" }
-
-  /{DocenteId}/ListaAlumnos/MateriaId:
-    get:
-      tags:
-        - Docente
-      summary: El docente tiene información de la lista de estudiantes por materia.
-      description: Un docente puede realizar una consulta para conocer la lista de estudiantes, cada docente tiene unas materias asignadas, por ende, cuando selecciona su materia específica debe obtener como respuesta la lista de todos los estudiantes inscritos a dicha materia, en detalle se mostrarán los apellidos, nombres y carnet de identidad de los estudiantes.
-      operationId: QueryListaDoc
-
-      parameters:
-        - in: path
-          name: DocenteId
-          required: true
-          description: El Id del docente que realiza la consulta.
-          schema:
-            type: integer
-            example: 1
-
-        - in: query
-          name: MateriaId
-          required: true
-          description: El Id de la materia de la cual se desea obtener los estudiantes incritos.
-          schema:
-            type: integer
-            example: 1
-      responses:
-        200:
-          description: Consulta exitosa
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InfoListaDoc"
-
-        204:
-          description: Consulta exitosa, pero sin información
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Usted no tiene ninguna materia asignada, por ende, no tiene una lista de alumnos" }
-
-        404:
-          description: Usuario no encontrado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Usuario no encontrado" }
-
-        408:
-          description: Tiempo expirado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Tiempo de espera agotado" }
-
-        503:
-          description: Servicio no disponible
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Servicio no disponible" }
 
 components:
   schemas:
-
-    InfoLoginEstudiante:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        nombre:
-          type: string
-          example: Moises Valda
-
-    InfoHorarioEst:
-      type: object
-      properties:
-        Día:
-          type: string
-          example: Martes
-        Materia:
-          type: string
-          example: Ingeniería del Software
-        Paralelo:
-          type: string
-          example: P1
-        Aula:
-          type: string
-          example: C003
-        HoraInicio:
-          type: string
-          example: 13:30:00
-        HoraFin:
-          type: string
-          example: 15:15:00
-
     InfoDetalle:
       type: object
       properties:
         Nombre:
           type: string
-          example: ingenieria del software
+          example: ingeniería del software
         link:
           type: string
           example: https://neo.ucb.edu.bo/
@@ -488,54 +129,6 @@ components:
         NOTA:
           type: string
           example: 75
-
-    InfoLoginDocente:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        nombre:
-          type: string
-          example: Ernesto Campohermoso
-
-    InfoHorarioDoc:
-      type: object
-      properties:
-        Día:
-          type: string
-          example: Martes
-        Materia:
-          type: string
-          example: Ingeniería del Software
-        Paralelo:
-          type: string
-          example: P1
-        Aula:
-          type: string
-          example: C003
-        HoraInicio:
-          type: string
-          example: 13:30:00
-        HoraFin:
-          type: string
-          example: 15:15:00
-
-    InfoListaDoc:
-      type: object
-      properties:
-        Numeración:
-          type: string
-          example: 1
-        Apellidos:
-          type: string
-          example: Valda Gutierrez
-        Nombres:
-          type: string
-          example: Moises Carlos
-        Carnet:
-          type: string
-          example: 12345678
 
 
 
