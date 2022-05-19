@@ -1,0 +1,134 @@
+swagger: '2.0'
+info:
+  title: UCB API
+  description: representacion de la API del proyecto de la app de la ucb
+  version: 1.0.0
+
+paths:
+
+  /{matid}/link:
+  
+    ### Detalle de materias
+    get:
+      summary: Obtener el detalle de una materia(links de l clase)
+      description: obtener el detalle de una materia seleccionada por el estudiante
+      parameters:
+      - name: matid
+        in: path
+        description: id de la materia
+        required: true
+        type: string
+      responses:
+        200:
+          description: detalle de materia
+          schema:             
+            $ref: '#/definitions/InfoDetalle' 
+        400:
+          description: No existe la información
+        403: 
+          description: Datos obligatorios no enviados
+      produces:
+        - application/json
+        
+  /{estid}/deudasid:
+  
+    ### Deudas
+    get:
+      summary: Obtener deudas del estudiante
+      description: Obtener deudas del usuario que inició la sesión
+      parameters:
+      - name: estid
+        in: path
+        description: id del estudiante
+        required: true
+        type: string
+      responses:
+        200:
+          description: Lista de deudas
+          schema:             
+            $ref: '#/definitions/InfoDeudas' 
+        400:
+          description: No se pudo encontrar la información
+        
+      produces:
+        - application/json
+        
+        
+  /{estid}/materiasid:
+  
+    ### Notas
+    get:
+      summary: Obtener notas del estudiante
+      description: Obtener notas del usuario que inició la sesión
+      parameters:
+      - name: estid
+        in: path
+        description: id del estudiante
+        required: true
+        type: string
+      responses:
+        200:
+          description: Lista de calificaciones
+          schema:             
+            $ref: '#/definitions/InfoNotas' 
+        400:
+          description: No se pudoencontrar la información
+        
+        403: 
+          description: Datos obligatorios no enviados
+      produces:
+        - application/json
+        
+   
+
+
+definitions:
+  InfoDetalle:
+    type: object
+    properties:
+      Nombre:
+        type: string
+        example: ingenieria del software
+      link:
+        type: string
+        example: https://neo.ucb.edu.bo/
+      docente:
+        type: string
+        example: Pedro Perez
+  InfoDeudas:
+    type: object
+    properties:
+      Razón:
+        type: string
+        example: Seguro universitario 2022-1
+      Monto:
+        type: string
+        example: 80
+      Penalización:
+        type: string
+        example: 2
+  InfoNotas:
+    type: object
+    properties:
+      Siglas:
+        type: string
+        example: sis111
+      EC:
+        type: string
+        example: 60
+      EF:
+        type: string
+        example: 70
+      NOTA:
+        type: string
+        example: 75
+    
+        
+  
+  
+  
+  
+  
+        
+          
+ 
