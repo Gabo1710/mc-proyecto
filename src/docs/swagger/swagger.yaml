@@ -26,8 +26,8 @@ externalDocs:
 
 paths:
   ##LOGIN ESTUDIANTE
-  /Estudiante/login:
-    get:
+  /Estudiante/auth:
+    post:
       tags:
         - Estudiante
       summary: Login de un Estudiante en la Aplicación
@@ -56,14 +56,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/InfoLoginEstudiante"
-        400:
-          description: Carnet de identidad o Contraseña incorrectos
+                type: array
+                items:
+                  $ref: "#/components/schemas/InfoLoginEstudiante"
+        401:
+          description: Usuario no autorizado
           content:
             application/json:
               schema:
                 type: string
-                example: { "message": "Carnet de identidad o contraseña incorrectos, por favor revise sus datos e ingrese nuevamente." }
+                example: { "message": "Usuario no autorizado, usuario o contraseña incorrecto" }
 
         404:
           description: Usuario no encontrado
@@ -72,25 +74,42 @@ paths:
               schema:
                 type: string
                 example: { "message": "Usuario no encontrado" }
+  ## IMAGEN ESTUDIANTE
+  /Estudiante/{EstudianteId}/Imagen:
+    get:
+      tags:
+        - Estudiante
+      summary: Imagen de un estudiante específico.
+      description: Un estudiante tiene su imágen alojada en una URL y puede no tener la foto de perfil para ello se asignará alguna estándar.
+      operationId: QueryEstudiante
+      parameters:
+        - in: path
+          name: EstudianteId
+          required: true
+          description: El Id del estudiante que tiene asignada una foto de perfil.
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Consulta exitosa
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
 
-        408:
-          description: Tiempo expirado
+        404:
+          description: Usuario sin foto
           content:
             application/json:
               schema:
                 type: string
-                example: { "message": "Tiempo de espera agotado" }
+                example: { "message": "Usuario sin foto de perfil" }
 
-        503:
-          description: Servicio no disponible
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Servicio no disponible" }
 
   ##1.CONSULTA DE HORARIO DE ESTUDIANTE
-  /{EstudianteId}/ConsultaHorario/:
+  /Estudiante/{EstudianteId}/Horario/:
     get:
       tags:
         - Estudiante
@@ -111,31 +130,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/InfoHorarioEst"
+                type: array
+                items:
+                  $ref: "#/components/schemas/InfoHorarioEst"
 
         404:
-          description: Usuario no encontrado
+          description: Estudiante no tiene materias inscritas
           content:
             application/json:
               schema:
                 type: string
-                example: { "message": "Usuario no encontrado" }
-
-        408:
-          description: Tiempo expirado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Tiempo de espera agotado" }
-
-        503:
-          description: Servicio no disponible
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Servicio no disponible" }
+                example: { "message": "El estudiante no tiene materias inscritas" }
 
   /{MateriaId}/link:
 
@@ -282,14 +287,10 @@ paths:
           description: La solicitud ha sido enviada
         403:
           description: No se pudo enviar la solicitud
-       
-    
-          
-          
-        
+
   ##LOGIN DOCENTE
-  /Docente/login:
-    get:
+  /Docente/auth:
+    post:
       tags:
         - Docente
       summary: Login de un Docente en la Aplicación.
@@ -318,14 +319,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/InfoLoginDocente"
-        400:
-          description: Carnet de identidad o Contraseña incorrectos
+                type: array
+                items:
+                  $ref: "#/components/schemas/InfoLoginDocente"
+        401:
+          description: Usuario no autorizado
           content:
             application/json:
               schema:
                 type: string
-                example: { "message": "Carnet de identidad o contraseña incorrectos, por favor revise sus datos e ingrese nuevamente." }
+                example: { "message": "Usuario no Autorizado, usuario o contraseña incorrecto" }
 
         404:
           description: Usuario no encontrado
@@ -335,24 +338,41 @@ paths:
                 type: string
                 example: { "message": "Usuario no encontrado" }
 
-        408:
-          description: Tiempo expirado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Tiempo de espera agotado" }
+  ## IMAGEN DOCENTE
+  /Docente/{DocenteId}/Imagen:
+      get:
+        tags:
+          - Docente
+        summary: Imagen de un docente en específico.
+        description: Un docente tiene su imágen alojada en una URL y puede no tener la foto de perfil para ello se asignará alguna estándar.
+        operationId: QueryDocente
+        parameters:
+          - in: path
+            name: DocenteId
+            required: true
+            description: El Id del docente que tiene asignada una foto de perfil.
+            schema:
+              type: integer
+              example: 1
+        responses:
+          200:
+            description: Consulta exitosa
+            content:
+              image/png:
+                schema:
+                  type: string
+                  format: binary
 
-        503:
-          description: Servicio no disponible
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Servicio no disponible" }
+          404:
+            description: Usuario sin foto
+            content:
+              application/json:
+                schema:
+                  type: string
+                  example: { "message": "Usuario sin foto de perfil" }
 
   ##CONSULTA DE HORARIO POR MATERIA - DOCENTE
-  /{DocenteId}/ConsultaHorario/MateriaId:
+  /Docente/{DocenteId}/Horario/Materia/{MateriaId}:
     get:
       tags:
         - Docente
@@ -382,42 +402,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/InfoHorarioDoc"
-
-        204:
-          description: Consulta exitosa, pero sin información
-          content:
-             application/json:
-              schema:
-                type: string
-                example: { "message": "Usted no tiene ninguna materia asignada" }
-
+                type: array
+                items:
+                  $ref: "#/components/schemas/InfoHorarioDoc"
         404:
-          description: Usuario no encontrado
+          description: Usuario no tiene materias inscritas
           content:
             application/json:
               schema:
                 type: string
-                example: { "message": "Usuario no encontrado" }
+                example: { "message": "El Docente no tiene materias inscritas" }
 
-        408:
-          description: Tiempo expirado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Tiempo de espera agotado" }
-
-        503:
-          description: Servicio no disponible
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Servicio no disponible" }
 
   ##CONSULTA DE LISTA DE ESTUDIANTES POR MATERIA - DOCENTE
-  /{DocenteId}/ListaAlumnos/MateriaId:
+  /Docente/{DocenteId}/Lista/Materia/{MateriaId}:
     get:
       tags:
         - Docente
@@ -447,42 +445,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/InfoListaDoc"
-
-        204:
-          description: Consulta exitosa, pero sin información
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Usted no tiene ninguna materia asignada, por ende, no tiene una lista de alumnos" }
+                type: array
+                items:
+                  $ref: "#/components/schemas/InfoListaDoc"
 
         404:
-          description: Usuario no encontrado
+          description: Sin estudiantes inscritos
           content:
             application/json:
               schema:
                 type: string
-                example: { "message": "Usuario no encontrado" }
-
-        408:
-          description: Tiempo expirado
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Tiempo de espera agotado" }
-
-        503:
-          description: Servicio no disponible
-          content:
-            application/json:
-              schema:
-                type: string
-                example: { "message": "Servicio no disponible" }
-                
-                
- 
+                example: { "message": "No tiene estudiantes inscritos a esta materia" }
 
 components:
   schemas:
@@ -496,6 +469,8 @@ components:
         nombre:
           type: string
           example: Moises Valda
+
+
 
     InfoHorarioEst:
       type: object
@@ -514,10 +489,13 @@ components:
           example: C003
         HoraInicio:
           type: string
+          pattern: date-time
           example: 13:30:00
         HoraFin:
           type: string
+          pattern: date-time
           example: 15:15:00
+
 
     InfoDetalle:
       type: object
@@ -611,9 +589,11 @@ components:
           example: C003
         HoraInicio:
           type: string
+          pattern: date-time
           example: 13:30:00
         HoraFin:
           type: string
+          pattern: date-time
           example: 15:15:00
 
     InfoListaDoc:
