@@ -142,7 +142,7 @@ paths:
                 type: string
                 example: { "message": "El estudiante no tiene materias inscritas" }
 
-  /{MateriaId}/link:
+  /Materia/{MateriaId}/:
 
     ### 2.Detalle de materias
     get:
@@ -167,11 +167,8 @@ paths:
 
         400:
           description: No existe la información
-        403:
-          description: Datos obligatorios no enviados
 
-
-  /{EstudianteId}/deudasid:
+  /Estudiante/{EstudianteId}/Deudas:
 
     ### 3.Deudas
     get:
@@ -199,7 +196,8 @@ paths:
           description: No se pudo encontrar la información
 
 
-  /{EstudianteId}/materiasid:
+  /Estudiante/{EstudianteId}/Notas:
+
 
     ### 4.Notas
     get:
@@ -227,7 +225,7 @@ paths:
 
         403:
           description: Datos obligatorios no enviados
- 
+
   /{EstudianteId}/permisosid:
 
     ### 5.Permisos
@@ -253,7 +251,7 @@ paths:
 
         400:
           description: No se pudoencontrar la información
-          
+
         404:
           description: Usuario no encontrado
           content:
@@ -264,24 +262,24 @@ paths:
 
         403:
           description: Datos obligatorios no enviados
- 
+
   /EstudianteId/{SolicitudPermisos}:
-  ### Enviar solicitud de amistad
+    ### Enviar solicitud de amistad
 
     post:
       tags:
-      - "Estudiante"
+        - "Estudiante"
       summary: "Solicitar Permisos"
       description: "Estudiante puede Solicitar Permisos"
       operationId: "permisosid"
       parameters:
-      - in: path
-        name: SolicitudPermisos
-        description: "Solicitud de permisos"
-        required: true
-        schema:
-          $ref: "#/components/schemas/SolicPermiso"
-       
+        - in: path
+          name: SolicitudPermisos
+          description: "Solicitud de permisos"
+          required: true
+          schema:
+            $ref: "#/components/schemas/SolicPermiso"
+
       responses:
         200:
           description: La solicitud ha sido enviada
@@ -340,36 +338,36 @@ paths:
 
   ## IMAGEN DOCENTE
   /Docente/{DocenteId}/Imagen:
-      get:
-        tags:
-          - Docente
-        summary: Imagen de un docente en específico.
-        description: Un docente tiene su imágen alojada en una URL y puede no tener la foto de perfil para ello se asignará alguna estándar.
-        operationId: QueryDocente
-        parameters:
-          - in: path
-            name: DocenteId
-            required: true
-            description: El Id del docente que tiene asignada una foto de perfil.
-            schema:
-              type: integer
-              example: 1
-        responses:
-          200:
-            description: Consulta exitosa
-            content:
-              image/png:
-                schema:
-                  type: string
-                  format: binary
+    get:
+      tags:
+        - Docente
+      summary: Imagen de un docente en específico.
+      description: Un docente tiene su imágen alojada en una URL y puede no tener la foto de perfil para ello se asignará alguna estándar.
+      operationId: QueryDocente
+      parameters:
+        - in: path
+          name: DocenteId
+          required: true
+          description: El Id del docente que tiene asignada una foto de perfil.
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Consulta exitosa
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
 
-          404:
-            description: Usuario sin foto
-            content:
-              application/json:
-                schema:
-                  type: string
-                  example: { "message": "Usuario sin foto de perfil" }
+        404:
+          description: Usuario sin foto
+          content:
+            application/json:
+              schema:
+                type: string
+                example: { "message": "Usuario sin foto de perfil" }
 
   ##CONSULTA DE HORARIO POR MATERIA - DOCENTE
   /Docente/{DocenteId}/Horario/Materia/{MateriaId}:
@@ -457,6 +455,60 @@ paths:
                 type: string
                 example: { "message": "No tiene estudiantes inscritos a esta materia" }
 
+  ### Lista de materias del estudiante
+  /Estudiante/{EstudianteId}/Materias/:
+
+
+    get:
+      tags:
+        - Estudiante
+      summary: Obtener materias del estudiante
+      description: Obtener la lista de materias del usuario que inició la sesión
+      parameters:
+        - name: EstudianteId
+          in: path
+          description: id del estudiante
+          required: true
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: Lista de Materias
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/ListMaterias'
+
+        400:
+          description: No se pudo encontrar la información
+  ### Lista de materias del docente
+  /Docente/{DocenteId}/Materias/:
+    get:
+      tags:
+        - Docente
+      summary: Obtener materias del docente
+      description: Obtener la lista de materias del usuario que inició la sesión
+      parameters:
+        - name: DocenteId
+          in: path
+          description: id del docente
+          required: true
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: Lista de Materias
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/ListMateriasDoc'
+
+        400:
+          description: No se pudo encontrar la información
+
+
 components:
   schemas:
 
@@ -495,6 +547,34 @@ components:
           type: string
           pattern: date-time
           example: 15:15:00
+    ListMaterias:
+      type: array
+      items:
+        type: object
+        properties:
+          Nombre:
+            type: string
+
+      example:
+        - [ "Nombre":  Ingenieria del software]
+        - [ "Nombre":  Base de datos I]
+        - [ "Nombre":  Internet de las cosas]
+        - [ "Nombre":  Redes I]
+    ListMateriasDoc:
+      type: array
+      items:
+        type: object
+        properties:
+          Nombre:
+            type: string
+
+      example:
+        - [ "Nombre":  Ingenieria del software]
+        - [ "Nombre":  Base de datos I]
+
+
+
+
 
 
     InfoDetalle:
@@ -502,35 +582,52 @@ components:
       properties:
         Nombre:
           type: string
-          example: ingeniería del software
-        link:
+          example: Ingeniería del software I
+        Paralelo:
+          type: string
+          example: 1
+        Link:
           type: string
           example: https://neo.ucb.edu.bo/
-        docente:
+        Neo:
           type: string
-          example: Pedro Perez
+          example: https://neo.ucb.edu.bo/
+        Docente:
+          type: string
+          example: Hernesto Campohermoso
     InfoDeudas:
-      type: object
-      properties:
-        Razón:
-          type: string
-          example: Seguro universitario 2022-1
-        Monto:
-          type: string
-          example: 80
-        Multa:
-          type: string
-          example: 2
+      type: array
+      items:
+        type: object
+        properties:
+          Razón:
+            type: string
+          Monto:
+            type: string
+          Multa:
+            type: string
+      example:
+        - [ "Razón":  Seguro universitario 1-2022, "Monto":  80, "Multa":  2 ]
+        - [ "Razón":  Seguro universitario 2-2022, "Monto":  80, "Multa":  2 ]
+        - [ "Razón":  1era pension 1-2022, "Monto":  3550, "Multa":  2 ]
+        - [ "Razón":  2da pension 1-2022, "Monto":  3500, "Multa":  2 ]
+        - [ "Razón":  3era pension 1-2022, "Monto":  3500, "Multa":  2 ]
+        - [ "Razón":  4ta pension 1-2022, "Monto":  3500, "Multa":  2 ]
+
+
+
+
+
     InfoNotas:
       type: object
       properties:
         Siglas:
           type: string
           example: sis111
-        EC:
+        NEC:
           type: string
           example: 60
-        EF:
+        NEF:
           type: string
           example: 70
         NOTA:
@@ -560,7 +657,7 @@ components:
         Fecha:
           type: string
           example: 20/01/2022
-       
+
 
     InfoLoginDocente:
       type: object
