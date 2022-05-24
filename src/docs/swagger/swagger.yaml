@@ -81,7 +81,7 @@ paths:
         - Estudiante
       summary: Imagen de un estudiante específico.
       description: Un estudiante tiene su imágen alojada en una URL y puede no tener la foto de perfil para ello se asignará alguna estándar.
-      operationId: QueryEstudiante
+      operationId: QueryImagenEstudiante
       parameters:
         - in: path
           name: EstudianteId
@@ -115,7 +115,7 @@ paths:
         - Estudiante
       summary: El estudiante tiene información de su horario.
       description: Un estudiante puede realizar una consulta para conocer su horario, eso conlleva mostrar todas las materias a las que se encuentra inscrito, el detalle incluye hora de inicio, hora de finalización, paralelo, aula y los días en específico.
-      operationId: QueryEstudiante
+      operationId: QueryHorarioEstudiante
       parameters:
         - in: path
           name: EstudianteId
@@ -343,7 +343,7 @@ paths:
         - Docente
       summary: Imagen de un docente en específico.
       description: Un docente tiene su imágen alojada en una URL y puede no tener la foto de perfil para ello se asignará alguna estándar.
-      operationId: QueryDocente
+      operationId: QueryImagenDocente
       parameters:
         - in: path
           name: DocenteId
@@ -377,7 +377,6 @@ paths:
       summary: El docente tiene información de su horario.
       description: Un docente puede realizar una consulta para conocer su horario, cada docente tiene asignadas ciertas materias, dependiendo de la materia seleccionada se mostrará el horario correspondiente que incluye hora de inicio, hora de finalización, paralelo, aula y los días en específico para dicha materia.
       operationId: QueryHorarioDoc
-
       parameters:
         - in: path
           name: DocenteId
@@ -387,7 +386,7 @@ paths:
             type: integer
             example: 1
 
-        - in: query
+        - in: path
           name: MateriaId
           required: true
           description: El Id de la materia de la cual se quiere conocer el horario.
@@ -430,7 +429,7 @@ paths:
             type: integer
             example: 1
 
-        - in: query
+        - in: path
           name: MateriaId
           required: true
           description: El Id de la materia de la cual se desea obtener los estudiantes incritos.
