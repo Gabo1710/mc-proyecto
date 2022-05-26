@@ -226,7 +226,7 @@ paths:
         403:
           description: Datos obligatorios no enviados
 
-  /{EstudianteId}/permisosid:
+  /Estudiante/{EstudianteId}/permisos:
 
     ### 5.Permisos
     get:
@@ -263,9 +263,8 @@ paths:
         403:
           description: Datos obligatorios no enviados
 
-  /EstudianteId/{SolicitudPermisos}:
+  /Estudiante/{EstudianteId}/{materiaId}/{fecha}/permisos:
     ### Enviar solicitud de amistad
-
     post:
       tags:
         - "Estudiante"
@@ -273,12 +272,24 @@ paths:
       description: "Estudiante puede Solicitar Permisos"
       operationId: "permisosid"
       parameters:
-        - in: path
-          name: SolicitudPermisos
-          description: "Solicitud de permisos"
+        - name: EstudianteId
+          in: path
+          description: id del estudiante
           required: true
           schema:
-            $ref: "#/components/schemas/SolicPermiso"
+            type: string
+        - name: materiaId
+          in: path
+          description: id de la materia
+          required: true
+          schema:
+            type: string
+        - name: fecha
+          in: path
+          description: Fecha de la solicitud
+          required: true
+          schema:
+            type: string
 
       responses:
         200:
@@ -707,13 +718,3 @@ components:
         Carnet:
           type: string
           example: 12345678
-
-
-
-
-
-
-
-
-
-
