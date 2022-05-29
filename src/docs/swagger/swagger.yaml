@@ -2,7 +2,7 @@ openapi: 3.0.1
 
 info:
   title: API Universidad Católica Boliviana San Pablo
-  description: _La función principal de esta API es controlar y manejar de manera correcta la información que se encuentra en la Base de Datos, cuando estudiantes o docentes de la universidad realicen consultas como ser consulta horario, consulta de detalle de materias, consultar lista de estudiantes, solicitar permisos o hagan un registro de algo específico._
+  description: _La función principal de esta API es controlar y manejar de manera correcta la información que se encuentra en la Base de Datos, cuando `estudiantes` o `docentes` de la universidad realicen consultas como ser consulta horario, consulta de detalle de materias, consultar lista de estudiantes, solicitar permisos o hagan un registro de algo específico._
   contact:
     email: moises.valda@ucb.edu.bo
 
@@ -79,8 +79,8 @@ paths:
     get:
       tags:
         - Estudiante
-      summary: Imagen de un estudiante específico.
-      description: Un estudiante tiene su imágen alojada en una URL y puede no tener la foto de perfil para ello se asignará alguna estándar.
+      summary: Foto de perfil de un estudiante específico.
+      description: Un estudiante tiene su foto de perfil alojada en una URL y puede no tener la foto de perfil para ello se asignará alguna estándar.
       operationId: QueryImagenEstudiante
       parameters:
         - in: path
@@ -97,16 +97,46 @@ paths:
             image/png:
               schema:
                 type: string
-                format: binary
+                example: ["url": "//http:example.com/imagenEstudiante.png"]
 
         404:
-          description: Usuario sin foto
+          description: Usuario sin foto de perfil.
           content:
             application/json:
               schema:
                 type: string
-                example: { "message": "Usuario sin foto de perfil" }
+                example: { "message": "Usuario sin foto de perfil, se usará una imagen por defecto." }
 
+  ### Lista de materias del estudiante
+  /Estudiante/{EstudianteId}/Materias/:
+    get:
+      tags:
+        - Estudiante
+      summary: Obtener materias del estudiante
+      description: Obtener la lista de materias del usuario que inició la sesión
+      parameters:
+        - name: EstudianteId
+          in: path
+          description: id del estudiante
+          required: true
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: Lista de Materias
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/ListMaterias'
+
+        404:
+          description: El estudiante no tiene materias
+          content:
+            application/json:
+              schema:
+                type: string
+                example: { "message": "El estudiante no tiene materias inscritas" }
 
   ##1.CONSULTA DE HORARIO DE ESTUDIANTE
   /Estudiante/{EstudianteId}/Horario/:
@@ -352,8 +382,8 @@ paths:
     get:
       tags:
         - Docente
-      summary: Imagen de un docente en específico.
-      description: Un docente tiene su imágen alojada en una URL y puede no tener la foto de perfil para ello se asignará alguna estándar.
+      summary: Foto de perfil de un docente en específico.
+      description: Un docente tiene su foto de perfil alojada en una URL y puede no tener la foto de perfil para ello se asignará alguna estándar.
       operationId: QueryImagenDocente
       parameters:
         - in: path
@@ -370,15 +400,47 @@ paths:
             image/png:
               schema:
                 type: string
-                format: binary
+                example: ["url": "//http:example.com/imagenDocente.png"]
 
         404:
-          description: Usuario sin foto
+          description: Usuario sin foto de perfil
           content:
             application/json:
               schema:
                 type: string
-                example: { "message": "Usuario sin foto de perfil" }
+                example: { "message": "Usuario sin foto de perfil, se usará una imagen por defecto." }
+
+  ### Lista de materias del docente
+  /Docente/{DocenteId}/Materias/:
+    get:
+      tags:
+        - Docente
+      summary: Obtener materias del docente
+      description: Obtener la lista de materias del usuario que inició la sesión
+      parameters:
+        - name: DocenteId
+          in: path
+          description: id del docente
+          required: true
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: Lista de Materias
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/ListMateriasDoc'
+
+        404:
+          description: El docente no tiene materias
+          content:
+            application/json:
+             schema:
+                type: string
+                example: { "message": "El docente no tiene asignadas las materias" }
+
 
   ##CONSULTA DE HORARIO POR MATERIA - DOCENTE
   /Docente/{DocenteId}/Horario/Materia/{MateriaId}:
@@ -465,59 +527,6 @@ paths:
                 type: string
                 example: { "message": "No tiene estudiantes inscritos a esta materia" }
 
-  ### Lista de materias del estudiante
-  /Estudiante/{EstudianteId}/Materias/:
-
-
-    get:
-      tags:
-        - Estudiante
-      summary: Obtener materias del estudiante
-      description: Obtener la lista de materias del usuario que inició la sesión
-      parameters:
-        - name: EstudianteId
-          in: path
-          description: id del estudiante
-          required: true
-          schema:
-            type: string
-
-      responses:
-        200:
-          description: Lista de Materias
-          content:
-            aplication/json:
-              schema:
-                $ref: '#/components/schemas/ListMaterias'
-
-        400:
-          description: No se pudo encontrar la información
-  ### Lista de materias del docente
-  /Docente/{DocenteId}/Materias/:
-    get:
-      tags:
-        - Docente
-      summary: Obtener materias del docente
-      description: Obtener la lista de materias del usuario que inició la sesión
-      parameters:
-        - name: DocenteId
-          in: path
-          description: id del docente
-          required: true
-          schema:
-            type: string
-
-      responses:
-        200:
-          description: Lista de Materias
-          content:
-            aplication/json:
-              schema:
-                $ref: '#/components/schemas/ListMateriasDoc'
-
-        400:
-          description: No se pudo encontrar la información
-
 
 components:
   schemas:
@@ -525,12 +534,15 @@ components:
     InfoLoginEstudiante:
       type: object
       properties:
-        id:
+        EstudianteId:
           type: integer
           example: 1
-        nombre:
+        Nombres:
           type: string
-          example: Moises Valda
+          example: Moises Carlos
+        Apellidos:
+          type: string
+          example: Valda Gutiérrez
 
 
 
@@ -557,6 +569,8 @@ components:
           type: string
           pattern: date-time
           example: 15:15:00
+
+
     ListMaterias:
       type: array
       items:
@@ -566,10 +580,11 @@ components:
             type: string
 
       example:
-        - [ "Nombre":  Ingenieria del software]
-        - [ "Nombre":  Base de datos I]
-        - [ "Nombre":  Internet de las cosas]
-        - [ "Nombre":  Redes I]
+        -  "Nombre":  Ingeniería del software
+        -  "Nombre":  Base de datos I
+        -  "Nombre":  Internet de las cosas
+        -  "Nombre":  Redes I
+
     ListMateriasDoc:
       type: array
       items:
@@ -579,13 +594,8 @@ components:
             type: string
 
       example:
-        - [ "Nombre":  Ingenieria del software]
-        - [ "Nombre":  Base de datos I]
-
-
-
-
-
+        -  "Nombre":  Ingeniería del software
+        -  "Nombre":  Base de datos I
 
     InfoDetalle:
       type: object
@@ -605,6 +615,7 @@ components:
         Docente:
           type: string
           example: Hernesto Campohermoso
+
     InfoDeudas:
       type: array
       items:
@@ -643,6 +654,7 @@ components:
         NOTA:
           type: string
           example: 75
+
     InfPermiso:
       type: object
       properties:
@@ -655,6 +667,7 @@ components:
         estado:
           type: string
           example: Rechazado
+
     SolicPermiso:
       type: object
       properties:
@@ -672,12 +685,15 @@ components:
     InfoLoginDocente:
       type: object
       properties:
-        id:
+        DocenteId:
           type: integer
           example: 1
-        nombre:
+        Nombres:
           type: string
-          example: Ernesto Campohermoso
+          example: Ernesto
+        Apellidos:
+          type: string
+          example: Campohermoso
 
     InfoHorarioDoc:
       type: object
