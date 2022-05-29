@@ -273,7 +273,7 @@ paths:
             type: string
       responses:
         200:
-          description: Lista de calificaciones
+          description: Lista de Permisos
           content:
             aplication/json:
               schema:
@@ -293,8 +293,8 @@ paths:
         403:
           description: Datos obligatorios no enviados
 
-  /Estudiante/{EstudianteId}/{materiaId}/{fecha}/permisos:
-    ### Enviar solicitud de amistad
+  /Estudiante/{EstudianteId}/Materia/{materiaId}/permisos/{fecha}/{motivo}:
+    ### Enviar solicitud de permisos
     post:
       tags:
         - "Estudiante"
@@ -320,12 +320,18 @@ paths:
           required: true
           schema:
             type: string
-
+        - name: motivo
+          in: path
+          description: Motivo de la solicitud
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: La solicitud ha sido enviada
         403:
           description: No se pudo enviar la solicitud
+
 
   ##LOGIN DOCENTE
   /Docente/auth:
@@ -437,7 +443,7 @@ paths:
           description: El docente no tiene materias
           content:
             application/json:
-             schema:
+              schema:
                 type: string
                 example: { "message": "El docente no tiene asignadas las materias" }
 
@@ -526,6 +532,46 @@ paths:
               schema:
                 type: string
                 example: { "message": "No tiene estudiantes inscritos a esta materia" }
+
+
+
+  /Docente/{DocenteId}/permisos:
+
+    ### 6.Permisos
+    get:
+      tags:
+        - Docente
+      summary: Obtener La Informacion Permisos Solicitados
+      description: Obtener la informacion de permisos solicitados
+      parameters:
+        - name: DocenteId
+          in: path
+          description: id del docente
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Lista de Permisos
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/InfPermisoDoc'
+
+        400:
+          description: No se pudoencontrar la información
+
+        404:
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: string
+                example: { "message": "Usuario no encontrado" }
+
+        403:
+          description: Datos obligatorios no enviados
+
 
 
 components:
@@ -668,6 +714,25 @@ components:
           type: string
           example: Rechazado
 
+    InfPermisoDoc:
+      type: object
+      properties:
+        idPermiso:
+          type: integer
+          example: 1
+        materia:
+          type: string
+          example: Ingenieria de Software
+        Estudiante:
+          type: string
+          example: Mauro Adolfo Moya Vargas
+        Motivo:
+          type: string
+          example: COVID
+        estado:
+          type: string
+          example: En Espera
+
     SolicPermiso:
       type: object
       properties:
@@ -680,6 +745,7 @@ components:
         Fecha:
           type: string
           example: 20/01/2022
+
 
 
     InfoLoginDocente:
