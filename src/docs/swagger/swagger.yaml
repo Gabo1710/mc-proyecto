@@ -16,9 +16,9 @@ servers:
 
 tags:
   - name: Estudiante
-    description: Este es el Endpoint que maneja toda la información necesaria de los estudiantes de la Universidad Católcia Boliviana San Pablo.
+    description: Este es el Endpoint que maneja toda la información necesaria de los estudiantes de la Universidad Católica Boliviana San Pablo.
   - name: Docente
-    description: Este es el Endpoint que maneja toda la información necesaria de los docentes de la Universidad Católcia Boliviana San Pablo.
+    description: Este es el Endpoint que maneja toda la información necesaria de los docentes de la Universidad Católica Boliviana San Pablo.
 
 externalDocs:
   description: Documentación API Swagger Version 3.0
